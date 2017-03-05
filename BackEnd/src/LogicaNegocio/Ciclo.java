@@ -12,7 +12,7 @@ import java.util.Date;
  * @author SheshoVega
  */
 public class Ciclo {
-    
+    private int id;
     private int anio;
     private int numero;
     private Date fechaInicio;
@@ -56,5 +56,15 @@ public class Ciclo {
     public void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     
 }

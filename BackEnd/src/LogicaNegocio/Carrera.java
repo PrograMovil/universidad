@@ -1,28 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaNegocio;
 
-import java.util.ArrayList;
+import AccesoDatos.Cursos;
 
-/**
- *
- * @author SheshoVega
- */
+
 public class Carrera {
     
     private String codigo;
     private String nombre;
     private String titulo;
-    private ArrayList<Curso> cursos;
+    private Cursos cursos;
 
-    public Carrera(String codigo, String nombre, String titulo) {
+    public Carrera(String codigo, String nombre, String titulo, Cursos cursos) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.titulo = titulo;
-        this.cursos = null;
+        this.cursos = cursos;
     }
 
     public String getCodigo() {
