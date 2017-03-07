@@ -7,15 +7,28 @@ public class Curso {
     private int creditos;
     private int horasSemanales;
     private Ciclo ciclo;
+    private Carrera carrera;
     private String nivel;
+    
 
-    public Curso(String codigo, String nombre, int creditos, int horasSemanales, Ciclo ciclo, String nivel) {
+    public Curso(String codigo, String nombre, int creditos, int horasSemanales, Ciclo ciclo, Carrera carrera, String nivel) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.creditos = creditos;
         this.horasSemanales = horasSemanales;
         this.ciclo = ciclo;
+        this.carrera=carrera;
         this.nivel = nivel;
+    }
+
+    public Curso() {
+        this.codigo = "";
+        this.nombre = "";
+        this.creditos = 0;
+        this.horasSemanales = 0;
+        this.ciclo = new Ciclo();
+        this.carrera=new Carrera();
+        this.nivel = "";
     }
 
     public String getCodigo() {
@@ -56,6 +69,14 @@ public class Curso {
 
     public void setCiclo(Ciclo ciclo) {
         this.ciclo = ciclo;
+    }
+
+    public Carrera getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(Carrera carrera) {
+        this.carrera = carrera;
     }
 
     public String getNivel() {
