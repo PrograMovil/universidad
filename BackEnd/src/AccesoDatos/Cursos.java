@@ -23,8 +23,8 @@ public class Cursos extends AccesoDatos {
     
     public int actualizar(Curso c){
         String tableName = "curso";
-        String tableParams = "nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s', Ciclo_anio='%s', Ciclo_numero='%s' where codigo='%s'";
-        tableParams = String.format(tableParams, c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),c.getCiclo().getAnio(),c.getCiclo().getNumero());
+        String tableParams = "codigo='%s', nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s', Ciclo_anio='%s', Ciclo_numero='%s' where codigo='%s'";
+        tableParams = String.format(tableParams, c.getCodigo(), c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),c.getCiclo().getAnio(),c.getCiclo().getNumero());
         return super.actualizar(tableName, tableParams);
     }
     
@@ -35,9 +35,8 @@ public class Cursos extends AccesoDatos {
         obj.setCreditos(rs.getInt("creditos"));
         obj.setHorasSemanales(rs.getInt("horas_semanales"));
         obj.setNivel(rs.getString("nivel"));
-        //obj.setCarrera();
-        //obj.setCiclo(c);
-        
+        obj.setCarrera(new Carreras().obtener(rs.getString("Carrera_codigo")));
+        obj.setCiclo(new Ciclos().obtener(rs.getInt("Ciclo_anio"),rs.getInt("Ciclo_numero")));
         
         return obj;
     }

@@ -1,26 +1,58 @@
 package AccesoDatos;
 
 import LogicaNegocio.Profesor;
-import java.util.ArrayList;
+import LogicaNegocio.Usuario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Profesores extends AccesoDatos{
-    
-    private ArrayList<Profesor> profesores;
-    
+
     public Profesores() {
-        
     }
 
-    public Profesor buscar(String id){
-        return null;
+    public int agregar(Profesor c){
+        String tableAndParams = "Profesor(cedula,nombre,telefono,email,Usuario_id)";
+        String values = "'%s','%s','%s','%s','%s','%s'";
+        values = String.format(values,c.getCedula(),c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId());
+        return super.agregar(tableAndParams, values);
     }
     
-    public boolean eliminar(String id){
-        return true;
+    public int eliminar(Profesor c){
+        String tableName = "Profesor";
+        String query = "cedula='%s'";
+        query = String.format(query, c.getCedula());
+        return super.eliminar(tableName, query);
     }
     
-    public boolean agregar(Profesor profesor) {
-        return true;
+    public int actualizar(Profesor c){
+        String tableName = "Profesor";
+        String tableParams = "nombre='%s', telefono='%s', email='%s', Usuario_id='%s' where cedula='%s'";
+        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId());
+        return super.actualizar(tableName, tableParams);
+    }
+    
+    private Profesor toProfesor(ResultSet rs) throws Exception {
+        Profesor obj = new Profesor();
+        obj.setCedula(rs.getString("cedula"));
+        obj.setNombre(rs.getString("nombre"));
+        obj.setTelefono(rs.getString("telefono"));
+        obj.setEmail(rs.getString("email"));
+        obj.setUsuario(rs.getObject("Usuario_id", Usuario.class));
+        
+        
+        return obj;
+    }
+    
+    public Profesor obtener(String cedula) throws SQLException, Exception{
+        String tableName = "Profesor";
+        String param = "cedula = '%s'";
+        param = String.format(param, cedula);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toProfesor(rs);
+        } else {
+            return null;
+        }
     }
     
     

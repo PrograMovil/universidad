@@ -4,6 +4,7 @@ package AccesoDatos;
 import LogicaNegocio.Ciclo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 
 public class Ciclos extends AccesoDatos {
@@ -38,8 +39,8 @@ public class Ciclos extends AccesoDatos {
         Ciclo obj = new Ciclo();
         obj.setAnio(rs.getInt("anio"));
         obj.setNumero(rs.getInt("numero"));
-        java.util.Date fechaInicio = rs.getTimestamp("fecha_Inicio");
-        java.util.Date fechaFinal = rs.getTimestamp("fecha_Finalizacion");
+        Date fechaInicio = rs.getTimestamp("fecha_Inicio");
+        Date fechaFinal = rs.getTimestamp("fecha_Finalizacion");
         obj.setFechaInicio(fechaInicio);
         obj.setFechaFinalizacion(fechaFinal);
         return obj;

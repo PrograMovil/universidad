@@ -1,14 +1,21 @@
 
 package Control;
 
-import AccesoDatos.Carreras;
-import AccesoDatos.Ciclos;
+import AccesoDatos.*;
 import LogicaNegocio.Carrera;
 import LogicaNegocio.Ciclo;
 
 public class Control {
     Carreras carreras;
     Ciclos ciclos;
+    Cursos cursos;
+    Estudiantes estudiantes;
+    Grupos grupos;
+    Matriculadores matriculadores;
+    Profesores profesores;
+    Horarios horarios;
+    Notas notas;
+    Usuarios usuarios;
     
     
     public Control() {

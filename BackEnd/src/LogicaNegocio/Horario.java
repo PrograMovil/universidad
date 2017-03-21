@@ -1,23 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaNegocio;
 
 import java.util.Date;
 
-/**
- *
- * @author SheshoVega
- */
 public class Horario {
-    private String[] dias;
-    private Date[] hora;
+    private String dias;
+    private Date horaInicial;
+    private Date horaFinal;
 
     public Horario() {
-        this.dias = null;
-        this.hora = null;
     }
+
+    public Horario(String dias, Date horaInicial, Date horaFinal) {
+        this.dias = dias;
+        this.horaInicial = horaInicial;
+        this.horaFinal = horaFinal;
+    }
+    
+    public String getDias() {
+        return dias;
+    }
+
+    public void setDias(String dias) {
+        this.dias = dias;
+    }
+
+    public Date getHoraInicial() {
+        return horaInicial;
+    }
+
+    public void setHoraInicial(Date horaInicial) {
+        this.horaInicial = horaInicial;
+    }
+
+    public Date getHoraFinal() {
+        return horaFinal;
+    }
+
+    public void setHoraFinal(Date horaFinal) {
+        this.horaFinal = horaFinal;
+    }
+
     
 }

@@ -12,7 +12,9 @@ public class Nota {
         this.estudiante = estudiante;
         this.curso = curso;
     }
-    
+
+    public Nota() {
+    }
     
 
     public float getCalificacion() {
