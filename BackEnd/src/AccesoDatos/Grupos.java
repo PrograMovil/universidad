@@ -1,25 +1,26 @@
 
 package AccesoDatos;
 
+import LogicaNegocio.Curso;
 import LogicaNegocio.Grupo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Grupos extends AccesoDatos {
     
-    public int agregar(Grupo c) throws SQLException{
+    public int agregar(Grupo c, Curso s) throws SQLException, Exception{
         String tableAndParams = "Grupo(numero,Horario_id,Curso_id,Profesor_cedula)";
         String values = "'%s','%s','%s','%s'";
         
         
         
-        values = String.format(values,c.getNumero(),new Horarios().obtenerId(c.getHorario()),new Cursos().obtener(c.ge));
+        values = String.format(values,c.getNumero(),new Horarios().obtenerId(c.getHorario()),new Cursos().obtenerId(s));
         return super.agregar(tableAndParams, values);
     }
     
     public int eliminar(Grupo c){
         String tableName = "Grupo";
-        String query = "numero='%s'";
+        String query = "numero='%s', ";
         query = String.format(query, c.getNumero());
         return super.eliminar(tableName, query);
     }
