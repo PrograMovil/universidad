@@ -3,6 +3,7 @@ package AccesoDatos;
 
 import LogicaNegocio.Usuario;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Usuarios extends AccesoDatos{
 
@@ -50,6 +51,20 @@ public class Usuarios extends AccesoDatos{
         } else {
             return null;
         }
+    }
+    
+    
+    public int verificaUsuario(String user, String pass) throws Exception{
+        String tableName = "Usuario";
+        String param = "idUsuario = '%s' and clave = '%s'";
+        param = String.format(param, user, pass);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toUsuario(rs).getTipo();
+        } else {
+            return 0;
+        }
+        
     }
     
     
