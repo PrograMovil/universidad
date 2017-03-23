@@ -5,6 +5,8 @@ import AccesoDatos.*;
 import LogicaNegocio.*;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Control {
     Carreras carreras;
@@ -33,6 +35,17 @@ public class Control {
         usuarios=new Usuarios();
     }
     
+    
+    
+    public int verificaUsuario(String username, String clave){
+        try {
+            return usuarios.verificaUsuario(username, clave);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+        
+    }
     
     
     
