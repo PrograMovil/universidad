@@ -68,6 +68,19 @@ public class Servlet extends HttpServlet {
                     }
 
                 }
+                break;
+                case "AgregarCarrera": {
+                    String codigo = request.getParameter("codigo");
+                    String nombre = request.getParameter("nombre");
+                    String titulo = request.getParameter("titulo");
+                    Carrera ca = new Carrera(codigo,nombre,titulo);
+                    if(ctrl.addCarrera(ca) == 1){
+                        response.sendRedirect("adminDash.jsp");
+                    }else{
+                        this.printHTML("ERROR: Carrera NO Agregada!", response);
+                    }
+                }
+                break;
             }
         }catch (Exception ex) {
             Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,26 +91,24 @@ public class Servlet extends HttpServlet {
 //        try (PrintWriter out = response.getWriter()) {
 //            Carrera car = ctrl.getCarrera(codigo);
             /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Servlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            if(ctrl.addCarreraServlet(codigo, nombre, titulo) == 1){
-//                out.println("<h1>Carrera: AGREGADA</h1>");
-//            }else{
-//                out.println("<h1>Carrera: ERROR!</h1>");
-//            }            
-//            out.println("<p>Lista de carreras<p>");
-//            out.println("<h1>Carrera: " + codigo + "</h1>");
-//            out.println("<h1>Carrera: " + car.getNombre() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+            
 //        }catch (Exception ex) {
 //            Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         
+    }
+    
+    public void printHTML(String msg, HttpServletResponse response) throws IOException{
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet Servlet</title>");            
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>"+msg+"</h1>");
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
