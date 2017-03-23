@@ -22,10 +22,10 @@ public class Carreras extends AccesoDatos {
         return super.eliminar(tableName, query);
     }
     
-    public int actualizar(Carrera c){
+    public int actualizar(Carrera c) throws SQLException{
         String tableName = "Carrera";
-        String tableParams = "nombre='%s', titulo='%s' where codigo='%s'";
-        tableParams = String.format(tableParams, c.getNombre(), c.getTitulo(), c.getCodigo());
+        String tableParams = "codigo='%s', nombre='%s', titulo='%s' where id='%s'";
+        tableParams = String.format(tableParams,c.getCodigo(),c.getNombre(),c.getTitulo(),obtenerId(c));
         return super.actualizar(tableName, tableParams);
     }
     
@@ -47,6 +47,15 @@ public class Carreras extends AccesoDatos {
         } else {
             return null;
         }
+    }
+    
+    public int obtenerId(Carrera c) throws SQLException{
+        String param2 = "codigo='%s', nombre='%s', titulo='%s'";
+        param2 = String.format(param2, c.getCodigo(), c.getNombre(), c.getTitulo());
+        String sql2 = "select * from Carrera o where o." + param2;
+        ResultSet rs2 = db.executeQuery(sql2);
+        int id=rs2.getInt("id");
+        return id;
     }
     
 }

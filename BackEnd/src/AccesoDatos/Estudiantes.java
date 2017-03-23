@@ -14,7 +14,7 @@ public class Estudiantes extends AccesoDatos{
     }
     
     public int agregar(Estudiante c){
-        String tableAndParams = "Estudiante(cedula,nombre,telefono,email,fechaNac,Usuario_id,Carrera_Codigo)";
+        String tableAndParams = "Estudiante(cedula,nombre,telefono,email,fechaNac,Usuario_id,Carrera_id)";
         String values = "'%s','%s','%s','%s','%s','%s','%s'";
         java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTime());
         values = String.format(values,c.getCedula(),c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),c.getCarrera().getCodigo());
@@ -30,7 +30,7 @@ public class Estudiantes extends AccesoDatos{
     
     public int actualizar(Estudiante c){
         String tableName = "Estudiante";
-        String tableParams = "nombre='%s', telefono='%s', email='%s', fechaNac='%s', Usuario_id='%s', Carrera_Codigo='%s', Ciclo_numero='%s' where cedula='%s'";
+        String tableParams = "nombre='%s', telefono='%s', email='%s', fechaNac='%s', Usuario_id='%s', Carrera_id='%s', Ciclo_numero='%s' where cedula='%s'";
         java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTime());
         tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),c.getCarrera().getCodigo());
         return super.actualizar(tableName, tableParams);
@@ -44,8 +44,10 @@ public class Estudiantes extends AccesoDatos{
         obj.setEmail(rs.getString("email"));
         Date fechaNa = rs.getTimestamp("fechaNac");
         obj.setFechaNac(fechaNa);
-        obj.setCarrera(rs.getObject("Carrera_Codigo", Carrera.class));
-        obj.setUsuario(rs.getObject("Usuario_id", Usuario.class));
+        Carrera ca=new Carreras().obtener(rs.getString("Carrera_id"));
+        obj.setCarrera(ca);
+        Usuario u=new Usuarios().obtener(rs.getString("Usuario_id"));
+        obj.setUsuario(u);
         
         
         return obj;

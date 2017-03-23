@@ -29,8 +29,8 @@ public class Matriculadores extends AccesoDatos{
     
     public int actualizar(Matriculador c){
         String tableName = "Matriculador";
-        String tableParams = "nombre='%s', telefono='%s', email='%s', Usuario_id='%s', Estudiante_cedula='%s'";
-        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId(),c.getEstudiante().getCedula());
+        String tableParams = "nombre='%s', telefono='%s', email='%s', Usuario_id='%s', Estudiante_cedula='%s' where id='%s'";
+        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId(),c.getEstudiante().getCedula(), c.getCedula());
         return super.actualizar(tableName, tableParams);
     }
     
@@ -40,8 +40,10 @@ public class Matriculadores extends AccesoDatos{
         obj.setNombre(rs.getString("nombre"));
         obj.setTelefono(rs.getString("telefono"));
         obj.setEmail(rs.getString("email"));
-        obj.setEstudiante(rs.getObject("Estudiante_cedula", Estudiante.class));
-        obj.setUsuario(rs.getObject("Usuario_id", Usuario.class));
+        Estudiante e=new Estudiantes().obtener(rs.getString("Estudiante_cedula"));
+        obj.setEstudiante(e);
+        Usuario u=new Usuarios().obtener(rs.getString("Usuario_id"));
+        obj.setUsuario(u);
         
         
         return obj;

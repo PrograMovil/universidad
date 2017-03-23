@@ -19,11 +19,9 @@ public class Horarios  extends AccesoDatos {
     
     public int eliminar(Horario c) throws SQLException{
         String tableName = "Horario";
-        String query = "idHorario='%s'";
+        String query = "dias='%s' and horaInicial='%s' and horaFinal='%s'";
         
-        int idHorario=obtenerId(c);
-        
-        query = String.format(query, idHorario);
+        query = String.format(query, c.getDias(), c.getHoraInicial(), c.getHoraFinal());
         return super.eliminar(tableName, query);
     }
     
@@ -47,7 +45,7 @@ public class Horarios  extends AccesoDatos {
     
     public Horario obtener(String dias, Date horaInicial, Date horaFinal) throws SQLException, Exception{
         String tableName = "Horario";
-        String param = "dias = '%s', horaInicial = '%s', horaFinal = '%s'";
+        String param = "dias = '%s' and horaInicial = '%s' and horaFinal = '%s'";
         param = String.format(param, dias);
         ResultSet rs = super.obtener(tableName, param);
         if (rs.next()) {
@@ -59,13 +57,25 @@ public class Horarios  extends AccesoDatos {
     
     public int obtenerId(Horario h) throws SQLException{
         //obtener id de horario manualmente:
-        String param2 = "dias = '%s', horaInicial = '%s', HoraFinal = '%s'";
+        String param2 = "dias = '%s' AND horaInicial = '%s' AND HoraFinal = '%s'";
         param2 = String.format(param2, h.getDias(),h.getHoraInicial(),h.getHoraFinal());
         String sql2 = "select * from Horario o where o." + param2;
         ResultSet rs2 = db.executeQuery(sql2);
         int idHorario=rs2.getInt("id");
         //fin de obtener id de horario desde BD
         return idHorario;
+    }
+    
+    public Horario obtenerPorId(int id) throws Exception{
+        String tableName = "Horario";
+        String param = "id = '%s'";
+        param = String.format(param, id);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toCarrera(rs);
+        } else {
+            return null;
+        }
     }
     
 }

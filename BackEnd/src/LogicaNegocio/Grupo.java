@@ -53,6 +53,14 @@ public class Grupo {
     public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
     
     
 }

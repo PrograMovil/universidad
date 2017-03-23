@@ -10,7 +10,7 @@ import java.util.Date;
 public class Ciclos extends AccesoDatos {
     
     public int agregar(Ciclo c){
-        String tableAndParams = "ciclo(anio,numero,fecha_Inicio,fecha_Finalizacion)";
+        String tableAndParams = "Ciclo(anio,numero,fecha_Inicio,fecha_Finalizacion)";
         String values = "'%s','%s','%s','%s'";
         
         java.sql.Date fechaInicio = new java.sql.Date(c.getFechaInicio().getTime());
@@ -20,8 +20,9 @@ public class Ciclos extends AccesoDatos {
     }
     
     public int eliminar(Ciclo c){
-        String tableName = "ciclo";
-        String query = "anio="+c.getAnio()+" AND numero="+c.getNumero();
+        String tableName = "Ciclo";
+        String query = "anio='%s' and numero='%s'";
+        query = String.format(query, c.getAnio(),c.getNumero());
         return super.eliminar(tableName, query);
     }
     

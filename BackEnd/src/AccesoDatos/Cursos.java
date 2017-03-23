@@ -21,10 +21,10 @@ public class Cursos extends AccesoDatos {
         return super.eliminar(tableName, query);
     }
     
-    public int actualizar(Curso c){
+    public int actualizar(Curso c) throws SQLException{
         String tableName = "curso";
-        String tableParams = "codigo='%s', nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s', Ciclo_anio='%s', Ciclo_numero='%s' where codigo='%s'";
-        tableParams = String.format(tableParams, c.getCodigo(), c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),c.getCiclo().getAnio(),c.getCiclo().getNumero());
+        String tableParams = "codigo='%s', nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s', Ciclo_anio='%s', Ciclo_numero='%s' where id='%s'";
+        tableParams = String.format(tableParams, c.getCodigo(), c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),c.getCiclo().getAnio(),c.getCiclo().getNumero(),obtenerId(c));
         return super.actualizar(tableName, tableParams);
     }
     
@@ -42,7 +42,7 @@ public class Cursos extends AccesoDatos {
     }
     
     public Curso obtener(String codigo) throws SQLException, Exception{
-        String tableName = "curso";
+        String tableName = "Curso";
         String param = "codigo = '%s'";
         param = String.format(param, codigo);
         ResultSet rs = super.obtener(tableName, param);
@@ -53,6 +53,30 @@ public class Cursos extends AccesoDatos {
         }
     }
     
+    public Curso obtenerPorId(int id) throws Exception{
+        String tableName = "Curso";
+        String param = "id = '%s'";
+        param = String.format(param, id);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toCurso(rs);
+        } else {
+            return null;
+        }
+    }
+    
+    
+    public int obtenerId(Curso c) throws SQLException{
+        
+        //obtener id de Curso manualmente:
+        String param2 = "codigo = '%s'";
+        param2 = String.format(param2, c.getCodigo());
+        String sql2 = "select * from Curso o where o." + param2;
+        ResultSet rs2 = db.executeQuery(sql2);
+        int idHorario=rs2.getInt("id");
+        //fin de obtener id de Curso desde BD
+        return idHorario;
+    }
     
     
 }

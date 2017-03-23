@@ -88,7 +88,7 @@ public class Notas  extends AccesoDatos {
     
     public Nota obtener(float calificacion, String Estudiante_cedula, String Codigo_Curso) throws SQLException, Exception{
         String tableName = "Nota";
-        String param = "calificacion = '%s' and Estudiante_cedula= '%s' and Estudiante_cedula= '%s'";
+        String param = "calificacion = '%s' and Estudiante_cedula= '%s' and Curso_id= '%s'";
         
         
         //obtener id del curso manualmente:

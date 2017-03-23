@@ -12,7 +12,7 @@ public class Profesores extends AccesoDatos{
 
     public int agregar(Profesor c){
         String tableAndParams = "Profesor(cedula,nombre,telefono,email,Usuario_id)";
-        String values = "'%s','%s','%s','%s','%s','%s'";
+        String values = "'%s','%s','%s','%s','%s'";
         values = String.format(values,c.getCedula(),c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId());
         return super.agregar(tableAndParams, values);
     }
@@ -37,7 +37,8 @@ public class Profesores extends AccesoDatos{
         obj.setNombre(rs.getString("nombre"));
         obj.setTelefono(rs.getString("telefono"));
         obj.setEmail(rs.getString("email"));
-        obj.setUsuario(rs.getObject("Usuario_id", Usuario.class));
+        Usuario u=new Usuarios().obtener(rs.getString("Usuario_id"));
+        obj.setUsuario(u);
         
         
         return obj;
