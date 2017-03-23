@@ -15,6 +15,10 @@ public class Usuario {
     private String clave;
     private int tipo;
 
+    public Usuario() {
+    }
+
+    
     public Usuario(String id, String clave, int tipo) {
         this.id = id;
         this.clave = clave;

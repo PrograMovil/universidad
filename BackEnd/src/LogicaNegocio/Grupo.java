@@ -9,12 +9,17 @@ public class Grupo {
     private Horario horario;
     private Profesor profesor;
     private ArrayList<Estudiante> estudiantes;
+    private Curso curso;
 
-    public Grupo(int numero, Horario horario) {
+    public Grupo() {
+    }
+
+    public Grupo(int numero, Horario horario, Profesor profesor, ArrayList<Estudiante> estudiantes, Curso curso) {
         this.numero = numero;
         this.horario = horario;
-        this.profesor = null;
-        this.estudiantes = null;
+        this.profesor = profesor;
+        this.estudiantes = estudiantes;
+        this.curso = curso;
     }
 
     public int getNumero() {
@@ -47,6 +52,14 @@ public class Grupo {
 
     public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
     
     

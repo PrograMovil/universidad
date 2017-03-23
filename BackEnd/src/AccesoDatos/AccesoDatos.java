@@ -1,23 +1,50 @@
 
 package AccesoDatos;
 
+import java.sql.ResultSet;
+
 
 public class AccesoDatos {
+    static Database db;
     
-    public AccesoDatos() {
+//    static initializer block
+//    ejecuta la inicializacion de la base cuando se cargue la clase
+    static {
+        initdb();
+    }
         
+    private static void initdb() {
+        db = new Database(null, null, null);
     }
     
-    public Object buscar(String id){
-        return null;
+//    public AccesoDatos(){}
+    
+    public int agregar(String tableAndParams,String values){
+        String sql = "insert into "+ tableAndParams + " values(" + values + ")";
+        int count = db.executeUpdate(sql);
+        return count; //0 = fallo o registro repetido, 1 = exitoso
     }
     
-    public boolean eliminar(String id){
-        return true;
+    public int eliminar(String tableName, String query){
+        String sql = "delete from " + tableName + " where " + query;
+        int count = db.executeUpdate(sql);
+        return count;
     }
     
-    public boolean agregar(Object obj){
-        return true;
+    public int actualizar(String tableName, String tableParams){
+        String sql = "update " + tableName + " set " + tableParams;
+        int count = db.executeUpdate(sql);
+        return count;
     }
+    
+    public ResultSet obtener(String tableName, String param){
+        String sql = "select * from " + tableName + " o where o." + param;
+        ResultSet rs = db.executeQuery(sql);
+        return rs;        
+    }
+//    public int updateData(String ){
+//        
+//    }
+
     
 }

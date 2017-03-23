@@ -9,13 +9,18 @@ public class Carrera {
     private String codigo;
     private String nombre;
     private String titulo;
-    private Cursos cursos;
 
-    public Carrera(String codigo, String nombre, String titulo, Cursos cursos) {
+    public Carrera() {
+        this.codigo = "";
+        this.nombre = "";
+        this.titulo = "";
+    }
+
+    
+    public Carrera(String codigo, String nombre, String titulo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.titulo = titulo;
-        this.cursos = cursos;
     }
 
     public String getCodigo() {

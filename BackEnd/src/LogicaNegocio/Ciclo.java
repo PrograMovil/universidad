@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaNegocio;
 
 import java.util.Date;
 
-/**
- *
- * @author SheshoVega
- */
+
 public class Ciclo {
-    private int id;
     private int anio;
     private int numero;
     private Date fechaInicio;
@@ -24,6 +16,14 @@ public class Ciclo {
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
     }
+
+    public Ciclo() {
+        this.anio = 0;
+        this.numero = 0;
+        this.fechaInicio = new Date(2000, 10, 11);
+        this.fechaFinalizacion = new Date(2000, 10, 12);
+    }
+    
 
     public int getAnio() {
         return anio;
@@ -57,13 +57,6 @@ public class Ciclo {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     
     
     
