@@ -36,13 +36,33 @@ public class Servlet extends HttpServlet {
         
 //        Define cual es la accion que se va a realizar
         String accion = request.getParameter("action");
-        String id = request.getParameter("id");
+        
         Control ctrl = new Control();
         try{
             switch (accion) {
-                case "Ingresar/Registrarse": {
-                    if(ctrl.getUsuario(id) !=null){
-                        response.sendRedirect("registro.jsp");
+                case "Ingresar": {
+                    String id = request.getParameter("id");
+                    String pass = request.getParameter("password");
+                    int tipoUsuario = ctrl.verificaUsuario(id, pass);
+                    if(tipoUsuario != 0){
+                        switch(tipoUsuario){ 
+                            case 1: //ADMINISTRADOR
+                                System.out.println("Es administrador");
+                                response.sendRedirect("adminDash.jsp");
+                                break;
+                            case 2: //MATRICULADOR
+                                System.out.println("Es matriculador");
+                                response.sendRedirect("adminDash.jsp");
+                                break;
+                            case 3: //PROFESOR
+                                System.out.println("Es profesor");
+                                response.sendRedirect("adminDash.jsp");
+                                break;
+                            case 4: //ESTUDIANTE
+                                System.out.println("Es estudiante");
+                                response.sendRedirect("adminDash.jsp");
+                                break;
+                        }
                     }else{
                         response.sendRedirect("login.jsp");
                     }
