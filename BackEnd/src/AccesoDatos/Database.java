@@ -18,30 +18,41 @@ import java.util.logging.Logger;
  * @author SheshoVega
  */
 public class Database {
-    Connection cnx;
-    
-    public Database(String servidorArg, String usuarioArg, String claveArg){
-        if (servidorArg!=null){
-            cnx=this.getConnection(servidorArg, usuarioArg, claveArg);
+    Connection cnx = null;
+        
+    public Database() {
+        System.out.println("Hola desde Database");
+        this.getConnection();
+        if( this.cnx != null){
+            System.out.println("Conexion a BD Exitosa");
+        }else{
+            System.out.println("Conexion a BD Cerrada!");
         }
-        else{
-            cnx=this.getConnection(null, null, null);            
-        }
+        
     }
-    
-    public Connection getConnection(String servidorArg, String usuarioArg, String claveArg){
-        try {
-            String servidor=(servidorArg==null?SERVIDOR:servidorArg);
-            String usuario=(usuarioArg==null?USUARIO:usuarioArg);
-            String clave=(claveArg==null?CLAVE:claveArg);
-            String URL_conexion=PROTOCOLO+"//"+ servidor+":"+PUERTO+"/"+BASEDATOS+"?user="+usuario+"&password="+clave;
-            Class.forName(MANEJADOR_DB).newInstance();
-            return DriverManager.getConnection(URL_conexion);
-        } catch (Exception e) {
+       
+    public Connection getConnection(){
+        try{
+            String servidor = PROTOCOLO+"//"+SERVIDOR+":"+PUERTO+"/"+BASEDATOS;
+            System.out.println("El servidor es: "+servidor);
+            String user = USUARIO;
+            String pass = CLAVE;
+            Class.forName(MANEJADOR_DB);
+            this.cnx = DriverManager.getConnection(servidor, user, pass);
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error en ClassNotFound");
             System.err.println(e.getMessage());
-            System.exit(-1);
-        } 
-        return null;
+            this.cnx = null;
+        }catch (SQLException e) {
+            System.out.println("Error en SQL");
+            System.err.println(e.getMessage());
+            this.cnx = null;
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+            this.cnx = null;
+        }finally {
+            return this.cnx;
+        }
     }
     
     public int executeUpdate(String statement) {

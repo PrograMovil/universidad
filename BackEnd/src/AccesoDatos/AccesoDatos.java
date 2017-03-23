@@ -9,13 +9,21 @@ public class AccesoDatos {
     
 //    static initializer block
 //    ejecuta la inicializacion de la base cuando se cargue la clase
-    static {
-        initdb();
+//    static {
+//        initdb();
+//    }
+
+    public AccesoDatos() {
+        System.out.println("Hola desde Acceso a Datos");
+//        initdb();
+        db = new Database();
     }
-        
-    private static void initdb() {
-        db = new Database(null, null, null);
-    }
+    
+    
+    
+//    private static void initdb() {
+//        db = new Database(null, null, null);
+//    }
     
 //    public AccesoDatos(){}
     
