@@ -100,15 +100,9 @@ public class Servlet extends HttpServlet {
                         
                     }else if(nombre != "" && codigo == ""){
                         carreras.clear();
-                        if((carreras = ctrl.obtenerCarreraPorNombre(nombre)) == null){
-                            Carrera c = new Carrera("","","");
-                            carreras.add(c);
-                            session.setAttribute("carreras", carreras);
-                            response.sendRedirect("adminDash.jsp");
-                        }else{
-                            session.setAttribute("carreras", carreras);
-                            response.sendRedirect("adminDash.jsp");
-                        }   
+                        carreras = ctrl.obtenerCarreraPorNombre(nombre);
+                        session.setAttribute("carreras", carreras);
+                        response.sendRedirect("adminDash.jsp");  
                     }else if(nombre == "" && codigo == ""){
                         carreras.clear();
                         carreras = ctrl.obtenerTodasCarreras();

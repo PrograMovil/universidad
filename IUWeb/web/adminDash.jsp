@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <a  class="btn btn-default btn-block active">Carreras</a>
+                    <a href="adminDash.jsp" class="btn btn-default btn-block active">Carreras</a>
                     <a  class="btn btn-default btn-block">Cursos</a>
                     <a  class="btn btn-default btn-block">Profesores</a>
                     <a  class="btn btn-default btn-block">Estudiantes</a>                    
