@@ -18,7 +18,7 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        
+        <% ArrayList<Carrera> carreras = (ArrayList<Carrera>) request.getAttribute("carreras"); %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -59,7 +59,13 @@
                                 <td>Nombre</td>
                                 <td>Título</td>
                             </th>
-                            
+                            <% for( Carrera ca : carreras ){ %>
+                            <tr>
+                                <td><%= ca.getCodigo() %></td>
+                                <td><%= ca.getNombre() %></td>
+                                <td><%= ca.getTitulo() %></td>
+                            </tr>
+                            <% } %>
                             
                         </table>
                     </div>

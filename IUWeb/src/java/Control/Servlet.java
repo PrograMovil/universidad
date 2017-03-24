@@ -48,9 +48,7 @@ public class Servlet extends HttpServlet {
                     String pass = request.getParameter("password");
                     int tipoUsuario = ctrl.verificaUsuario(id, pass);
                     if(tipoUsuario != 0){
-                        
-                        request.setAttribute("carreras", carreras);
-                        
+                        request.setAttribute("carreras", carreras);                        
                         HttpSession session = request.getSession();
                         session.setAttribute("userId", id);
                         switch(tipoUsuario){ 
