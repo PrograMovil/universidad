@@ -38,12 +38,17 @@
                                 <!--<label for="titulo">Título</label>-->
                                 <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Título">
                             </div>
-                            <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
                             <button type="submit" class="btn btn-default" name="action" value="AgregarCarrera">Agregar Carrera</button>
                         </form>
                     </div>
                     <div class="row">
                         <h2>Lista de Carreras</h2>
+                        <form action="Servlet" method="GET" class="form-inline">
+                            <div class="form-group">
+                                <input type="text" name="codigo" class="form-control" id="codigo" placeholder="Código">
+                            </div>
+                            <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
+                        </form>
                         <table class="table">
                             <th>
                                 <td>Código</td>
