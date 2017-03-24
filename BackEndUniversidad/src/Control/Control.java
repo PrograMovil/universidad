@@ -48,7 +48,74 @@ public class Control {
         
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Metodos Cursos">
+    /**
+     *
+     * @param nombre
+     * Nombre del curso
+     * @return
+     * devuelve la lista de cursos que tengan ese nombre
+     * En caso de no encontrar devuelve la lista vacia
+     * En caso de excepcion devuelve null
+     */
+    public ArrayList<Curso> getCursoPorNombre(String nombre){
+        try {
+            return cursos.obtenerCursosPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
+    /**
+     *
+     * @param carrera
+     * Objeto Carrera, utilizado para buscar el id de la misma en la base de datos (compara todos los atributos)
+     * @return
+     * devuelve la lista de cursos que pertenecen a esa carrera
+     */
+    public ArrayList<Curso> getCursoPorCarrera(Carrera carrera){
+        try {
+            return cursos.obtenerCursosPorCarrera(carrera);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    public int addCurso(Curso ca){
+        return this.cursos.agregar(ca);
+    }
+    
+    public int deleteCurso(Curso ca){
+        return this.cursos.eliminar(ca);
+    }
+    
+    public int updateCurso(Curso ca){
+        try {
+            return this.cursos.actualizar(ca);
+        } catch (SQLException ex) {
+            System.err.println("Error al actualizar curso");
+        }
+        return 0;
+    }
+    
+    /**
+     *
+     * @param codigo
+     * Obtener un solo curso por codigo (atributo unico en la BD)
+     * @return
+     * Devuelve un solo curso
+     * @throws Exception
+     */
+    public Curso getCurso(String codigo) throws Exception{
+        return this.cursos.obtener(codigo);
+    }
+    
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Profesor">
     public ArrayList<Grupo> gruposDelProfesor(String cedula){
         try {
             grupos.gruposPorProfesor(cedula);
@@ -61,10 +128,10 @@ public class Control {
     
     
     /**
-     * 
+     *
      * @param username
      * Nombre de usuario usado en el login por el profesor
-     * @return 
+     * @return
      * Devuelve un objeto profesor
      */
     public Profesor obtenerProfesorPorUsuario(String username){
@@ -76,6 +143,29 @@ public class Control {
         return null;
     }
     
+    
+    public int addProfesor(Profesor ca){
+        return this.profesores.agregar(ca);
+    }
+    
+    public int deleteProfesor(Profesor ca){
+        return this.profesores.eliminar(ca);
+    }
+    
+    public int updateProfesor(Profesor ca){
+        return this.profesores.actualizar(ca);
+    }
+    
+    public Profesor getProfesor(String codigo){
+        try {
+            return this.profesores.obtener(codigo);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener profesor");
+        }
+        return null;
+    }
+    
+//</editor-fold>
     
     
     //<editor-fold defaultstate="collapsed" desc="Metodos de Carreras">
@@ -147,26 +237,7 @@ public class Control {
     
     
     
-    public int addCurso(Curso ca){
-        return this.cursos.agregar(ca);
-    }
     
-    public int deleteCurso(Curso ca){
-        return this.cursos.eliminar(ca);
-    }
-    
-    public int updateCurso(Curso ca){
-        try {
-            return this.cursos.actualizar(ca);
-        } catch (SQLException ex) {
-            System.err.println("Error al actualizar curso");
-        }
-        return 0;
-    }
-    
-    public Curso getCurso(String codigo) throws Exception{
-        return this.cursos.obtener(codigo);
-    }
     
     
     
@@ -307,26 +378,7 @@ public class Control {
     }
     
     
-    public int addProfesor(Profesor ca){
-        return this.profesores.agregar(ca);
-    }
     
-    public int deleteProfesor(Profesor ca){
-        return this.profesores.eliminar(ca);
-    }
-    
-    public int updateProfesor(Profesor ca){
-        return this.profesores.actualizar(ca);
-    }
-    
-    public Profesor getProfesor(String codigo){
-        try {
-            return this.profesores.obtener(codigo);
-        } catch (Exception ex) {
-            System.err.println("Error al obtener profesor");
-        }
-        return null;
-    }
     
     
     

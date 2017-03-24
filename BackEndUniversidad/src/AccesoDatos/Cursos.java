@@ -1,6 +1,7 @@
 
 package AccesoDatos;
 
+import LogicaNegocio.Carrera;
 import LogicaNegocio.Curso;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,7 +81,30 @@ public class Cursos extends AccesoDatos {
     }
     
     
+    public ArrayList<Curso> obtenerCursosPorNombre(String nombre) throws Exception{
+        String tableName = "Curso";
+        String param = "nombre = '%s'";
+        param = String.format(param, nombre);
+        ResultSet rs = super.obtener(tableName, param);
+        ArrayList<Curso> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toCurso(rs));
+        }
+        return lista;
+    }
     
+    public ArrayList<Curso> obtenerCursosPorCarrera(Carrera carrera) throws Exception{
+        String tableName = "Curso";
+        String param = "Carrera_id = '%s'";
+        
+        param = String.format(param, new Carreras().obtenerId(carrera));
+        ResultSet rs = super.obtener(tableName, param);
+        ArrayList<Curso> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toCurso(rs));
+        }
+        return lista;
+    }
     
     
 }

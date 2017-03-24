@@ -34,17 +34,19 @@ class ResponseListener implements Runnable {
 
 }
 
-public class InterfazConsola implements Runnable {
+public class InterfazConsola extends Thread implements Runnable {
 
     String menuOption = "";
     String responseServer = "Conectando...";
     String ipServidor = "127.0.0.1";
     Control control;
-    private DataOutputStream salidaDatos;
-    private DataInputStream entradaDatos;
+    //private DataOutputStream salidaDatos;
+   // private DataInputStream entradaDatos;
+    private ObjectOutputStream salidaObjetos;
+    private ObjectInputStream entradaObjetos;
     private Socket socket;
     private int puerto = 9090;
-    private String host="localhost";
+    private String host = "127.0.0.1";
 
     public void setResponseServer(String responseServer) {
         this.responseServer = responseServer;
@@ -53,22 +55,9 @@ public class InterfazConsola implements Runnable {
     public InterfazConsola() {
         Thread miHilo = new Thread(this);
         miHilo.start();
+        
+        
         control = new Control();
-        try{
-            
-        this.socket=new Socket(host,puerto);
-        
-        this.salidaDatos = new DataOutputStream(socket.getOutputStream());
-        this.entradaDatos = new DataInputStream(socket.getInputStream());
-        this.start();
-        
-        }catch (Exception ex) {
-             
-            System.out.println(ex.getClass());
-            System.out.println(ex.toString());
-            
-            throw ex;
-        }
     }
 
     @Override
@@ -78,10 +67,6 @@ public class InterfazConsola implements Runnable {
 
             while (true) {
                 Socket socketResponses = responseListener.accept();
-                DataInputStream flujoEntrada = new DataInputStream(socketResponses.getInputStream());
-                String dataRecibida = flujoEntrada.readUTF();
-//                this.setResponseServer(dataRecibida);
-                System.out.println("\n" + dataRecibida + "\n");
             }
 
         } catch (IOException ex) {
@@ -90,14 +75,27 @@ public class InterfazConsola implements Runnable {
     }
 
     public int login() throws Exception {
-            Socket cliente = new Socket(this.ipServidor, 9999);
+        
+        try {
 
-            
-            
+            this.socket = new Socket(host, puerto);
+
+            //this.salidaDatos = new DataOutputStream(socket.getOutputStream());
+            //this.entradaDatos = new DataInputStream(socket.getInputStream());
+            this.entradaObjetos=new ObjectInputStream(socket.getInputStream());
+            this.salidaObjetos=new ObjectOutputStream(socket.getOutputStream());
+            this.start();
+
+        } catch (Exception ex) {
+
+            System.out.println(ex.getClass());
+            System.out.println(ex.toString());
+
+        }
+
         Thread.sleep(300);
         int nivel = 0;
-        ObjectOutputStream out = new ObjectOutputStream(cliente.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(cliente.getInputStream());
+        
         do {
             Scanner menuEscaner = new Scanner(System.in);
             System.out.print("<---------- Gestion Academica ---------->"
@@ -107,17 +105,18 @@ public class InterfazConsola implements Runnable {
             System.out.print("\n Contraseña: ");
             String contrasena = menuEscaner.nextLine();
 
-            
-            out.writeObject(new Usuario(usuario, contrasena, 2));
+            salidaObjetos.writeObject(new Usuario(usuario, contrasena, 2));
 
-            
-            nivel = (int) in.readInt();
+            nivel = (int) entradaObjetos.readInt();
 
         } while (nivel == 0);
-        in.close();
-        out.close();
+        
+        entradaObjetos.close();
+        salidaObjetos.close();
         return nivel;
         
+        
+
     }
 
     public void menu() throws InterruptedException {
