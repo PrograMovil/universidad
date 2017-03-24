@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Control;
 
 import java.io.IOException;
@@ -17,21 +13,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
-/**
- *
- * @author SheshoVega
- */
+
 public class Servlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,6 +24,7 @@ public class Servlet extends HttpServlet {
         String accion = request.getParameter("action");
         ArrayList<Carrera> carreras = null;
         Control ctrl = new Control();
+        HttpSession session = request.getSession();
         carreras = ctrl.obtenerTodasCarreras();
         try{
             switch (accion) {
@@ -48,14 +33,12 @@ public class Servlet extends HttpServlet {
                     String pass = request.getParameter("password");
                     int tipoUsuario = ctrl.verificaUsuario(id, pass);
                     if(tipoUsuario != 0){
-                        request.setAttribute("carreras", carreras);                        
-                        HttpSession session = request.getSession();
                         session.setAttribute("userId", id);
                         switch(tipoUsuario){ 
-                            case 1: //ADMINISTRADOR
+                            case 1: //ADMINISTRADOR                                
                                 System.out.println("Es administrador");
-                                request.getRequestDispatcher("adminDash.jsp").forward(request, response);
-//                                response.sendRedirect("adminDash.jsp");
+                                session.setAttribute("carreras", carreras);
+                                response.sendRedirect("adminDash.jsp");
                                 break;
                             case 2: //MATRICULADOR
                                 System.out.println("Es matriculador");
@@ -72,14 +55,12 @@ public class Servlet extends HttpServlet {
                         }
                     }else{
                         String errores = "Usuario o Contraseña incorrectos!";
-                        HttpSession session = request.getSession();
                         session.setAttribute("errores", errores);
                         response.sendRedirect("login.jsp");
                     }
                 }
                 break;
                 case "Salir": {
-                    HttpSession session = request.getSession();
                     session.removeAttribute("userId");
                     session.invalidate();
                     response.sendRedirect("login.jsp");
@@ -91,6 +72,8 @@ public class Servlet extends HttpServlet {
                     String titulo = request.getParameter("titulo");
                     Carrera ca = new Carrera(codigo,nombre,titulo);
                     if(ctrl.addCarrera(ca) == 1){
+                        carreras = ctrl.obtenerTodasCarreras();
+                        session.setAttribute("carreras", carreras);
                         response.sendRedirect("adminDash.jsp");
                     }else{
                         this.printHTML("ERROR: Carrera NO Agregada!", response);
@@ -100,7 +83,19 @@ public class Servlet extends HttpServlet {
                 case "BuscarCarrera": {
                     String codigo = request.getParameter("codigo");
                     String nombre = request.getParameter("nombre");
-                    
+                    if(codigo != ""){
+                        Carrera ca = ctrl.getCarrera(codigo);
+                        carreras.clear();
+                        carreras.add(ca);
+                        session.setAttribute("carreras", carreras);
+                        response.sendRedirect("adminDash.jsp");
+                    }else if(nombre != ""){
+                        Carrera ca = null;
+                        carreras.clear();
+                        carreras.add(ca);
+                        session.setAttribute("carreras", carreras);
+                        response.sendRedirect("adminDash.jsp");
+                    }
                 }
                 break;
             }

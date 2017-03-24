@@ -18,7 +18,9 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        <% ArrayList<Carrera> carreras = (ArrayList<Carrera>) request.getAttribute("carreras"); %>
+        <% ArrayList<Carrera> carreras = (ArrayList<Carrera>) session.getAttribute("carreras");
+//                request.getAttribute("carreras");
+        %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -28,8 +30,14 @@
                     <a  class="btn btn-default btn-block">Estudiantes</a>                    
                 </div>
                 <div class="col-md-10">
+<!--                    <div class="row">
+                        <ol class="breadcrumb">
+                            <li class="active">Lista de Carreras</li>
+                            <li><a href="carreraForm.jsp">Agregar Carrera</a></li>
+                        </ol>
+                    </div>-->
                     <div class="row">
-                        <form action="Servlet" method="GET" class="form-inline">
+                        <form action="Servlet" method="POST" class="form-inline">
                             <div class="form-group">
                                 <input type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
                             </div>
@@ -44,7 +52,7 @@
                     </div>
                     <div class="row">
                         <h2>Lista de Carreras</h2>
-                        <form action="Servlet" method="GET" class="form-inline">
+                        <form action="Servlet" method="POST" class="form-inline">
                             <div class="form-group">
                                 <input type="text" name="codigo" class="form-control" id="codigoSearch" placeholder="Código">
                             </div>
@@ -54,11 +62,11 @@
                             <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
                         </form>
                         <table class="table" style="text-align: center">
-                            <th>
+                            <tr>
                                 <td>Código</td>
                                 <td>Nombre</td>
                                 <td>Título</td>
-                            </th>
+                            </tr>
                             <% for( Carrera ca : carreras ){ 
                                 out.print("<tr>");
                                 out.print("<td>");
