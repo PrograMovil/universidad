@@ -5,6 +5,13 @@
  */
 package InterfazSwing;
 
+import Control.Control;
+import LogicaNegocio.Grupo;
+import LogicaNegocio.Profesor;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author Denis
@@ -16,6 +23,12 @@ public class InicioProfesor extends javax.swing.JFrame {
      */
     public InicioProfesor() {
         initComponents();
+        
+        control=new Control();
+        profesor=new Profesor();
+        lista=control.gruposDelProfesor(profesor.getCedula());
+        String header [] ={"Numero de Grupo", "Curso", "Nivel", "Creditos", "Horas Semanales", "Ver estudiantes"};
+        //modeloColumna=new DefaultTableColumnModel(header,0);
         
     }
 
@@ -40,16 +53,29 @@ public class InicioProfesor extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Numero de Grupo", "Curso", "Nivel", "Creditos", "Horas Semanales", "Ver estudiantes"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        jTable1.setColumnModel(modeloColumna);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +132,17 @@ public class InicioProfesor extends javax.swing.JFrame {
         });
     }
 
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    
+
+    
+    private TableColumnModel modeloColumna;
+    private Control control;
+    private ArrayList<Grupo> lista;
+    private Profesor profesor;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

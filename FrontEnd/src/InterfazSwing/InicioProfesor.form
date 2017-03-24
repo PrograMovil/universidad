@@ -59,12 +59,20 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+              <Table columnCount="6" rowCount="0">
+                <Column editable="false" title="Numero de Grupo" type="java.lang.Integer"/>
+                <Column editable="false" title="Curso" type="java.lang.String"/>
+                <Column editable="false" title="Nivel" type="java.lang.String"/>
+                <Column editable="false" title="Creditos" type="java.lang.Integer"/>
+                <Column editable="false" title="Horas Semanales" type="java.lang.Integer"/>
+                <Column editable="false" title="Ver estudiantes" type="java.lang.Object"/>
               </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="modeloColumna" type="code"/>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>

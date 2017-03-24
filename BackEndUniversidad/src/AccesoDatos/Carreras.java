@@ -4,6 +4,7 @@ package AccesoDatos;
 import LogicaNegocio.Carrera;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Carreras extends AccesoDatos {
@@ -56,6 +57,17 @@ public class Carreras extends AccesoDatos {
         ResultSet rs2 = db.executeQuery(sql2);
         int id=rs2.getInt("id");
         return id;
+    }
+    
+    public ArrayList<Carrera> obtenerTodo() throws Exception{
+        
+        String tableName = "Carrera";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Carrera> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toCarrera(rs));
+        }
+        return lista;
     }
     
 }
