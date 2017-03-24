@@ -53,7 +53,7 @@
                             </div>
                             <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
                         </form>
-                        <table class="table">
+                        <table class="table" style="text-align: center">
                             <th>
                                 <td>Código</td>
                                 <td>Nombre</td>
