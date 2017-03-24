@@ -5,11 +5,13 @@
  */
 package LogicaNegocio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author SheshoVega
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
     private String id;
     private String clave;

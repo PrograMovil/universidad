@@ -135,7 +135,11 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                     Index i = new Index();
                     break;
                 case 2:
-                    Profesor p = control.getProfesor(s);
+                    this.dispose();
+                    
+                    
+                case 3:
+                    Profesor p = control.obtenerProfesorPorUsuario(s);
                     if (p != null) {
                         this.dispose();
                         InicioProfesor inicio = new InicioProfesor();
@@ -143,8 +147,6 @@ public class Login extends javax.swing.JFrame implements ActionListener {
                     }
                     else JOptionPane.showMessageDialog(null, "Error al cargar el profesor");
                     break;
-                case 3:
-                    this.dispose();
             }
 
         }

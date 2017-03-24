@@ -70,4 +70,16 @@ public class Carreras extends AccesoDatos {
         return lista;
     }
     
+    public ArrayList<Carrera> obtenerPorNombre(String nombre) throws Exception{
+        String tableName = "Carrera";
+        String param = "nombre = '%s'";
+        param = String.format(param, nombre);
+        ResultSet rs = super.obtener(tableName, param);
+        ArrayList<Carrera> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toCarrera(rs));
+        }
+        return lista;
+    }
+    
 }
