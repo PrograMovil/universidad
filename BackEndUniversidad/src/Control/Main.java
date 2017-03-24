@@ -3,44 +3,113 @@ package Control;
 
 import LogicaNegocio.*;
 
+import java.io.*;
+import java.net.*;
+
+
+class Server implements Runnable {
+
+    public Server() {
+        Thread miHilo = new Thread(this);
+        miHilo.start();
+    }
+
+    @Override
+    public void run() {
+//        Variables
+        String ipClient ="127.0.0.1";
+        Control control = new Control();
+        String responseMsg = "";
+        
+        System.out.println("Server Corriendo!");
+        
+        try {
+//            Server socket para recibir las peticiones
+            ServerSocket miServicio = new ServerSocket(9999);
+            
+            
+            
+            while(true){
+                
+                int nivel=0;
+                do{
+                //Verificar Usuario y contraseña en la base
+                Socket socketConectado = miServicio.accept();
+                ObjectInputStream usuario = new ObjectInputStream(socketConectado.getInputStream());
+                Usuario usuarioRecibido=(Usuario) usuario.readObject();
+                
+                
+                Socket toCliente = new Socket(ipClient, 9090);
+                //devolviendo el resultado del login
+                DataOutputStream flujoToClient = new DataOutputStream(toCliente.getOutputStream());
+                nivel=control.verificaUsuario(usuarioRecibido.getId(), usuarioRecibido.getClave());
+                toCliente.close();
+                flujoToClient.writeInt(nivel);
+                }while(nivel==0);
+                
+            miServicio.close();
+            
+               
+            } 
+
+        } catch (IOException ex) {
+            System.err.println("Exception: " + ex );
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Exception: " + ex );
+        }
+
+    }
+
+}
 
 public class Main {
-   
-   public static void main(String[] args) throws Exception {
+    
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+
         
+        Server server = new Server();
         
-        Carrera car = new Carrera("001","Informatica","Ingenieria en Sistemas");
-        Ciclo ci=new Ciclo(2017, 3, new java.util.Date(2017, 11, 20), new java.util.Date(2018, 2, 2));
-        Usuario us= new Usuario("abc", "123", 1);
-        Estudiante es= new Estudiante("Juan", "2-222-222", "9998888", "fdsfsf",new java.util.Date(2015, 2, 2) , us, car);
-        Control ctrl = new Control();
+//        Sockets para la conexion con las interfaces.
+//        Server servidor = new Server();
         
-        
-        //agregar usuario
-        if(ctrl.addUsuario(us) == 1){
-            System.out.println("Usuario agregado");
-        }else{
-            System.out.println("ERROR: Usuario NO agregada!");
-        }
-        
-        
-        
-        
-        //agregar carrera
-        if(ctrl.addCarrera(car) == 1){
-            System.out.println("Carrera agregada!");
-        }else{
-            System.out.println("ERROR: Carrera NO agregada!");
-        }
-        
-        
-        if(ctrl.addEstudiante(es) == 1){
-            System.out.println("Estudiante agregado");
-        }else{
-            System.out.println("ERROR: Estudiante NO agregada!");
-        }
-        
-        //ctrl.deleteEstudiante(es);
-   } 
+
+     
+
+//                          PRUEBAS DE CRUD
+//
+//        Carrera car = new Carrera("001","Informatica","Ingenieria en Sistemas");
+//        Control ctrl = new Control();
+//
+//
+//        add
+//        if(ctrl.addCarrera(car) == 1){
+//            System.out.println("Carrera agregada!");
+//        }else{
+//            System.out.println("ERROR: Carrera NO agregada!");
+//        }
+
+//        update
+//        car.setNombre("Ingenieria en Informatica");
+//        if(ctrl.updateCarrera(car) == 1){
+//            System.out.println("Carrera actualizada!");
+//        }else{
+//            System.out.println("ERROR: Carrera NO actualizada!");
+//        }
+
+//        delete
+//        if(ctrl.deleteCarrera(car) == 1){
+//            System.out.println("Carrera eliminada!");
+//        }else{
+//            System.out.println("ERROR: Carrera NO eliminada!");
+//        }
+
+//        Carrera car2 = ctrl.getCarrera("100");
+//        System.out.println(car2.toString());
+
+    }
     
 }

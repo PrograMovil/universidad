@@ -58,6 +58,15 @@ public class Control {
         return null;
     }
     
+    
+    
+    /**
+     * 
+     * @param username
+     * Nombre de usuario usado en el login por el profesor
+     * @return 
+     * Devuelve un objeto profesor
+     */
     public Profesor obtenerProfesorPorUsuario(String username){
         try {
             return profesores.obtenerPorUsuario(username);
@@ -67,6 +76,9 @@ public class Control {
         return null;
     }
     
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos de Carreras">
     public ArrayList<Carrera> obtenerTodasCarreras(){
         try {
             return carreras.obtenerTodo();
@@ -76,6 +88,18 @@ public class Control {
         return null;
     }
     
+    public ArrayList<Carrera> obtenerCarreraPorNombre(String nombre){
+        try {
+            return carreras.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
+//</editor-fold>
     
     
     //<editor-fold defaultstate="collapsed" desc="Metodos agregar, Eliminar, modificar entities">
