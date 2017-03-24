@@ -25,8 +25,10 @@ public class Carreras extends AccesoDatos {
     
     public int actualizar(Carrera c) throws SQLException{
         String tableName = "Carrera";
-        String tableParams = "codigo='%s', nombre='%s', titulo='%s' where id='%s'";
-        tableParams = String.format(tableParams,c.getCodigo(),c.getNombre(),c.getTitulo(),obtenerId(c));
+        String tableParams = "nombre='%s', titulo='%s' where codigo='%s'";
+        
+        tableParams = String.format(tableParams,c.getNombre(),c.getTitulo(),c.getCodigo());
+        
         return super.actualizar(tableName, tableParams);
     }
     
