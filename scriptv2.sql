@@ -310,8 +310,8 @@ COMMIT;
 START TRANSACTION;
 USE `universidad`;
 INSERT INTO `universidad`.`Usuario` (`idUsuario`, `clave`, `tipo`) VALUES ('admin', 'admin', 1);
-INSERT INTO `universidad`.`Usuario` (`idUsuario`, `clave`, `tipo`) VALUES ('profesor', 'profesor', 2);
-INSERT INTO `universidad`.`Usuario` (`idUsuario`, `clave`, `tipo`) VALUES ('matriculador', 'matriculador', 3);
+INSERT INTO `universidad`.`Usuario` (`idUsuario`, `clave`, `tipo`) VALUES ('matriculador', 'matriculador', 2);
+INSERT INTO `universidad`.`Usuario` (`idUsuario`, `clave`, `tipo`) VALUES ('profesor', 'profesor', 3);
 INSERT INTO `universidad`.`Usuario` (`idUsuario`, `clave`, `tipo`) VALUES ('estudiante', 'estudiante', 4);
 
 COMMIT;

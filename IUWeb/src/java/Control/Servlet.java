@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Control.Control;
 import LogicaNegocio.Carrera;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
@@ -37,8 +38,9 @@ public class Servlet extends HttpServlet {
         
 //        Define cual es la accion que se va a realizar
         String accion = request.getParameter("action");
-        
+        ArrayList<Carrera> carreras = null;
         Control ctrl = new Control();
+        carreras = ctrl.obtenerTodasCarreras();
         try{
             switch (accion) {
                 case "Ingresar": {
@@ -46,24 +48,27 @@ public class Servlet extends HttpServlet {
                     String pass = request.getParameter("password");
                     int tipoUsuario = ctrl.verificaUsuario(id, pass);
                     if(tipoUsuario != 0){
+                        
+                        request.setAttribute("carreras", carreras);
+                        
+                        HttpSession session = request.getSession();
+                        session.setAttribute("userId", id);
                         switch(tipoUsuario){ 
                             case 1: //ADMINISTRADOR
                                 System.out.println("Es administrador");
-                                HttpSession session = request.getSession();
-                                session.setAttribute("userId", id);
                                 response.sendRedirect("adminDash.jsp");
                                 break;
                             case 2: //MATRICULADOR
                                 System.out.println("Es matriculador");
-                                response.sendRedirect("adminDash.jsp");
+                                response.sendRedirect("matriculadorDash.jsp");
                                 break;
                             case 3: //PROFESOR
                                 System.out.println("Es profesor");
-                                response.sendRedirect("adminDash.jsp");
+                                response.sendRedirect("profesorDash.jsp");
                                 break;
                             case 4: //ESTUDIANTE
                                 System.out.println("Es estudiante");
-                                response.sendRedirect("adminDash.jsp");
+                                response.sendRedirect("estudianteDash.jsp");
                                 break;
                         }
                     }else{
@@ -72,7 +77,6 @@ public class Servlet extends HttpServlet {
                         session.setAttribute("errores", errores);
                         response.sendRedirect("login.jsp");
                     }
-
                 }
                 break;
                 case "Salir": {
@@ -92,6 +96,12 @@ public class Servlet extends HttpServlet {
                     }else{
                         this.printHTML("ERROR: Carrera NO Agregada!", response);
                     }
+                }
+                break;
+                case "BuscarCarrera": {
+                    String codigo = request.getParameter("codigo");
+                    String nombre = request.getParameter("nombre");
+                    
                 }
                 break;
             }

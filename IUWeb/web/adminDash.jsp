@@ -4,6 +4,9 @@
     Author     : SheshoVega
 --%>
 
+
+<%@page import="LogicaNegocio.Carrera"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +18,7 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
+        
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -35,7 +39,6 @@
                             <div class="form-group">
                                 <input type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
                             </div>
-                            <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
                             <button type="submit" class="btn btn-default" name="action" value="AgregarCarrera">Agregar Carrera</button>
                         </form>
                     </div>
@@ -56,6 +59,8 @@
                                 <td>Nombre</td>
                                 <td>Título</td>
                             </th>
+                            
+                            
                         </table>
                     </div>
                     
