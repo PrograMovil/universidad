@@ -46,6 +46,11 @@ public class Carrera {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
+    @Override
+    public String toString() {
+        return "Carrera{" + " codigo: " + codigo + ", nombre: " + nombre + ", titulo: " + titulo + " }";
+    }
     
     
 }
