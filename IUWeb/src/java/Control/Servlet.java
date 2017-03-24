@@ -54,7 +54,8 @@ public class Servlet extends HttpServlet {
                         switch(tipoUsuario){ 
                             case 1: //ADMINISTRADOR
                                 System.out.println("Es administrador");
-                                response.sendRedirect("adminDash.jsp");
+                                request.getRequestDispatcher("adminDash.jsp").forward(request, response);
+//                                response.sendRedirect("adminDash.jsp");
                                 break;
                             case 2: //MATRICULADOR
                                 System.out.println("Es matriculador");
