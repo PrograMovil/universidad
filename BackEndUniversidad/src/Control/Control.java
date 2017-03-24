@@ -167,7 +167,6 @@ public class Control {
     
 //</editor-fold>
     
-    
     //<editor-fold defaultstate="collapsed" desc="Metodos de Carreras">
     public ArrayList<Carrera> obtenerTodasCarreras(){
         try {
@@ -191,72 +190,7 @@ public class Control {
     
 //</editor-fold>
     
-    
-    //<editor-fold defaultstate="collapsed" desc="Metodos agregar, Eliminar, modificar entities">
-    public int addCarrera(Carrera ca){
-        return this.carreras.agregar(ca);
-    }
-    
-    public int deleteCarrera(Carrera ca){
-        return this.carreras.eliminar(ca);
-    }
-    
-    public int updateCarrera(Carrera ca){
-        try {
-            return this.carreras.actualizar(ca);
-        } catch (SQLException ex) {
-            System.err.println("Error al actualizar carrera");
-        }
-        return 0;
-    }
-    
-    public Carrera getCarrera(String id) throws Exception{
-        return this.carreras.obtener(id);
-    }
-    
-    
-    
-    
-    
-    
-    public int addCiclo(Ciclo ca){
-        return this.ciclos.agregar(ca);
-    }
-    
-    public int deleteCiclo(Ciclo ca){
-        return this.ciclos.eliminar(ca);
-    }
-    
-    public int updateCiclo(Ciclo ca){
-        return this.ciclos.actualizar(ca);
-    }
-    
-    public Ciclo getCiclo(int anio, int numero) throws Exception{
-        return this.ciclos.obtener(anio,numero);
-    }
-    
-    
-    
-    
-    
-    
-    
-    public int addEstudiante(Estudiante ca){
-        return this.estudiantes.agregar(ca);
-    }
-    
-    public int deleteEstudiante(Estudiante ca){
-        return this.estudiantes.eliminar(ca);
-    }
-    
-    public int updateEstudiante(Estudiante ca){
-        return this.estudiantes.actualizar(ca);
-    }
-    
-    public Estudiante getEstudiante(String codigo) throws Exception{
-        return this.estudiantes.obtener(codigo);
-    }
-    
+    //<editor-fold defaultstate="collapsed" desc="Metodos de Grupos">
     
     
     public int addGrupo(Grupo ca){
@@ -286,12 +220,76 @@ public class Control {
         return 0;
     }
     
-    public Grupo getGrupo(String codigo) throws Exception{
-        return this.grupos.obtener(codigo);
+    //para obtener el grupo se ocupa algo especifica, ya que solo tiene un numero como atributo, lo demas son llaves foraneas
+//    public Grupo getGrupo(int numero) throws Exception{
+//        return this.grupos.obtener(numero);
+//    }
+    
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Carreras">
+    
+    public int addCarrera(Carrera ca){
+        return this.carreras.agregar(ca);
     }
     
+    public int deleteCarrera(Carrera ca){
+        return this.carreras.eliminar(ca);
+    }
     
+    public int updateCarrera(Carrera ca){
+        try {
+            return this.carreras.actualizar(ca);
+        } catch (SQLException ex) {
+            System.err.println("Error al actualizar carrera");
+        }
+        return 0;
+    }
     
+    public Carrera getCarrera(String id) throws Exception{
+        return this.carreras.obtener(id);
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Ciclos">
+    
+    public int addCiclo(Ciclo ca){
+        return this.ciclos.agregar(ca);
+    }
+    
+    public int deleteCiclo(Ciclo ca){
+        return this.ciclos.eliminar(ca);
+    }
+    
+    public int updateCiclo(Ciclo ca){
+        return this.ciclos.actualizar(ca);
+    }
+    
+    public Ciclo getCiclo(int anio, int numero) throws Exception{
+        return this.ciclos.obtener(anio,numero);
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Estudiante">
+    
+    public int addEstudiante(Estudiante ca){
+        return this.estudiantes.agregar(ca);
+    }
+    
+    public int deleteEstudiante(Estudiante ca){
+        return this.estudiantes.eliminar(ca);
+    }
+    
+    public int updateEstudiante(Estudiante ca){
+        return this.estudiantes.actualizar(ca);
+    }
+    
+    public Estudiante getEstudiante(String codigo) throws Exception{
+        return this.estudiantes.obtener(codigo);
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Horario">
     
     public int addHorario(Horario ca){
         return this.horarios.agregar(ca);
@@ -318,10 +316,9 @@ public class Control {
     public Horario getHorario(String dias, Date horaInicial, Date horaFinal) throws Exception{
         return this.horarios.obtener(dias,horaInicial,horaFinal);
     }
+//</editor-fold>
     
-    
-    
-    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Matriculador">
     
     public int addMatriculador(Matriculador ca){
         return this.matriculadores.agregar(ca);
@@ -343,8 +340,9 @@ public class Control {
         }
         return null;
     }
+//</editor-fold>
     
-    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Notas">
     
     public int addNota(Nota ca){
         try {
@@ -373,14 +371,12 @@ public class Control {
         return 0;
     }
     
-    public Nota getNota(float calificacion, String Estudiante_cedula, String Codigo_Curso) throws Exception{
-        return this.notas.obtener(calificacion,Estudiante_cedula,Codigo_Curso);
-    }
+//    public Nota getNota(float calificacion, String Estudiante_cedula, String Codigo_Curso) throws Exception{
+//        return this.notas.obtener(calificacion,Estudiante_cedula,Codigo_Curso);
+//    }
+//</editor-fold>
     
-    
-    
-    
-    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Usuario">
     
     public int addUsuario(Usuario ca){
         return this.usuarios.agregar(ca);
@@ -403,8 +399,7 @@ public class Control {
         return null;
     }
 //</editor-fold>
-    
-    
+
     
     
 }

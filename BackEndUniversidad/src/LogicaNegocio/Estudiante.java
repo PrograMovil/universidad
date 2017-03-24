@@ -1,30 +1,31 @@
 
 package LogicaNegocio;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Estudiante extends Persona {
-    private Date fechaNac;
+    private Calendar fechaNac;
     private Carrera carrera;
     private Usuario usuario;
 
-    public Estudiante(String nombre, String cedula, String telefono, String email, Date fechaNac,Usuario usuario, Carrera carrera) {
+    public Estudiante(Calendar fechaNac, Carrera carrera, Usuario usuario, String nombre, String cedula, String telefono, String email) {
         super(nombre, cedula, telefono, email);
         this.fechaNac = fechaNac;
         this.carrera = carrera;
-        this.usuario=usuario;
+        this.usuario = usuario;
     }
-
+    
     public Estudiante() {
         super(null, null, null, null);
     }
-    
-    public Date getFechaNac() {
+
+    public Calendar getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(Date fechaNac) {
+    public void setFechaNac(Calendar fechaNac) {
         this.fechaNac = fechaNac;
     }
+    
 
     public Carrera getCarrera() {
         return carrera;

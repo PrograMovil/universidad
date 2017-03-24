@@ -1,17 +1,17 @@
 
 package LogicaNegocio;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Horario {
     private String dias;
-    private Date horaInicial;
-    private Date horaFinal;
+    private Calendar horaInicial;
+    private Calendar horaFinal;
 
     public Horario() {
     }
 
-    public Horario(String dias, Date horaInicial, Date horaFinal) {
+    public Horario(String dias, Calendar horaInicial, Calendar horaFinal) {
         this.dias = dias;
         this.horaInicial = horaInicial;
         this.horaFinal = horaFinal;
@@ -25,21 +25,21 @@ public class Horario {
         this.dias = dias;
     }
 
-    public Date getHoraInicial() {
+    public Calendar getHoraInicial() {
         return horaInicial;
     }
 
-    public void setHoraInicial(Date horaInicial) {
+    public void setHoraInicial(Calendar horaInicial) {
         this.horaInicial = horaInicial;
     }
 
-    public Date getHoraFinal() {
+    public Calendar getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(Date horaFinal) {
+    public void setHoraFinal(Calendar horaFinal) {
         this.horaFinal = horaFinal;
     }
-
+    
     
 }
