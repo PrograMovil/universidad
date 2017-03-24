@@ -83,16 +83,35 @@ public class Servlet extends HttpServlet {
                 case "BuscarCarrera": {
                     String codigo = request.getParameter("codigo");
                     String nombre = request.getParameter("nombre");
-                    if(codigo != ""){
-                        Carrera ca = ctrl.getCarrera(codigo);
+                    if(codigo != "" && nombre == ""){
+                        Carrera ca;
+                        if((ca = ctrl.getCarrera(codigo)) == null){
+                            carreras.clear();
+                            Carrera c = new Carrera("","","");
+                            carreras.add(c);
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }else{
+                            carreras.clear();
+                            carreras.add(ca);                        
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }
+                        
+                    }else if(nombre != "" && codigo == ""){
                         carreras.clear();
-                        carreras.add(ca);
-                        session.setAttribute("carreras", carreras);
-                        response.sendRedirect("adminDash.jsp");
-                    }else if(nombre != ""){
-                        Carrera ca = null;
+                        if((carreras = ctrl.obtenerCarreraPorNombre(nombre)) == null){
+                            Carrera c = new Carrera("","","");
+                            carreras.add(c);
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }else{
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }   
+                    }else if(nombre == "" && codigo == ""){
                         carreras.clear();
-                        carreras.add(ca);
+                        carreras = ctrl.obtenerTodasCarreras();
                         session.setAttribute("carreras", carreras);
                         response.sendRedirect("adminDash.jsp");
                     }
