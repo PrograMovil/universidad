@@ -27,16 +27,13 @@
                     <div class="row">
                         <form action="Servlet" method="GET" class="form-inline">
                             <div class="form-group">
-                                <!--<label for="codigo">Código</label>-->
-                                <input type="text" name="codigo" class="form-control" id="codigo" placeholder="Código">
+                                <input type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
                             </div>
                             <div class="form-group">
-                                <!--<label for="nombre">Nombre</label>-->
-                                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
+                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <!--<label for="titulo">Título</label>-->
-                                <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Título">
+                                <input type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
                             </div>
                             <button type="submit" class="btn btn-default" name="action" value="AgregarCarrera">Agregar Carrera</button>
                         </form>
@@ -45,7 +42,10 @@
                         <h2>Lista de Carreras</h2>
                         <form action="Servlet" method="GET" class="form-inline">
                             <div class="form-group">
-                                <input type="text" name="codigo" class="form-control" id="codigo" placeholder="Código">
+                                <input type="text" name="codigo" class="form-control" id="codigoSearch" placeholder="Código">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nombre" class="form-control" id="nombreSearch" placeholder="Nombre">
                             </div>
                             <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
                         </form>
@@ -68,9 +68,11 @@
     </body>
     <script>
         $(document).ready(function () {
-            $('#codigo').tooltip({'trigger':'focus', 'title': 'Código'});
-            $('#nombre').tooltip({'trigger':'focus', 'title': 'Nombre'});
-            $('#titulo').tooltip({'trigger':'focus', 'title': 'Título'});
+            $('#codigoForm').tooltip({'trigger':'focus', 'title': 'Código'});
+            $('#nombreForm').tooltip({'trigger':'focus', 'title': 'Nombre'});
+            $('#tituloForm').tooltip({'trigger':'focus', 'title': 'Título'});
+            $('#codigoSearch').tooltip({'trigger':'focus', 'title': 'Código'});
+            $('#nombreSearch').tooltip({'trigger':'focus', 'title': 'Nombre'});
         });
         
     </script>
