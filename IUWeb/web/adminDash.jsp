@@ -59,14 +59,20 @@
                                 <td>Nombre</td>
                                 <td>Título</td>
                             </th>
-                            <% for( Carrera ca : carreras ){ %>
-                            <tr>
-                                <td><%= ca.getCodigo() %></td>
-                                <td><%= ca.getNombre() %></td>
-                                <td><%= ca.getTitulo() %></td>
-                            </tr>
-                            <% } %>
-                            
+                            <% for( Carrera ca : carreras ){ 
+                                out.print("<tr>");
+                                out.print("<td>");
+                                out.print(ca.getCodigo());
+                                out.print("</td>");
+                                out.print("<td>");
+                                out.print(ca.getNombre());
+                                out.print("</td>");
+                                out.print("<td>");
+                                out.print(ca.getTitulo());
+                                out.print("</td>");
+                                out.print("</tr>");
+                            }
+                            %>                           
                         </table>
                     </div>
                     
