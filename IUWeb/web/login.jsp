@@ -26,7 +26,12 @@
                         <input name="action" class="btn btn-lg btn-primary btn-block" type="submit" value="Ingresar">
                     </form>
                 </div>
-            </div>        
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4" style="text-align: center">
+                    <span class="label label-danger">${errores}</span>
+                </div>
+            </div>
         </div> <!-- /container -->
     </body>
 </html>
