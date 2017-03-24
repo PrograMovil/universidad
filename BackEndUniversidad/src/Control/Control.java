@@ -4,6 +4,7 @@ package Control;
 import AccesoDatos.*;
 import LogicaNegocio.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +49,19 @@ public class Control {
     }
     
     
+    public ArrayList<Grupo> gruposDelProfesor(String cedula){
+        try {
+            grupos.gruposPorProfesor(cedula);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
+    
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos agregar, Eliminar, modificar entities">
     public int addCarrera(Carrera ca){
         return this.carreras.agregar(ca);
     }
@@ -243,7 +256,7 @@ public class Control {
         try {
             return this.notas.actualizar(ca);
         } catch (SQLException ex) {
-           System.err.println("Error al actualizar nota");
+            System.err.println("Error al actualizar nota");
         }
         return 0;
     }
@@ -296,5 +309,9 @@ public class Control {
         }
         return null;
     }
+//</editor-fold>
+    
+    
+    
     
 }

@@ -4,6 +4,7 @@ package AccesoDatos;
 import LogicaNegocio.Grupo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Grupos extends AccesoDatos {
     
@@ -64,6 +65,27 @@ public class Grupos extends AccesoDatos {
         //fin de obtener id de Gupo desde BD
         return id;
     }
+    
+    
+    public ArrayList<Grupo> gruposPorProfesor(String cedula) throws Exception{
+        
+        String tableName = "Grupo";
+        String param = "Profesor_cedula = '%s'";
+        param = String.format(param, cedula);
+        ResultSet rs = super.obtener(tableName, param);
+        ArrayList<Grupo> lista=new ArrayList<>();
+        while (rs.next()) {
+            Grupo obj = new Grupo();
+            obj.setNumero(rs.getInt("numero"));
+            obj.setHorario(new Horarios().obtenerPorId(rs.getInt("Horario_id")));
+            obj.setCurso(new Cursos().obtenerPorId(rs.getInt("id")));
+            obj.setProfesor(new Profesores().obtener(rs.getString("Profesor_cedula")));
+            lista.add(obj);
+            
+        }
+        return lista;
+    }
+
     
     
 }

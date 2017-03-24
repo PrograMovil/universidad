@@ -4,6 +4,7 @@ package AccesoDatos;
 import LogicaNegocio.Curso;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Cursos extends AccesoDatos {
     
@@ -77,6 +78,9 @@ public class Cursos extends AccesoDatos {
         //fin de obtener id de Curso desde BD
         return idHorario;
     }
+    
+    
+    
     
     
 }
