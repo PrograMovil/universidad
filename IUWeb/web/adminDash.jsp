@@ -35,6 +35,7 @@
                             <div class="form-group">
                                 <input type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
                             </div>
+                            <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
                             <button type="submit" class="btn btn-default" name="action" value="AgregarCarrera">Agregar Carrera</button>
                         </form>
                     </div>

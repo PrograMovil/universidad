@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 package InterfazSwing;
+
 import Control.Control;
+import LogicaNegocio.Profesor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Denis
  */
-public class Login extends javax.swing.JFrame implements ActionListener{
+public class Login extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form Login
@@ -119,18 +122,35 @@ public class Login extends javax.swing.JFrame implements ActionListener{
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    
     public void actionPerformed(ActionEvent ae) {
-      
-        if(ae.getSource()==jButton1){
-            String s= jTextField1.getText();
-            String h= jTextField2.getText();
-            int nivel=control.verificaUsuario(jTextField1.getText(), jTextField2.getText());
-            
+
+        if (ae.getSource() == jButton1) {
+            String s = jTextField1.getText();
+            String h = jTextField2.getText();
+            int nivel = control.verificaUsuario(jTextField1.getText(), jTextField2.getText());
+
+            switch (nivel) {
+                case 1:
+                    this.dispose();
+                    Index i = new Index();
+                    break;
+                case 2:
+                    Profesor p = control.getProfesor(s);
+                    if (p != null) {
+                        this.dispose();
+                        InicioProfesor inicio = new InicioProfesor();
+                        inicio.setProfesor(p);
+                    }
+                    else JOptionPane.showMessageDialog(null, "Error al cargar el profesor");
+                    break;
+                case 3:
+                    this.dispose();
+            }
+
         }
-            
+
     }
-    
+
     /**
      * @param args the command line arguments
      */

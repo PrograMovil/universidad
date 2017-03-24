@@ -15,7 +15,6 @@ import Control.Control;
 import LogicaNegocio.Carrera;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpSession;
 /**
  *
  * @author SheshoVega
@@ -49,8 +48,6 @@ public class Servlet extends HttpServlet {
                         switch(tipoUsuario){ 
                             case 1: //ADMINISTRADOR
                                 System.out.println("Es administrador");
-                                HttpSession session = request.getSession();
-                                session.setAttribute("userId", id);
                                 response.sendRedirect("adminDash.jsp");
                                 break;
                             case 2: //MATRICULADOR
@@ -67,19 +64,9 @@ public class Servlet extends HttpServlet {
                                 break;
                         }
                     }else{
-                        String errores = "Usuario o Contraseña incorrectos!";
-                        HttpSession session = request.getSession();
-                        session.setAttribute("errores", errores);
                         response.sendRedirect("login.jsp");
                     }
 
-                }
-                break;
-                case "Salir": {
-                    HttpSession session = request.getSession();
-                    session.removeAttribute("userId");
-                    session.invalidate();
-                    response.sendRedirect("login.jsp");
                 }
                 break;
                 case "AgregarCarrera": {

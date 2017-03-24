@@ -58,6 +58,23 @@ public class Control {
         return null;
     }
     
+    public Profesor obtenerProfesorPorUsuario(String username){
+        try {
+            return profesores.obtenerPorUsuario(username);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList<Carrera> obtenerTodasCarreras(){
+        try {
+            return carreras.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     
     

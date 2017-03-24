@@ -50,6 +50,12 @@ public class AccesoDatos {
         ResultSet rs = db.executeQuery(sql);
         return rs;        
     }
+    
+    public ResultSet obtenerTodo(String tableName){
+        String sql = "select * from " + tableName;
+        ResultSet rs = db.executeQuery(sql);
+        return rs;        
+    }
 //    public int updateData(String ){
 //        
 //    }

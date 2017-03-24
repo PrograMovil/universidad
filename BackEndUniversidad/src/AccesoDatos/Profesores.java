@@ -56,6 +56,19 @@ public class Profesores extends AccesoDatos{
         }
     }
     
+    public Profesor obtenerPorUsuario(String user) throws Exception{
+        String tableName = "Profesor";
+        String param = "Usuario_id = '%s'";
+        param = String.format(param, user);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toProfesor(rs);
+        } else {
+            return null;
+        }
+    }
+
+    
     
     
 }
