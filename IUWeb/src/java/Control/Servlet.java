@@ -111,6 +111,22 @@ public class Servlet extends HttpServlet {
                     }
                 }
                 break;
+                case "EditarCarrera":{
+                    String codigo = request.getParameter("codigo");
+                    String nombre = request.getParameter("nombre");
+                    String titulo = request.getParameter("titulo");
+                    Carrera ca = new Carrera(codigo,nombre,titulo);
+                    System.out.println(ca.toString());
+                    if(ctrl.updateCarrera(ca) == 1){
+                        carreras.clear();
+                        carreras = ctrl.obtenerTodasCarreras();
+                        session.setAttribute("carreras", carreras);
+                        response.sendRedirect("adminDash.jsp");
+                    }else{
+                        this.printHTML("ERROR: Carrera NO Actualizada!", response);
+                    }
+                }
+                break;
             }
         }catch (Exception ex) {
             Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);

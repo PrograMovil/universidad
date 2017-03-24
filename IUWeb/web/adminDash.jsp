@@ -30,12 +30,6 @@
                     <a  class="btn btn-default btn-block">Estudiantes</a>                    
                 </div>
                 <div class="col-md-10">
-<!--                    <div class="row">
-                        <ol class="breadcrumb">
-                            <li class="active">Lista de Carreras</li>
-                            <li><a href="carreraForm.jsp">Agregar Carrera</a></li>
-                        </ol>
-                    </div>-->
                     <div class="row">
                         <form action="Servlet" method="POST" class="form-inline">
                             <div class="form-group">
@@ -66,31 +60,48 @@
                                 <td>Código</td>
                                 <td>Nombre</td>
                                 <td>Título</td>
+                                <td></td>
                             </tr>
-                            <% for( Carrera ca : carreras ){ 
-                                out.print("<tr>");
-                                out.print("<td>");
-                                out.print(ca.getCodigo());
-                                out.print("</td>");
-                                out.print("<td>");
-                                out.print(ca.getNombre());
-                                out.print("</td>");
-                                out.print("<td>");
-                                out.print(ca.getTitulo());
-                                out.print("</td>");
-                                out.print("</tr>");
-                            }
-                            %>                           
+                            <% for( Carrera ca : carreras ){ %>
+                            <tr>
+                                <td><%= ca.getCodigo() %></td>
+                                <td><%= ca.getNombre() %></td>
+                                <td><%= ca.getTitulo() %></td>
+                                <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= ca.getCodigo() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                            </tr>
+                            <%}%>                           
                         </table>
                     </div>
-                    
-                    
                 </div>
-                <!--<div class="col-md-2">-->
-                    <!--side bar-->
-                <!--</div>-->
             </div>
         </div><!--container-->
+        <div class="modal fade" id="editarModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="Servlet">
+                        <div class="modal-header">
+                            <h4>Editar Carrera</h4>                        
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" name="codigo" id="codigoCarreraEdit" hidden="" /><!-- Usar este en la peticion xq el del input #codigoEdit como tiene disabled envia el dato null-->
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="codigoEdit" placeholder="Código" disabled><!--Solo es para que se muestre el codigo-->
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="titulo" class="form-control" id="tituloEdit" placeholder="Título">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                            <button type="submit" class="btn btn-default" name="action" value="EditarCarrera">Editar Carrera</button>
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+        </div>
     </body>
     <script>
         $(document).ready(function () {
@@ -100,6 +111,19 @@
             $('#codigoSearch').tooltip({'trigger':'focus', 'title': 'Código'});
             $('#nombreSearch').tooltip({'trigger':'focus', 'title': 'Nombre'});
         });
-        
+        function cargarDataModal(element){
+            var id = element.id;
+            var codigoCarrera = document.getElementById("codigoCarreraEdit")
+            var codigoInput = document.getElementById("codigoEdit")
+            var nombreInput = document.getElementById("nombreEdit")
+            var tituloInput = document.getElementById("tituloEdit")
+            
+            var TD = element.parentNode;
+            var TR = TD.parentNode;
+            codigoCarrera.value = id;
+            codigoInput.value = id;
+            nombreInput.value = TR.childNodes[3].innerHTML;
+            tituloInput.value = TR.childNodes[5].innerHTML;
+        }
     </script>
 </html>
