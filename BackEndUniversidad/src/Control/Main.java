@@ -87,7 +87,7 @@ public class Main {
 //        if(control.updateGrupo(grupo)!=null)
 //            System.out.println("Grupo eliminado");
         
-        ArrayList<Profesor> profesores=control.obtenerTodos();
+        ArrayList<Profesor> profesores=control.obtenerTodosLosProfesores();
         
         for(int i=0;i<profesores.size();i++)
             System.out.println(""+profesores.get(i).getNombre());

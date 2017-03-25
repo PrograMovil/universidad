@@ -80,6 +80,14 @@ public class Estudiantes extends AccesoDatos{
         return lista;
     }
     
-    
+    public ArrayList<Estudiante> obtenerTodos() throws Exception{
+        String tableName = "Estudiante";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Estudiante> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toEstudiante(rs));
+        }
+        return lista;
+    }
     
 }

@@ -3,6 +3,7 @@ package AccesoDatos;
 import LogicaNegocio.Horario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,7 +35,7 @@ public class Horarios extends AccesoDatos {
         return super.actualizar(tableName, tableParams);
     }
 
-    private Horario toCarrera(ResultSet rs) throws Exception {
+    private Horario toHorario(ResultSet rs) throws Exception {
         Horario obj = new Horario();
         obj.setDias(rs.getString("dias"));
 
@@ -53,7 +54,7 @@ public class Horarios extends AccesoDatos {
         param = String.format(param, dias);
         ResultSet rs = super.obtener(tableName, param);
         if (rs.next()) {
-            return toCarrera(rs);
+            return toHorario(rs);
         } else {
             return null;
         }
@@ -83,10 +84,21 @@ public class Horarios extends AccesoDatos {
         param = String.format(param, id);
         ResultSet rs = super.obtener(tableName, param);
         if (rs.next()) {
-            return toCarrera(rs);
+            return toHorario(rs);
         } else {
             return null;
         }
+    }
+    
+    public ArrayList<Horario> obtenerTodo() throws Exception{
+        
+        String tableName = "Horario";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Horario> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toHorario(rs));
+        }
+        return lista;
     }
 
 }
