@@ -6,26 +6,10 @@ import java.sql.ResultSet;
 
 public class AccesoDatos {
     static Database db;
-    
-//    static initializer block
-//    ejecuta la inicializacion de la base cuando se cargue la clase
-//    static {
-//        initdb();
-//    }
 
     public AccesoDatos() {
-        System.out.println("Hola desde Acceso a Datos");
-//        initdb();
         db = new Database();
     }
-    
-    
-    
-//    private static void initdb() {
-//        db = new Database(null, null, null);
-//    }
-    
-//    public AccesoDatos(){}
     
     public int agregar(String tableAndParams,String values){
         String sql = "insert into "+ tableAndParams + " values(" + values + ")";
@@ -56,9 +40,6 @@ public class AccesoDatos {
         ResultSet rs = db.executeQuery(sql);
         return rs;        
     }
-//    public int updateData(String ){
-//        
-//    }
 
     
 }

@@ -21,7 +21,6 @@ public class Database {
     Connection cnx = null;
         
     public Database() {
-        System.out.println("Hola desde Database");
         this.getConnection();
         if( this.cnx != null){
             System.out.println("Conexion a BD Exitosa");
