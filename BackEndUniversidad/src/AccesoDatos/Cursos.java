@@ -37,7 +37,7 @@ public class Cursos extends AccesoDatos {
         obj.setCreditos(rs.getInt("creditos"));
         obj.setHorasSemanales(rs.getInt("horas_semanales"));
         obj.setNivel(rs.getString("nivel"));
-        obj.setCarrera(new Carreras().obtener(rs.getString("Carrera_codigo")));
+        obj.setCarrera(new Carreras().obtenerPorId(rs.getInt("Carrera_id")));
         
         
         return obj;

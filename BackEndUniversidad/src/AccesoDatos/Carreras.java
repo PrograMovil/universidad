@@ -52,8 +52,20 @@ public class Carreras extends AccesoDatos {
         }
     }
     
+    public Carrera obtenerPorId(int id) throws Exception{
+        String tableName = "Carrera";
+        String param = "id = '%s'";
+        param = String.format(param, id);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toCarrera(rs);
+        } else {
+            return null;
+        }
+    }
+    
     public int obtenerId(Carrera c) throws SQLException{
-        String param2 = "codigo='%s', nombre='%s', titulo='%s'";
+        String param2 = "codigo='%s' and nombre='%s' and titulo='%s'";
         param2 = String.format(param2, c.getCodigo(), c.getNombre(), c.getTitulo());
         String sql2 = "select * from Carrera where " + param2;
         ResultSet rs2 = db.executeQuery(sql2);

@@ -96,6 +96,10 @@ public class Main {
         for(int i=0;i<carreras.size();i++)
             System.out.println(""+carreras.get(i).getNombre());
         
+        ArrayList<Curso> cursos = control.getCursoPorCarrera(carrera);
+        for(int i=0;i<carreras.size();i++)
+            System.out.println(""+carreras.get(i).getNombre());
+        
         
         //Server server = new Server();
         
