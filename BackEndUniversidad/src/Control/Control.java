@@ -83,6 +83,15 @@ public class Control {
         return null;
     }
     
+    public ArrayList<Curso> obtenerTodosLosCursos(){
+        try {
+            return cursos.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     
     public int addCurso(Curso ca){
         return this.cursos.agregar(ca);
@@ -301,6 +310,16 @@ public class Control {
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Estudiante">
     
+    public ArrayList<Estudiante> obtenerEstudiantePorNombre(String nombre){
+        try {
+            return this.estudiantes.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
     public int addEstudiante(Estudiante ca){
         return this.estudiantes.agregar(ca);
     }
@@ -310,7 +329,12 @@ public class Control {
     }
     
     public int updateEstudiante(Estudiante ca){
-        return this.estudiantes.actualizar(ca);
+        try {
+            return this.estudiantes.actualizar(ca);
+        } catch (SQLException ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
     
     public Estudiante getEstudiante(String codigo) throws Exception{

@@ -107,5 +107,16 @@ public class Cursos extends AccesoDatos {
         return lista;
     }
     
+    public ArrayList<Curso> obtenerTodo() throws Exception{
+        
+        String tableName = "Curso";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Curso> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toCurso(rs));
+        }
+        return lista;
+    }
+    
     
 }
