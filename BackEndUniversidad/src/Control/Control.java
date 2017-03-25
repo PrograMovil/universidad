@@ -306,8 +306,8 @@ public class Control {
         return this.ciclos.actualizar(ca);
     }
     
-    public Ciclo getCiclo(int anio, int numero) throws Exception{
-        return this.ciclos.obtener(anio,numero);
+    public Ciclo getCiclo(int anio) throws Exception{
+        return this.ciclos.obtener(anio);
     }
     
     public ArrayList<Ciclo> obtenerTodosLosCiclos(){

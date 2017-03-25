@@ -1,11 +1,12 @@
 
 package LogicaNegocio;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class Ciclo {
+public class Ciclo implements Serializable{
     private int anio;
     private int numero;
     private Calendar fechaInicio;

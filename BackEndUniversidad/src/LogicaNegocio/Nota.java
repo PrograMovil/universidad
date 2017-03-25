@@ -1,8 +1,10 @@
 
 package LogicaNegocio;
 
+import java.io.Serializable;
 
-public class Nota {
+
+public class Nota implements Serializable{
     private float calificacion;
     private Estudiante estudiante;
     private Curso curso;

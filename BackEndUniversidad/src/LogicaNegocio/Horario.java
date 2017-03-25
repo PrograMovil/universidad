@@ -1,9 +1,10 @@
 
 package LogicaNegocio;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Horario {
+public class Horario implements Serializable{
     private String dias;
     private Calendar horaInicial;
     private Calendar horaFinal;

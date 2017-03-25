@@ -1,7 +1,9 @@
 
 package LogicaNegocio;
 
-public class Curso {
+import java.io.Serializable;
+
+public class Curso implements Serializable{
     private String codigo;
     private String nombre;
     private int creditos;

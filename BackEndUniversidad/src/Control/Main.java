@@ -84,21 +84,26 @@ public class Main {
         Profesor profesor=new Profesor(new Usuario("profesor", "profesor", 3), "Georges", "111", "88995566", "j@g.c");
         Grupo grupo=new Grupo(3, horario, profesor, curso, ciclo);
         
+        profesor.setNombre("Juanmito");
+        
+        control.updateProfesor(profesor);
+        
+        
 //        if(control.updateGrupo(grupo)!=null)
 //            System.out.println("Grupo eliminado");
         
-        ArrayList<Profesor> profesores=control.obtenerTodosLosProfesores();
-        
-        for(int i=0;i<profesores.size();i++)
-            System.out.println(""+profesores.get(i).getNombre());
-        
-        ArrayList<Carrera> carreras = control.obtenerCarreraPorNombre("ca");
-        for(int i=0;i<carreras.size();i++)
-            System.out.println(""+carreras.get(i).getNombre());
-        
-        ArrayList<Curso> cursos = control.getCursoPorCarrera(carrera);
-        for(int i=0;i<carreras.size();i++)
-            System.out.println(""+carreras.get(i).getNombre());
+//        ArrayList<Profesor> profesores=control.obtenerTodosLosProfesores();
+//        
+//        for(int i=0;i<profesores.size();i++)
+//            System.out.println(""+profesores.get(i).getNombre());
+//        
+//        ArrayList<Carrera> carreras = control.obtenerCarreraPorNombre("ca");
+//        for(int i=0;i<carreras.size();i++)
+//            System.out.println(""+carreras.get(i).getNombre());
+//        
+//        ArrayList<Curso> cursos = control.getCursoPorCarrera(carrera);
+//        for(int i=0;i<carreras.size();i++)
+//            System.out.println(""+carreras.get(i).getNombre());
         
         
         //Server server = new Server();

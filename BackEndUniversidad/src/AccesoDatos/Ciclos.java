@@ -52,10 +52,22 @@ public class Ciclos extends AccesoDatos {
         return obj;
     }
     
-    public Ciclo obtener(int anio, int numero) throws SQLException, Exception{
+    public Ciclo obtenerPorAnioYNumero(int anio, int numero) throws SQLException, Exception{
         String tableName = "ciclo";
         String param = "anio = '%s' and numero= '%s'";
         param = String.format(param, anio, numero);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toCiclo(rs);
+        } else {
+            return null;
+        }
+    }
+    
+    public Ciclo obtener(int anio) throws SQLException, Exception{
+        String tableName = "ciclo";
+        String param = "anio = '%s'";
+        param = String.format(param, anio);
         ResultSet rs = super.obtener(tableName, param);
         if (rs.next()) {
             return toCiclo(rs);

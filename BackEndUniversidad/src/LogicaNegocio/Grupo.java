@@ -1,9 +1,9 @@
 
 package LogicaNegocio;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Grupo {
+public class Grupo implements Serializable{
     
     private int numero;
     private Horario horario;

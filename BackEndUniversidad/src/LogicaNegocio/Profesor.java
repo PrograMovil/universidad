@@ -1,8 +1,10 @@
 
 package LogicaNegocio;
 
+import java.io.Serializable;
 
-public class Profesor extends Persona {
+
+public class Profesor extends Persona implements Serializable{
     
     private Usuario usuario;
 

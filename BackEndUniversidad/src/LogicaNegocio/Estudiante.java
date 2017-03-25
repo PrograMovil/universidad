@@ -1,8 +1,9 @@
 
 package LogicaNegocio;
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Estudiante extends Persona {
+public class Estudiante extends Persona implements Serializable{
     private Calendar fechaNac;
     private Carrera carrera;
     private Usuario usuario;

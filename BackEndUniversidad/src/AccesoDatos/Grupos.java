@@ -38,7 +38,7 @@ public class Grupos extends AccesoDatos {
         obj.setHorario(new Horarios().obtenerPorId(rs.getInt("Horario_id")));
         obj.setCurso(new Cursos().obtenerPorId(rs.getInt("id")));
         obj.setProfesor(new Profesores().obtener(rs.getString("Profesor_cedula")));
-        obj.setCiclo(new Ciclos().obtener(rs.getInt("Ciclo_anio"),rs.getInt("Ciclo_numero")));
+        obj.setCiclo(new Ciclos().obtenerPorAnioYNumero(rs.getInt("Ciclo_anio"),rs.getInt("Ciclo_numero")));
         return obj;
     }
     
