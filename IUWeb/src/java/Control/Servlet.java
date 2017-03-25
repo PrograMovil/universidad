@@ -9,23 +9,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Control.Control;
 import LogicaNegocio.Carrera;
+import LogicaNegocio.Profesor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 public class Servlet extends HttpServlet {
-
+        
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
 //        Define cual es la accion que se va a realizar
         String accion = request.getParameter("action");
+        
+//        Listas de Objetos
         ArrayList<Carrera> carreras = null;
+        ArrayList<Carrera> allCarreras = null;
+//        ArrayList<Profesor> profesores = null;
+
         Control ctrl = new Control();
         HttpSession session = request.getSession();
+        
         carreras = ctrl.obtenerTodasCarreras();
+        
+        allCarreras = ctrl.obtenerTodasCarreras();
+        session.setAttribute("allCarreras", allCarreras);
+        
         try{
             switch (accion) {
                 case "Ingresar": {
@@ -36,7 +47,7 @@ public class Servlet extends HttpServlet {
                         session.setAttribute("userId", id);
                         switch(tipoUsuario){ 
                             case 1: //ADMINISTRADOR                                
-                                System.out.println("Es administrador");
+                                System.out.println("Es administrador");                                
                                 session.setAttribute("carreras", carreras);
                                 response.sendRedirect("adminDash.jsp");
                                 break;
@@ -61,7 +72,11 @@ public class Servlet extends HttpServlet {
                 }
                 break;
                 case "Salir": {
+//                    Eliminar datos de la sesion
+                    session.removeAttribute("errores");
                     session.removeAttribute("userId");
+                    session.removeAttribute("carreras");
+                    session.removeAttribute("allCarreras");
                     session.invalidate();
                     response.sendRedirect("login.jsp");
                 }

@@ -18,16 +18,14 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        <% ArrayList<Carrera> carreras = (ArrayList<Carrera>) session.getAttribute("carreras");
-//                request.getAttribute("carreras");
-        %>
+        <% ArrayList<Carrera> carreras = (ArrayList<Carrera>) session.getAttribute("carreras"); %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
                     <a href="adminDash.jsp" class="btn btn-default btn-block active">Carreras</a>
-                    <a  class="btn btn-default btn-block">Cursos</a>
-                    <a  class="btn btn-default btn-block">Profesores</a>
-                    <a  class="btn btn-default btn-block">Estudiantes</a>                    
+                    <a href="adminCursos.jsp" class="btn btn-default btn-block">Cursos</a>
+                    <a href="adminProfesores.jsp" class="btn btn-default btn-block">Profesores</a>
+                    <a href="adminEstudiantes.jsp" class="btn btn-default btn-block">Estudiantes</a>                    
                 </div>
                 <div class="col-md-10">
                     <div class="row">
