@@ -92,6 +92,9 @@ public class Main {
         for(int i=0;i<profesores.size();i++)
             System.out.println(""+profesores.get(i).getNombre());
         
+        ArrayList<Carrera> carreras = control.obtenerCarreraPorNombre("ca");
+        for(int i=0;i<carreras.size();i++)
+            System.out.println(""+carreras.get(i).getNombre());
         
         
         //Server server = new Server();
