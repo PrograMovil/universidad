@@ -5,6 +5,7 @@ import LogicaNegocio.Estudiante;
 import LogicaNegocio.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -30,11 +31,11 @@ public class Estudiantes extends AccesoDatos{
         return super.eliminar(tableName, query);
     }
     
-    public int actualizar(Estudiante c){
+    public int actualizar(Estudiante c) throws SQLException{
         String tableName = "Estudiante";
         String tableParams = "nombre='%s', telefono='%s', email='%s', fechaNac='%s', Usuario_id='%s', Carrera_id='%s', Ciclo_numero='%s' where cedula='%s'";
         java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTimeInMillis());
-        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),c.getCarrera().getCodigo());
+        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),new Carreras().obtenerId(c.getCarrera()),c.getCedula());
         return super.actualizar(tableName, tableParams);
     }
     
@@ -47,7 +48,7 @@ public class Estudiantes extends AccesoDatos{
         Calendar fechaNa = new GregorianCalendar();
         fechaNa.setTime(rs.getDate("fechaNac"));
         obj.setFechaNac(fechaNa);
-        Carrera ca=new Carreras().obtener(rs.getString("Carrera_id"));
+        Carrera ca=new Carreras().obtenerPorId(rs.getInt("Carrera_id"));
         obj.setCarrera(ca);
         Usuario u=new Usuarios().obtener(rs.getString("Usuario_id"));
         obj.setUsuario(u);
@@ -68,6 +69,25 @@ public class Estudiantes extends AccesoDatos{
         }
     }
     
+    public ArrayList<Estudiante> obtenerPorNombre(String nombre) throws Exception{
+        String tableName = "Estudiante";
+        String param = "nombre";
+        ResultSet rs = super.obtenerLike(tableName, param, nombre);
+        ArrayList<Estudiante> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toEstudiante(rs));
+        }
+        return lista;
+    }
     
+    public ArrayList<Estudiante> obtenerTodos() throws Exception{
+        String tableName = "Estudiante";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Estudiante> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toEstudiante(rs));
+        }
+        return lista;
+    }
     
 }

@@ -5,6 +5,7 @@ import LogicaNegocio.Matriculador;
 import LogicaNegocio.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Matriculadores extends AccesoDatos{
@@ -58,6 +59,15 @@ public class Matriculadores extends AccesoDatos{
         }
     }
     
-    
+    public ArrayList<Matriculador> obtenerTodo() throws Exception{
+        
+        String tableName = "Matriculador";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Matriculador> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toMatriculador(rs));
+        }
+        return lista;
+    }
     
 }

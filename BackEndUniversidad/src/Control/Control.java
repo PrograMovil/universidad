@@ -83,6 +83,15 @@ public class Control {
         return null;
     }
     
+    public ArrayList<Curso> obtenerTodosLosCursos(){
+        try {
+            return cursos.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     
     public int addCurso(Curso ca){
         return this.cursos.agregar(ca);
@@ -143,7 +152,7 @@ public class Control {
         return null;
     }
     
-    public ArrayList<Profesor> obtenerTodos(){
+    public ArrayList<Profesor> obtenerTodosLosProfesores(){
         try {
             return profesores.obtenerTodos();
         } catch (Exception ex) {
@@ -153,7 +162,7 @@ public class Control {
     }
     
     
-    public ArrayList<Profesor> obtenerPorNombre(String nombre){
+    public ArrayList<Profesor> obtenerProfesoresPorNombre(String nombre){
         try {
             return profesores.obtenerPorNombre(nombre);
         } catch (Exception ex) {
@@ -163,7 +172,14 @@ public class Control {
     }
     
     public int addProfesor(Profesor ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
         return this.profesores.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
     }
     
     public int deleteProfesor(Profesor ca){
@@ -182,29 +198,6 @@ public class Control {
         }
         return null;
     }
-    
-//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Metodos de Carreras">
-    public ArrayList<Carrera> obtenerTodasCarreras(){
-        try {
-            return carreras.obtenerTodo();
-        } catch (Exception ex) {
-            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    public ArrayList<Carrera> obtenerCarreraPorNombre(String nombre){
-        try {
-            return carreras.obtenerPorNombre(nombre);
-        } catch (Exception ex) {
-            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    
     
 //</editor-fold>
     
@@ -257,6 +250,23 @@ public class Control {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Carreras">
+    public ArrayList<Carrera> obtenerTodasCarreras(){
+        try {
+            return carreras.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ArrayList<Carrera> obtenerCarreraPorNombre(String nombre){
+        try {
+            return carreras.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     public int addCarrera(Carrera ca){
         return this.carreras.agregar(ca);
@@ -297,20 +307,61 @@ public class Control {
     public Ciclo getCiclo(int anio, int numero) throws Exception{
         return this.ciclos.obtener(anio,numero);
     }
+    
+    public ArrayList<Ciclo> obtenerTodosLosCiclos(){
+        try {
+            return ciclos.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Estudiante">
     
-    public int addEstudiante(Estudiante ca){
-        return this.estudiantes.agregar(ca);
+    public ArrayList<Estudiante> obtenerEstudiantePorNombre(String nombre){
+        try {
+            return this.estudiantes.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
+    
+    public ArrayList<Estudiante> obtenerTodosLosEstudiantes(){
+        try {
+            return this.estudiantes.obtenerTodos();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public int addEstudiante(Estudiante ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
+        return this.estudiantes.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
+    }
+    
     
     public int deleteEstudiante(Estudiante ca){
         return this.estudiantes.eliminar(ca);
     }
     
     public int updateEstudiante(Estudiante ca){
-        return this.estudiantes.actualizar(ca);
+        try {
+            return this.estudiantes.actualizar(ca);
+        } catch (SQLException ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
     
     public Estudiante getEstudiante(String codigo) throws Exception{
@@ -319,6 +370,16 @@ public class Control {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Horario">
+    
+    public ArrayList<Horario> obtenerTodosLosHorarios(){
+        try {
+            return this.horarios.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     
     public int addHorario(Horario ca){
         return this.horarios.agregar(ca);
@@ -349,8 +410,25 @@ public class Control {
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Matriculador">
     
+    public ArrayList<Matriculador> obtenerTodosLosMatriculadores(){
+        try {
+            return this.matriculadores.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
     public int addMatriculador(Matriculador ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
         return this.matriculadores.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
     }
     
     public int deleteMatriculador(Matriculador ca){

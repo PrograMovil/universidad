@@ -4,6 +4,7 @@ package AccesoDatos;
 import LogicaNegocio.Ciclo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -61,6 +62,17 @@ public class Ciclos extends AccesoDatos {
         } else {
             return null;
         }
+    }
+    
+    public ArrayList<Ciclo> obtenerTodo() throws Exception{
+        
+        String tableName = "Ciclo";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Ciclo> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toCiclo(rs));
+        }
+        return lista;
     }
     
 }
