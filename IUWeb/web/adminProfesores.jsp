@@ -17,7 +17,7 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        <% //ArrayList<Profesor> profesores = (ArrayList<Profesor>) session.getAttribute("profesores"); %>
+        <%ArrayList<Profesor> profesores = (ArrayList<Profesor>) session.getAttribute("profesores"); %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -41,6 +41,29 @@
                             <a href="#agregarModal" data-toggle="modal" class="btn btn-primary pull-right" >Agregar Profesor</a>
                         </div>                                               
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table" style="text-align: center">
+                                <tr>
+                                    <td>Cédula</td>
+                                    <td>Nombre</td>
+                                    <td>Teléfono</td>
+                                    <td>e-mail</td>                                    
+                                    <td></td>
+                                </tr>
+                                <% for( Profesor pro : profesores ){ %>
+                                <tr>
+                                    <td><%= pro.getCedula() %></td>
+                                    <td><%= pro.getNombre() %></td>
+                                    <td><%= pro.getTelefono()%></td>
+                                    <td><%= pro.getEmail() %></td>
+                                    <td><%= pro.getUsuario().getClave() %> | <a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= pro.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                </tr>
+                                <%}%>                           
+                            </table>
+                        </div>                        
+                    </div>
                 </div>
             </div>            
         </div>
@@ -50,7 +73,7 @@
             <div class="modal-content">
                 <form action="Servlet">
                     <div class="modal-header">
-                        <h4>Editar Carrera</h4>                        
+                        <h4>Editar Profesor</h4>                        
                     </div>
                     <div class="modal-body">
                         <input type="text" name="cedula" id="cedulaProfesorEdit" hidden="" /><!-- Usar este en la peticion xq el del input #codigoEdit como tiene disabled envia el dato null-->
@@ -61,15 +84,18 @@
                             <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="telefono" class="form-control" id="tituloEdit" placeholder="Teléfono">
+                            <input type="text" name="telefono" class="form-control" id="telefonoEdit" placeholder="Teléfono">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="email" class="form-control" id="tituloEdit" placeholder="e-mail">
+                            <input type="text" name="email" class="form-control" id="emailEdit" placeholder="e-mail">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="password" class="form-control" id="passwordEdit" placeholder="Ingrese la nueva Contraseña del Usuario">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
-                        <button type="submit" class="btn btn-default" name="action" value="EditarProfesor">Editar Carrera</button>
+                        <button type="submit" class="btn btn-default" name="action" value="EditarProfesor">Editar Profesor</button>
                     </div>
                 </form>                    
             </div>
@@ -95,6 +121,9 @@
                         <div class="form-group">
                             <input type="email" name="email" class="form-control" id="emailForm" placeholder="e-mail">
                         </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" id="passwordForm" placeholder="Contraseña del Usuario">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
@@ -110,12 +139,31 @@
             $('#nombreForm').tooltip({'trigger':'focus', 'title': 'Nombre'});
             $('#telefonoForm').tooltip({'trigger':'focus', 'title': 'Teléfono'});
             $('#emailForm').tooltip({'trigger':'focus', 'title': 'e-mail'});
+            $('#passwordForm').tooltip({'trigger':'focus', 'title': 'Contraseña del Usuario'});
             $('#cedulaEdit').tooltip({'trigger':'focus', 'title': 'Código'});
             $('#nombreEdit').tooltip({'trigger':'focus', 'title': 'Nombre'});
             $('#telefonoEdit').tooltip({'trigger':'focus', 'title': 'Teléfono'});
             $('#emailEdit').tooltip({'trigger':'focus', 'title': 'e-mail'});
+            $('#passwordEdit').tooltip({'trigger':'focus', 'title': 'Ingrese la nueva Contraseña del Usuario'});
             $('#cedulaSearch').tooltip({'trigger':'focus', 'title': 'Cédula'});
             $('#nombreSearch').tooltip({'trigger':'focus', 'title': 'Nombre'});
         });
+        function cargarDataModal(element){
+            var id = element.id;
+            var cedulaProfesor = document.getElementById("cedulaProfesorEdit")
+            var cedulaInput = document.getElementById("cedulaEdit")
+            var nombreInput = document.getElementById("nombreEdit")
+            var telefonoInput = document.getElementById("telefonoEdit")
+            var emailInput = document.getElementById("emailEdit")
+            
+            var TD = element.parentNode;
+            var TR = TD.parentNode;
+            
+            cedulaProfesor.value = id;
+            cedulaInput.value = id;
+            nombreInput.value = TR.childNodes[3].innerHTML;
+            telefonoInput.value = TR.childNodes[5].innerHTML;
+            emailInput.value = TR.childNodes[7].innerHTML;
+        }
     </script>
 </html>

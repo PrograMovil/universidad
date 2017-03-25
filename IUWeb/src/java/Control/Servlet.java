@@ -11,6 +11,7 @@ import Control.Control;
 import LogicaNegocio.Carrera;
 import LogicaNegocio.Curso;
 import LogicaNegocio.Profesor;
+import LogicaNegocio.Usuario;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ public class Servlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         carreras = ctrl.obtenerTodasCarreras();
+        profesores = ctrl.obtenerTodosLosProfesores();
         
 //        Router y rutas
         if(router !=null){
@@ -49,13 +51,14 @@ public class Servlet extends HttpServlet {
                 case "adminCursos": {
                     allCarreras = ctrl.obtenerTodasCarreras();
                     session.setAttribute("allCarreras", allCarreras);
-//                    cursos = ctrl.get
+//                    cursos = 
 //                    session.setAttribute("cursos", cursos);
                     response.sendRedirect("adminCursos.jsp");
                 }
                 break;
                 case "adminProfesores": {
-//                    profesores = ctrl.o
+                    profesores = ctrl.obtenerTodosLosProfesores();
+                    session.setAttribute("profesores", profesores);
                     response.sendRedirect("adminProfesores.jsp");
                 }
                 break;
@@ -109,6 +112,11 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("userId");
                         session.removeAttribute("carreras");
                         session.removeAttribute("allCarreras");
+//                        session.removeAttribute("cursos");
+                        session.removeAttribute("profesores");
+//                        session.removeAttribute("estudiantes");
+//                        session.removeAttribute("administradores");
+//                        session.removeAttribute("matriculadores");
                         session.invalidate();
                         response.sendRedirect("login.jsp");
                     }
@@ -171,6 +179,73 @@ public class Servlet extends HttpServlet {
                             response.sendRedirect("adminDash.jsp");
                         }else{
                             this.printHTML("ERROR: Carrera NO Actualizada!", response);
+                        }
+                    }
+                    break;
+                    case "AgregarProfesor": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,3);
+                        Profesor profe = new Profesor(user,nombre,cedula,telefono,email);
+                        if(ctrl.addProfesor(profe) == 1){
+                            profesores = ctrl.obtenerTodosLosProfesores();
+                            session.setAttribute("profesores", profesores);
+                            response.sendRedirect("adminProfesores.jsp");
+                        }else{
+                            this.printHTML("ERROR: Profesor NO Agregado!", response);
+                        }
+                    }
+                    break;
+                    case "BuscarProfesor": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        if(cedula != "" && nombre == ""){
+                            Profesor pro;
+                            if((pro = ctrl.getProfesor(cedula)) == null){
+                                profesores.clear();
+                                Profesor p = new Profesor(null,"","","","");
+                                profesores.add(p);
+                                session.setAttribute("profesores", profesores);
+                                response.sendRedirect("adminProfesores.jsp");
+                            }else{
+                                profesores.clear();
+                                profesores.add(pro);                        
+                                session.setAttribute("profesores", profesores);
+                                response.sendRedirect("adminProfesores.jsp");
+                            }
+
+                        }else if(nombre != "" && cedula == ""){
+                            profesores.clear();
+                            profesores = ctrl.obtenerProfesoresPorNombre(nombre);
+                            session.setAttribute("profesores", profesores);
+                            response.sendRedirect("adminProfesores.jsp");  
+                        }else if(nombre == "" && cedula == ""){
+                            profesores.clear();
+                            profesores = ctrl.obtenerTodosLosProfesores();
+                            session.setAttribute("profesores", profesores);
+                            response.sendRedirect("adminProfesores.jsp");
+                        }
+                    }
+                    break;
+                    case "EditarProfesor":{
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,3);
+                        Profesor profe = new Profesor(user,nombre,cedula,telefono,email);
+                        System.out.println(profe.toString());
+                        if(ctrl.updateProfesor(profe) == 1){
+                            profesores.clear();
+                            profesores = ctrl.obtenerTodosLosProfesores();
+                            session.setAttribute("profesores", profesores);
+                            response.sendRedirect("adminProfesores.jsp");
+                        }else{
+                            this.printHTML("ERROR: Profesor NO Actualizado!", response);
                         }
                     }
                     break;
