@@ -90,4 +90,16 @@ public class Estudiantes extends AccesoDatos{
         return lista;
     }
     
+    public ArrayList<Estudiante> obtenerPorCarrera(Carrera carrera) throws Exception{
+        String tableName = "Estudiante";
+        String param = "Carrera_id = '%s'";
+        param = String.format(param, new Carreras().obtenerId(carrera));
+        ResultSet rs = super.obtener(tableName, param);
+        ArrayList<Estudiante> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toEstudiante(rs));
+        }
+        return lista;
+    }
+    
 }
