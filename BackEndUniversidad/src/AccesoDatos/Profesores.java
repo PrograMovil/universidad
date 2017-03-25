@@ -4,6 +4,7 @@ import LogicaNegocio.Profesor;
 import LogicaNegocio.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Profesores extends AccesoDatos{
 
@@ -68,7 +69,26 @@ public class Profesores extends AccesoDatos{
         }
     }
 
+    public ArrayList<Profesor> obtenerTodos() throws Exception{
+        String tableName = "Profesor";
+        ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Profesor> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toProfesor(rs));
+        }
+        return lista;
+    }
     
+    public ArrayList<Profesor> obtenerPorNombre(String nombre) throws Exception{
+        String tableName = "Profesor";
+        String columna= "nombre";
+        ResultSet rs = super.obtenerLike(tableName,columna,nombre);
+        ArrayList<Profesor> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toProfesor(rs));
+        }
+        return lista;
+    }
     
     
 }

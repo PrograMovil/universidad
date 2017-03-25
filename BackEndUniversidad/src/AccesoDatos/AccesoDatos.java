@@ -40,6 +40,12 @@ public class AccesoDatos {
         ResultSet rs = db.executeQuery(sql);
         return rs;        
     }
+    
+    public ResultSet obtenerLike(String tablename, String columna, String busqueda){
+        String sql="select * from " + tablename + " where " + columna + " like '%%%" + busqueda+"%%%'";
+        ResultSet rs = db.executeQuery(sql);
+        return rs;
+    }
 
     
 }

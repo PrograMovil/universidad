@@ -5,6 +5,7 @@ import LogicaNegocio.*;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -83,9 +84,13 @@ public class Main {
         Profesor profesor=new Profesor(new Usuario("profesor", "profesor", 3), "Georges", "111", "88995566", "j@g.c");
         Grupo grupo=new Grupo(3, horario, profesor, curso, ciclo);
         
-        if(control.updateGrupo(grupo)!=0)
-            System.out.println("Grupo eliminado");
+//        if(control.updateGrupo(grupo)!=null)
+//            System.out.println("Grupo eliminado");
         
+        ArrayList<Profesor> profesores=control.obtenerTodos();
+        
+        for(int i=0;i<profesores.size();i++)
+            System.out.println(""+profesores.get(i).getNombre());
         
         
         

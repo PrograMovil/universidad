@@ -143,6 +143,24 @@ public class Control {
         return null;
     }
     
+    public ArrayList<Profesor> obtenerTodos(){
+        try {
+            return profesores.obtenerTodos();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    public ArrayList<Profesor> obtenerPorNombre(String nombre){
+        try {
+            return profesores.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     public int addProfesor(Profesor ca){
         return this.profesores.agregar(ca);
