@@ -23,7 +23,8 @@ public class Servlet extends HttpServlet {
         
 //        Define cual es la accion que se va a realizar
         String accion = request.getParameter("action");
-        
+        String router = request.getParameter("router");
+                
 //        Listas de Objetos
         ArrayList<Carrera> carreras = null;
         ArrayList<Carrera> allCarreras = null;
@@ -34,118 +35,145 @@ public class Servlet extends HttpServlet {
         
         carreras = ctrl.obtenerTodasCarreras();
         
-        allCarreras = ctrl.obtenerTodasCarreras();
-        session.setAttribute("allCarreras", allCarreras);
-        
-        try{
-            switch (accion) {
-                case "Ingresar": {
-                    String id = request.getParameter("id");
-                    String pass = request.getParameter("password");
-                    int tipoUsuario = ctrl.verificaUsuario(id, pass);
-                    if(tipoUsuario != 0){
-                        session.setAttribute("userId", id);
-                        switch(tipoUsuario){ 
-                            case 1: //ADMINISTRADOR                                
-                                System.out.println("Es administrador");                                
-                                session.setAttribute("carreras", carreras);
-                                response.sendRedirect("adminDash.jsp");
-                                break;
-                            case 2: //MATRICULADOR
-                                System.out.println("Es matriculador");
-                                response.sendRedirect("matriculadorDash.jsp");
-                                break;
-                            case 3: //PROFESOR
-                                System.out.println("Es profesor");
-                                response.sendRedirect("profesorDash.jsp");
-                                break;
-                            case 4: //ESTUDIANTE
-                                System.out.println("Es estudiante");
-                                response.sendRedirect("estudianteDash.jsp");
-                                break;
-                        }
-                    }else{
-                        String errores = "Usuario o Contraseña incorrectos!";
-                        session.setAttribute("errores", errores);
-                        response.sendRedirect("login.jsp");
-                    }
+//        Router y rutas
+        if(router !=null){
+            switch(router){
+                case "adminDash": {
+                    carreras = ctrl.obtenerTodasCarreras();
+                    session.setAttribute("allCarreras", carreras);
+                    response.sendRedirect("adminDash.jsp");
                 }
                 break;
-                case "Salir": {
-//                    Eliminar datos de la sesion
-                    session.removeAttribute("errores");
-                    session.removeAttribute("userId");
-                    session.removeAttribute("carreras");
-                    session.removeAttribute("allCarreras");
-                    session.invalidate();
-                    response.sendRedirect("login.jsp");
+                case "adminCursos": {
+                    allCarreras = ctrl.obtenerTodasCarreras();
+                    session.setAttribute("allCarreras", allCarreras);
+                    response.sendRedirect("adminCursos.jsp");
                 }
                 break;
-                case "AgregarCarrera": {
-                    String codigo = request.getParameter("codigo");
-                    String nombre = request.getParameter("nombre");
-                    String titulo = request.getParameter("titulo");
-                    Carrera ca = new Carrera(codigo,nombre,titulo);
-                    if(ctrl.addCarrera(ca) == 1){
-                        carreras = ctrl.obtenerTodasCarreras();
-                        session.setAttribute("carreras", carreras);
-                        response.sendRedirect("adminDash.jsp");
-                    }else{
-                        this.printHTML("ERROR: Carrera NO Agregada!", response);
-                    }
+                case "adminProfesores": {
+                    response.sendRedirect("adminProfesores.jsp");
                 }
                 break;
-                case "BuscarCarrera": {
-                    String codigo = request.getParameter("codigo");
-                    String nombre = request.getParameter("nombre");
-                    if(codigo != "" && nombre == ""){
-                        Carrera ca;
-                        if((ca = ctrl.getCarrera(codigo)) == null){
-                            carreras.clear();
-                            Carrera c = new Carrera("","","");
-                            carreras.add(c);
-                            session.setAttribute("carreras", carreras);
-                            response.sendRedirect("adminDash.jsp");
-                        }else{
-                            carreras.clear();
-                            carreras.add(ca);                        
-                            session.setAttribute("carreras", carreras);
-                            response.sendRedirect("adminDash.jsp");
-                        }
-                        
-                    }else if(nombre != "" && codigo == ""){
-                        carreras.clear();
-                        carreras = ctrl.obtenerCarreraPorNombre(nombre);
-                        session.setAttribute("carreras", carreras);
-                        response.sendRedirect("adminDash.jsp");  
-                    }else if(nombre == "" && codigo == ""){
-                        carreras.clear();
-                        carreras = ctrl.obtenerTodasCarreras();
-                        session.setAttribute("carreras", carreras);
-                        response.sendRedirect("adminDash.jsp");
-                    }
-                }
-                break;
-                case "EditarCarrera":{
-                    String codigo = request.getParameter("codigo");
-                    String nombre = request.getParameter("nombre");
-                    String titulo = request.getParameter("titulo");
-                    Carrera ca = new Carrera(codigo,nombre,titulo);
-                    System.out.println(ca.toString());
-                    if(ctrl.updateCarrera(ca) == 1){
-                        carreras.clear();
-                        carreras = ctrl.obtenerTodasCarreras();
-                        session.setAttribute("carreras", carreras);
-                        response.sendRedirect("adminDash.jsp");
-                    }else{
-                        this.printHTML("ERROR: Carrera NO Actualizada!", response);
-                    }
+                case "adminEstudiantes": {
+                    response.sendRedirect("adminEstudiantes.jsp");
                 }
                 break;
             }
-        }catch (Exception ex) {
-            Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+//        Acciones
+        if(accion != null){
+            try{
+                switch (accion) {
+
+                    case "Ingresar": {
+                        String id = request.getParameter("id");
+                        String pass = request.getParameter("password");
+                        int tipoUsuario = ctrl.verificaUsuario(id, pass);
+                        if(tipoUsuario != 0){
+                            session.setAttribute("userId", id);
+                            switch(tipoUsuario){ 
+                                case 1: //ADMINISTRADOR                                
+                                    System.out.println("Es administrador");                                
+                                    session.setAttribute("carreras", carreras);
+                                    response.sendRedirect("adminDash.jsp");
+                                    break;
+                                case 2: //MATRICULADOR
+                                    System.out.println("Es matriculador");
+                                    response.sendRedirect("matriculadorDash.jsp");
+                                    break;
+                                case 3: //PROFESOR
+                                    System.out.println("Es profesor");
+                                    response.sendRedirect("profesorDash.jsp");
+                                    break;
+                                case 4: //ESTUDIANTE
+                                    System.out.println("Es estudiante");
+                                    response.sendRedirect("estudianteDash.jsp");
+                                    break;
+                            }
+                        }else{
+                            String errores = "Usuario o Contraseña incorrectos!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("login.jsp");
+                        }
+                    }
+                    break;
+                    case "Salir": {
+//                        Eliminar datos de la sesion
+                        session.removeAttribute("errores");
+                        session.removeAttribute("userId");
+                        session.removeAttribute("carreras");
+                        session.removeAttribute("allCarreras");
+                        session.invalidate();
+                        response.sendRedirect("login.jsp");
+                    }
+                    break;
+                    case "AgregarCarrera": {
+                        String codigo = request.getParameter("codigo");
+                        String nombre = request.getParameter("nombre");
+                        String titulo = request.getParameter("titulo");
+                        Carrera ca = new Carrera(codigo,nombre,titulo);
+                        if(ctrl.addCarrera(ca) == 1){
+                            carreras = ctrl.obtenerTodasCarreras();
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }else{
+                            this.printHTML("ERROR: Carrera NO Agregada!", response);
+                        }
+                    }
+                    break;
+                    case "BuscarCarrera": {
+                        String codigo = request.getParameter("codigo");
+                        String nombre = request.getParameter("nombre");
+                        if(codigo != "" && nombre == ""){
+                            Carrera ca;
+                            if((ca = ctrl.getCarrera(codigo)) == null){
+                                carreras.clear();
+                                Carrera c = new Carrera("","","");
+                                carreras.add(c);
+                                session.setAttribute("carreras", carreras);
+                                response.sendRedirect("adminDash.jsp");
+                            }else{
+                                carreras.clear();
+                                carreras.add(ca);                        
+                                session.setAttribute("carreras", carreras);
+                                response.sendRedirect("adminDash.jsp");
+                            }
+
+                        }else if(nombre != "" && codigo == ""){
+                            carreras.clear();
+                            carreras = ctrl.obtenerCarreraPorNombre(nombre);
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");  
+                        }else if(nombre == "" && codigo == ""){
+                            carreras.clear();
+                            carreras = ctrl.obtenerTodasCarreras();
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }
+                    }
+                    break;
+                    case "EditarCarrera":{
+                        String codigo = request.getParameter("codigo");
+                        String nombre = request.getParameter("nombre");
+                        String titulo = request.getParameter("titulo");
+                        Carrera ca = new Carrera(codigo,nombre,titulo);
+                        System.out.println(ca.toString());
+                        if(ctrl.updateCarrera(ca) == 1){
+                            carreras.clear();
+                            carreras = ctrl.obtenerTodasCarreras();
+                            session.setAttribute("carreras", carreras);
+                            response.sendRedirect("adminDash.jsp");
+                        }else{
+                            this.printHTML("ERROR: Carrera NO Actualizada!", response);
+                        }
+                    }
+                    break;
+                }
+            }catch (Exception ex) {
+                Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
         
         
     }

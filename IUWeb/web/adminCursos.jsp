@@ -21,10 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <a href="adminDash.jsp" class="btn btn-default btn-block">Carreras</a>
-                    <a href="adminCursos.jsp" class="btn btn-default btn-block active">Cursos</a>
-                    <a href="adminProfesores.jsp" class="btn btn-default btn-block">Profesores</a>
-                    <a href="adminEstudiantes.jsp" class="btn btn-default btn-block">Estudiantes</a>                    
+                    <%@ include file="adminMenu.jspf" %>                    
                 </div>
                 <div class="col-md-10">
                     <div class="row">
