@@ -20,6 +20,7 @@ public class Control {
     Notas notas;
     Profesores profesores;
     Usuarios usuarios;
+    Administradores administradores;
 
     
 
@@ -34,6 +35,7 @@ public class Control {
         notas=new Notas();
         profesores=new Profesores();
         usuarios=new Usuarios();
+        administradores=new Administradores();
     }
     
     
@@ -420,6 +422,8 @@ public class Control {
     }
     
     
+    
+    
     public int addMatriculador(Matriculador ca){
         try{
         this.usuarios.agregar(ca.getUsuario());
@@ -439,11 +443,54 @@ public class Control {
         return this.matriculadores.actualizar(ca);
     }
     
-    public Matriculador getMatriculador(String codigo){
+    public Matriculador getMatriculador(String cedula){
         try {
-            return this.matriculadores.obtener(codigo);
+            return this.matriculadores.obtener(cedula);
         } catch (Exception ex) {
             System.err.println("Error al obtener Matriculador");
+        }
+        return null;
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos Matriculador">
+    
+    public ArrayList<Administrador> obtenerTodosLosAdministradores(){
+        try {
+            return this.administradores.obtenerTodo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
+    
+    public int addAdministrador(Administrador ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
+        return this.administradores.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
+    }
+    
+    public int deleteAdministrador(Administrador ca){
+        return this.administradores.eliminar(ca);
+    }
+    
+    public int updateAdministrador(Administrador ca){
+        return this.administradores.actualizar(ca);
+    }
+    
+    public Administrador getAdministrador(String cedula){
+        try {
+            return this.administradores.obtener(cedula);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener administrador");
         }
         return null;
     }
