@@ -49,13 +49,13 @@ public class Servlet extends HttpServlet {
                 case "adminCursos": {
                     allCarreras = ctrl.obtenerTodasCarreras();
                     session.setAttribute("allCarreras", allCarreras);
-                    cursos.add(new Curso());
-                    session.setAttribute("cursos", cursos);
+//                    cursos = ctrl.get
+//                    session.setAttribute("cursos", cursos);
                     response.sendRedirect("adminCursos.jsp");
                 }
                 break;
                 case "adminProfesores": {
-//                    profesores = ctrl
+//                    profesores = ctrl.o
                     response.sendRedirect("adminProfesores.jsp");
                 }
                 break;
