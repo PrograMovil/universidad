@@ -172,7 +172,14 @@ public class Control {
     }
     
     public int addProfesor(Profesor ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
         return this.profesores.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
     }
     
     public int deleteProfesor(Profesor ca){
@@ -193,8 +200,6 @@ public class Control {
     }
     
 //</editor-fold>
-    
-    
     
     //<editor-fold defaultstate="collapsed" desc="Metodos de Grupos">
     
@@ -335,8 +340,16 @@ public class Control {
     }
     
     public int addEstudiante(Estudiante ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
         return this.estudiantes.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
     }
+    
     
     public int deleteEstudiante(Estudiante ca){
         return this.estudiantes.eliminar(ca);
@@ -408,7 +421,14 @@ public class Control {
     
     
     public int addMatriculador(Matriculador ca){
+        try{
+        this.usuarios.agregar(ca.getUsuario());
         return this.matriculadores.agregar(ca);
+        }
+        catch(Exception e){
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return 0;
     }
     
     public int deleteMatriculador(Matriculador ca){
