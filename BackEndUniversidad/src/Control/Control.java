@@ -323,6 +323,13 @@ public class Control {
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Estudiante">
     
+    /**
+     * 
+     * @param nombre
+     * Obtiene el Nombre del estudiante (String)
+     * @return 
+     * Devuelve la lista de estudiantes que tengan el nombre LIKE el parametro en la base de datos
+     */
     public ArrayList<Estudiante> obtenerEstudiantePorNombre(String nombre){
         try {
             return this.estudiantes.obtenerPorNombre(nombre);
@@ -332,6 +339,11 @@ public class Control {
         return null;
     }
     
+    
+    /**
+     * 
+     * @return devuelve la lista de todos los estudiantes en la case de datos
+     */
     public ArrayList<Estudiante> obtenerTodosLosEstudiantes(){
         try {
             return this.estudiantes.obtenerTodos();
@@ -341,6 +353,11 @@ public class Control {
         return null;
     }
     
+    /**
+     * 
+     * @param ca objeto de Tipo Estudiante
+     * @return devuelve 1 en caso de agregar al estudiante correctamente, 0 en caso contrario
+     */
     public int addEstudiante(Estudiante ca){
         try{
         this.usuarios.agregar(ca.getUsuario());
@@ -350,6 +367,20 @@ public class Control {
             Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, e);
         }
         return 0;
+    }
+    
+    /**
+     * 
+     * @param carrera obtiene un objeto carrera para buscarlo en la BD
+     * @return devuelve la lista de estudiantes asociado a esa carrera, en caso de error retorna null
+     */
+    public ArrayList<Estudiante> obtenerEstudiantesPorCarrera(Carrera carrera){
+        try {
+            return this.estudiantes.obtenerPorCarrera(carrera);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     
@@ -366,8 +397,18 @@ public class Control {
         return 0;
     }
     
-    public Estudiante getEstudiante(String codigo) throws Exception{
-        return this.estudiantes.obtener(codigo);
+    /**
+     * 
+     * @param cedula del estudiante a consultar
+     * @return devuelve solo el estudiante con esa cedula, no usa LIKE
+     */
+    public Estudiante getEstudiante(String cedula){
+         try {
+            return this.estudiantes.obtener(cedula);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 //</editor-fold>
     

@@ -28,7 +28,7 @@ public class Profesores extends AccesoDatos{
     public int actualizar(Profesor c){
         String tableName = "Profesor";
         String tableParams = "nombre='%s', telefono='%s', email='%s', Usuario_id='%s' where cedula='%s'";
-        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId());
+        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId(), c.getCedula());
         return super.actualizar(tableName, tableParams);
     }
     
