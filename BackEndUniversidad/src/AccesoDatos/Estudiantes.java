@@ -5,7 +5,9 @@ import LogicaNegocio.Estudiante;
 import LogicaNegocio.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class Estudiantes extends AccesoDatos{
@@ -16,7 +18,7 @@ public class Estudiantes extends AccesoDatos{
     public int agregar(Estudiante c){
         String tableAndParams = "Estudiante(cedula,nombre,telefono,email,fechaNac,Usuario_id,Carrera_id)";
         String values = "'%s','%s','%s','%s','%s','%s','%s'";
-        java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTime());
+        java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTimeInMillis());
         values = String.format(values,c.getCedula(),c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),c.getCarrera().getCodigo());
         return super.agregar(tableAndParams, values);
     }
@@ -31,7 +33,7 @@ public class Estudiantes extends AccesoDatos{
     public int actualizar(Estudiante c){
         String tableName = "Estudiante";
         String tableParams = "nombre='%s', telefono='%s', email='%s', fechaNac='%s', Usuario_id='%s', Carrera_id='%s', Ciclo_numero='%s' where cedula='%s'";
-        java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTime());
+        java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTimeInMillis());
         tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),c.getCarrera().getCodigo());
         return super.actualizar(tableName, tableParams);
     }
@@ -42,7 +44,8 @@ public class Estudiantes extends AccesoDatos{
         obj.setNombre(rs.getString("nombre"));
         obj.setTelefono(rs.getString("telefono"));
         obj.setEmail(rs.getString("email"));
-        Date fechaNa = rs.getTimestamp("fechaNac");
+        Calendar fechaNa = new GregorianCalendar();
+        fechaNa.setTime(rs.getDate("fechaNac"));
         obj.setFechaNac(fechaNa);
         Carrera ca=new Carreras().obtener(rs.getString("Carrera_id"));
         obj.setCarrera(ca);

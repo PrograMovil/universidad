@@ -5,6 +5,9 @@ import LogicaNegocio.*;
 
 import java.io.*;
 import java.net.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 class Server implements Runnable {
@@ -70,46 +73,29 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
 
+        Control control=new Control();
+        Carrera carrera=new Carrera("1", "Informatica", "Bachillerato");
+        Ciclo ciclo=new Ciclo(2016, 1, new GregorianCalendar(2016,1,17), new GregorianCalendar(2016,5,12));
         
-        Server server = new Server();
+        Curso curso=new Curso("EIF-200", "Funda", 10, 5, carrera, "1ero");
+        Horario horario=new Horario("Lunes", new GregorianCalendar(2016,1,2), new GregorianCalendar(2016,1,2));
+        
+        Profesor profesor=new Profesor(new Usuario("profesor", "profesor", 3), "Georges", "111", "88995566", "j@g.c");
+        Grupo grupo=new Grupo(3, horario, profesor, curso, ciclo);
+        
+        if(control.updateGrupo(grupo)!=0)
+            System.out.println("Grupo eliminado");
+        
+        
+        
+        
+        //Server server = new Server();
         
 //        Sockets para la conexion con las interfaces.
 //        Server servidor = new Server();
         
 
-     
-
-//                          PRUEBAS DE CRUD
-//
-//        Carrera car = new Carrera("001","Informatica","Ingenieria en Sistemas");
-//        Control ctrl = new Control();
-//
-//
-//        add
-//        if(ctrl.addCarrera(car) == 1){
-//            System.out.println("Carrera agregada!");
-//        }else{
-//            System.out.println("ERROR: Carrera NO agregada!");
-//        }
-
-//        update
-//        car.setNombre("Ingenieria en Informatica");
-//        if(ctrl.updateCarrera(car) == 1){
-//            System.out.println("Carrera actualizada!");
-//        }else{
-//            System.out.println("ERROR: Carrera NO actualizada!");
-//        }
-
-//        delete
-//        if(ctrl.deleteCarrera(car) == 1){
-//            System.out.println("Carrera eliminada!");
-//        }else{
-//            System.out.println("ERROR: Carrera NO eliminada!");
-//        }
-
-//        Carrera car2 = ctrl.getCarrera("100");
-//        System.out.println(car2.toString());
-
+    
     }
     
 }

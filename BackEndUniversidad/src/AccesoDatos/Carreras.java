@@ -25,8 +25,10 @@ public class Carreras extends AccesoDatos {
     
     public int actualizar(Carrera c) throws SQLException{
         String tableName = "Carrera";
-        String tableParams = "codigo='%s', nombre='%s', titulo='%s' where id='%s'";
-        tableParams = String.format(tableParams,c.getCodigo(),c.getNombre(),c.getTitulo(),obtenerId(c));
+        String tableParams = "nombre='%s', titulo='%s' where codigo='%s'";
+        
+        tableParams = String.format(tableParams,c.getNombre(),c.getTitulo(),c.getCodigo());
+        
         return super.actualizar(tableName, tableParams);
     }
     
@@ -53,9 +55,12 @@ public class Carreras extends AccesoDatos {
     public int obtenerId(Carrera c) throws SQLException{
         String param2 = "codigo='%s', nombre='%s', titulo='%s'";
         param2 = String.format(param2, c.getCodigo(), c.getNombre(), c.getTitulo());
-        String sql2 = "select * from Carrera o where o." + param2;
+        String sql2 = "select * from Carrera where " + param2;
         ResultSet rs2 = db.executeQuery(sql2);
-        int id=rs2.getInt("id");
+        int id=-1;
+        if (rs2.next()) {
+            id=rs2.getInt("id");
+        }
         return id;
     }
     

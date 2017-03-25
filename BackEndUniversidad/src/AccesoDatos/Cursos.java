@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class Cursos extends AccesoDatos {
     
     public int agregar(Curso c){
-        String tableAndParams = "curso(codigo,nombre,creditos,horas_semanales,nivel,Carrera_codigo,Ciclo_anio,Ciclo_numero)";
+        String tableAndParams = "Curso(codigo,nombre,creditos,horas_semanales,nivel,Carrera_codigo)";
         String values = "'%s','%s','%s','%s','%s','%s','%s','%s'";
-        values = String.format(values,c.getCodigo(),c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),c.getCiclo().getAnio(),c.getCiclo().getNumero());
+        values = String.format(values,c.getCodigo(),c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo());
         return super.agregar(tableAndParams, values);
     }
     
@@ -25,8 +25,8 @@ public class Cursos extends AccesoDatos {
     
     public int actualizar(Curso c) throws SQLException{
         String tableName = "curso";
-        String tableParams = "codigo='%s', nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s', Ciclo_anio='%s', Ciclo_numero='%s' where id='%s'";
-        tableParams = String.format(tableParams, c.getCodigo(), c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),c.getCiclo().getAnio(),c.getCiclo().getNumero(),obtenerId(c));
+        String tableParams = "codigo='%s', nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s' where id='%s'";
+        tableParams = String.format(tableParams, c.getCodigo(), c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),obtenerId(c));
         return super.actualizar(tableName, tableParams);
     }
     
@@ -38,7 +38,7 @@ public class Cursos extends AccesoDatos {
         obj.setHorasSemanales(rs.getInt("horas_semanales"));
         obj.setNivel(rs.getString("nivel"));
         obj.setCarrera(new Carreras().obtener(rs.getString("Carrera_codigo")));
-        obj.setCiclo(new Ciclos().obtener(rs.getInt("Ciclo_anio"),rs.getInt("Ciclo_numero")));
+        
         
         return obj;
     }
@@ -75,9 +75,11 @@ public class Cursos extends AccesoDatos {
         param2 = String.format(param2, c.getCodigo());
         String sql2 = "select * from Curso o where o." + param2;
         ResultSet rs2 = db.executeQuery(sql2);
-        int idHorario=rs2.getInt("id");
+        int idCurso=-1;
+        if(rs2.next())
+            idCurso=rs2.getInt("id");
         //fin de obtener id de Curso desde BD
-        return idHorario;
+        return idCurso;
     }
     
     

@@ -1,27 +1,28 @@
 
 package LogicaNegocio;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class Ciclo {
     private int anio;
     private int numero;
-    private Date fechaInicio;
-    private Date fechaFinalizacion;
+    private Calendar fechaInicio;
+    private Calendar fechaFinalizacion;
 
-    public Ciclo(int anio, int numero, Date fechaInicio, Date fechaFinalizacion) {
+    public Ciclo(int anio, int numero, Calendar fechaInicio, Calendar fechaFinalizacion) {
         this.anio = anio;
         this.numero = numero;
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
     }
-
+    
     public Ciclo() {
         this.anio = 0;
         this.numero = 0;
-        this.fechaInicio = new Date(2000, 10, 11);
-        this.fechaFinalizacion = new Date(2000, 10, 12);
+        this.fechaInicio = new GregorianCalendar(2000, 10, 11);
+        this.fechaFinalizacion = new GregorianCalendar(2000, 10, 12);
     }
     
 
@@ -41,23 +42,22 @@ public class Ciclo {
         this.numero = numero;
     }
 
-    public Date getFechaInicio() {
+    public Calendar getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(Calendar fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinalizacion() {
+    public Calendar getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
+    public void setFechaFinalizacion(Calendar fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    
     
     
 }

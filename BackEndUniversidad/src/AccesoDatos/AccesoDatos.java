@@ -46,7 +46,7 @@ public class AccesoDatos {
     }
     
     public ResultSet obtener(String tableName, String param){
-        String sql = "select * from " + tableName + " o where o." + param;
+        String sql = "select * from " + tableName + " where " + param;
         ResultSet rs = db.executeQuery(sql);
         return rs;        
     }
