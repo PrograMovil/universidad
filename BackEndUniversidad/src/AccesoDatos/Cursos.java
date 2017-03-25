@@ -11,7 +11,7 @@ public class Cursos extends AccesoDatos {
     
     public int agregar(Curso c){
         String tableAndParams = "Curso(codigo,nombre,creditos,horas_semanales,nivel,Carrera_codigo)";
-        String values = "'%s','%s','%s','%s','%s','%s','%s','%s'";
+        String values = "'%s','%s','%s','%s','%s','%s'";
         values = String.format(values,c.getCodigo(),c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo());
         return super.agregar(tableAndParams, values);
     }
@@ -25,8 +25,8 @@ public class Cursos extends AccesoDatos {
     
     public int actualizar(Curso c) throws SQLException{
         String tableName = "curso";
-        String tableParams = "codigo='%s', nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s' where id='%s'";
-        tableParams = String.format(tableParams, c.getCodigo(), c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(),obtenerId(c));
+        String tableParams = "nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s' where codigo='%s'";
+        tableParams = String.format(tableParams,c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(), c.getCodigo());
         return super.actualizar(tableName, tableParams);
     }
     
@@ -37,7 +37,7 @@ public class Cursos extends AccesoDatos {
         obj.setCreditos(rs.getInt("creditos"));
         obj.setHorasSemanales(rs.getInt("horas_semanales"));
         obj.setNivel(rs.getString("nivel"));
-        obj.setCarrera(new Carreras().obtener(rs.getString("Carrera_codigo")));
+        obj.setCarrera(new Carreras().obtenerPorId(rs.getInt("Carrera_id")));
         
         
         return obj;
@@ -85,9 +85,8 @@ public class Cursos extends AccesoDatos {
     
     public ArrayList<Curso> obtenerCursosPorNombre(String nombre) throws Exception{
         String tableName = "Curso";
-        String param = "nombre = '%s'";
-        param = String.format(param, nombre);
-        ResultSet rs = super.obtener(tableName, param);
+        String param = "nombre";
+        ResultSet rs = super.obtenerLike(tableName, param, nombre);
         ArrayList<Curso> lista=new ArrayList();
         while (rs.next()) {
             lista.add(toCurso(rs));

@@ -143,6 +143,24 @@ public class Control {
         return null;
     }
     
+    public ArrayList<Profesor> obtenerTodos(){
+        try {
+            return profesores.obtenerTodos();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    public ArrayList<Profesor> obtenerPorNombre(String nombre){
+        try {
+            return profesores.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     public int addProfesor(Profesor ca){
         return this.profesores.agregar(ca);
@@ -193,6 +211,7 @@ public class Control {
     //<editor-fold defaultstate="collapsed" desc="Metodos de Grupos">
     
     
+    
     public int addGrupo(Grupo ca){
         try {
             return this.grupos.agregar(ca);
@@ -218,6 +237,16 @@ public class Control {
             System.err.println("Error al actualizar grupo");
         }
         return 0;
+    }
+    
+    public ArrayList<Grupo> gruposPorProfesor(String cedula){
+        try {
+            return this.grupos.gruposPorProfesor(cedula);
+        } catch (Exception ex) {
+            System.err.println("Error al actualizar grupo");
+        }
+        return null;
+        
     }
     
     //para obtener el grupo se ocupa algo especifica, ya que solo tiene un numero como atributo, lo demas son llaves foraneas
