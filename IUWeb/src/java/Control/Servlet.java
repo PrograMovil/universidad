@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Control.Control;
 import LogicaNegocio.Carrera;
+import LogicaNegocio.Curso;
 import LogicaNegocio.Profesor;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -28,7 +29,8 @@ public class Servlet extends HttpServlet {
 //        Listas de Objetos
         ArrayList<Carrera> carreras = null;
         ArrayList<Carrera> allCarreras = null;
-//        ArrayList<Profesor> profesores = null;
+        ArrayList<Profesor> profesores = null;
+        ArrayList<Curso> cursos = null;
 
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -47,10 +49,13 @@ public class Servlet extends HttpServlet {
                 case "adminCursos": {
                     allCarreras = ctrl.obtenerTodasCarreras();
                     session.setAttribute("allCarreras", allCarreras);
+                    cursos.add(new Curso());
+                    session.setAttribute("cursos", cursos);
                     response.sendRedirect("adminCursos.jsp");
                 }
                 break;
                 case "adminProfesores": {
+//                    profesores = ctrl
                     response.sendRedirect("adminProfesores.jsp");
                 }
                 break;

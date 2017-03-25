@@ -26,46 +26,42 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row">
-                        <form action="Servlet" method="POST" class="form-inline">
-                            <div class="form-group">
-                                <input type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
-                            </div>
-                            <button type="submit" class="btn btn-default" name="action" value="AgregarCarrera">Agregar Carrera</button>
-                        </form>
-                    </div>
-                    <div class="row">
                         <h2>Lista de Carreras</h2>
-                        <form action="Servlet" method="POST" class="form-inline">
-                            <div class="form-group">
-                                <input type="text" name="codigo" class="form-control" id="codigoSearch" placeholder="Código">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreSearch" placeholder="Nombre">
-                            </div>
-                            <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
-                        </form>
-                        <table class="table" style="text-align: center">
-                            <tr>
-                                <td>Código</td>
-                                <td>Nombre</td>
-                                <td>Título</td>
-                                <td></td>
-                            </tr>
-                            <% for( Carrera ca : carreras ){ %>
-                            <tr>
-                                <td><%= ca.getCodigo() %></td>
-                                <td><%= ca.getNombre() %></td>
-                                <td><%= ca.getTitulo() %></td>
-                                <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= ca.getCodigo() %>" onclick="cargarDataModal(this)">Editar</a></td>
-                            </tr>
-                            <%}%>                           
-                        </table>
+                        <div class="col-md-10" >
+                            <form action="Servlet" method="POST" class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" name="codigo" class="form-control" id="codigoSearch" placeholder="Código">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="nombre" class="form-control" id="nombreSearch" placeholder="Nombre">
+                                </div>
+                                <button type="submit" class="btn btn-default" name="action" value="BuscarCarrera">Buscar Carrera</button>
+                            </form>
+                        </div>
+                        <div class="col-md-2" >
+                            <a href="#agregarModal" data-toggle="modal" class="btn btn-primary pull-right" >Agregar Carrera</a>
+                        </div>                        
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table" style="text-align: center">
+                                <tr>
+                                    <td>Código</td>
+                                    <td>Nombre</td>
+                                    <td>Título</td>
+                                    <td></td>
+                                </tr>
+                                <% for( Carrera ca : carreras ){ %>
+                                <tr>
+                                    <td><%= ca.getCodigo() %></td>
+                                    <td><%= ca.getNombre() %></td>
+                                    <td><%= ca.getTitulo() %></td>
+                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= ca.getCodigo() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                </tr>
+                                <%}%>                           
+                            </table>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -92,6 +88,32 @@
                         <div class="modal-footer">
                             <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
                             <button type="submit" class="btn btn-default" name="action" value="EditarCarrera">Editar Carrera</button>
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="agregarModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="Servlet" method="POST">
+                        <div class="modal-header">
+                            <h4>Agregar Carrera</h4>                        
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                            <button type="submit" class="btn btn-default" name="action" value="AgregarCarrera">Agregar Carrera</button>
                         </div>
                     </form>                    
                 </div>
