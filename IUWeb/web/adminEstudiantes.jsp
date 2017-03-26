@@ -1,23 +1,28 @@
 <%-- 
-    Document   : adminProfesores
-    Created on : Mar 24, 2017, 1:45:34 PM
+    Document   : adminEstudiantes
+    Created on : Mar 25, 2017, 6:49:13 PM
     Author     : SheshoVega
 --%>
 
-<%@page import="LogicaNegocio.Profesor"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="LogicaNegocio.Carrera"%>
+<%@page import="LogicaNegocio.Estudiante"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profesores</title>
+        <title>Estudiantes</title>
         <%@ include file="imports.jspf" %> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        <%ArrayList<Profesor> profesores = (ArrayList<Profesor>) session.getAttribute("profesores"); %>
+        <%ArrayList<Estudiante> estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes"); %>
+        <%  ArrayList<Carrera> allCarreras = (ArrayList<Carrera>) session.getAttribute("allCarreras"); %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -25,7 +30,7 @@
                 </div>
                 <div class="col-md-10">
                     <div class="row">
-                        <h2>Lista de Profesores</h2>
+                        <h2>Lista de Estudiantes</h2>
                         <div class="col-md-10" >
                             <form action="Servlet" method="POST" class="form-inline">
                                 <div class="form-group">
@@ -33,12 +38,18 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="nombre" class="form-control" id="nombreSearch" placeholder="Nombre">
-                                </div>
-                                <button type="submit" class="btn btn-default" name="action" value="BuscarProfesor">Buscar Profesor</button>
+                                </div>                                
+                                <select class="form-control" name="carrera" >
+                                    <option value="default" >Seleccione la carrera</option>
+                                <% for (Carrera c : allCarreras) { %>
+                                    <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
+                                <% } %>
+                                </select>
+                                <button type="submit" class="btn btn-default" name="action" value="BuscarProfesor">Buscar Estudiante</button>
                             </form>
                         </div>
                         <div class="col-md-2" >
-                            <a href="#agregarModal" data-toggle="modal" class="btn btn-primary pull-right" >Agregar Profesor</a>
+                            <a href="#agregarModal" data-toggle="modal" class="btn btn-primary pull-right" >Agregar Estudiante</a>
                         </div>                                               
                     </div>
                     <br>
@@ -50,16 +61,22 @@
                                     <td>Nombre</td>
                                     <td>Teléfono</td>
                                     <td>e-mail</td>                                    
+                                    <td>Fecha de Nacimiento</td>
+                                    <td>Carrera</td>
                                     <td></td>
                                 </tr>
-                                <% for( Profesor pro : profesores ){ %>
+                                <% for( Estudiante es : estudiantes ){ 
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                %>
                                 <tr>
-                                    <td><%= pro.getCedula() %></td>
-                                    <td><%= pro.getNombre() %></td>
-                                    <td><%= pro.getTelefono()%></td>
-                                    <td><%= pro.getEmail() %></td>
-                                    <td hidden="hidden"><%= pro.getUsuario().getClave() %></td>
-                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= pro.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                    <td><%= es.getCedula() %></td>
+                                    <td><%= es.getNombre() %></td>
+                                    <td><%= es.getTelefono()%></td>
+                                    <td><%= es.getEmail() %></td>
+                                    <td hidden="hidden"><%= es.getUsuario().getClave() %></td>
+                                    <td><%= sdf.format(es.getFechaNac().getTime()) %></td>
+                                    <td><%= es.getCarrera().getNombre() %></td>
+                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= es.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 </tr>
                                 <%}%>                           
                             </table>
@@ -73,16 +90,26 @@
                 <div class="modal-content">
                     <form action="Servlet">
                         <div class="modal-header">
-                            <h4>Editar Profesor</h4>                        
+                            <h4>Editar Estudiante</h4>                        
                         </div>
                         <div class="modal-body">
-                            <input type="text" name="cedula" id="cedulaProfesorEdit" hidden="" /><!-- Usar este en la peticion xq el del input #cedulaEdit como tiene disabled envia el dato null-->
+                            <input type="text" name="cedula" id="cedulaEstudianteEdit" hidden="" /><!-- Usar este en la peticion xq el del input #cedulaEdit como tiene disabled envia el dato null-->
                             <div class="form-group">
                                 <input type="text" class="form-control" id="cedulaEdit" placeholder="Cédula" disabled><!--Solo es para que se muestre el codigo-->
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
+                                <input type="text" name="fechaNac" class="form-control datepicker" id="" placeholder="dd/mm/aa">
                             </div>
+                            <div class="form-group">
+                                <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
+                            </div>                            
+                            <select class="form-control" name="idCarrera" >
+                                <option value="ninguna" >Seleccione la carrera</option>
+                            <% for (Carrera c : allCarreras) { %>
+                                <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
+                            <% } %>
+                            </select>
+                            <br>
                             <div class="form-group">
                                 <input type="text" name="telefono" class="form-control" id="telefonoEdit" placeholder="Teléfono">
                             </div>
@@ -95,7 +122,7 @@
                         </div>
                         <div class="modal-footer">
                             <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
-                            <button type="submit" class="btn btn-default" name="action" value="EditarProfesor">Editar Profesor</button>
+                            <button type="submit" class="btn btn-default" name="action" value="EditarEstudiante">Editar Estudiante</button>
                         </div>
                     </form>                    
                 </div>
@@ -106,15 +133,25 @@
                 <div class="modal-content">
                     <form action="Servlet" method="POST">
                         <div class="modal-header">
-                            <h4>Agregar Profesor</h4>                        
+                            <h4>Agregar Estudiante</h4>                        
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" name="cedula" class="form-control" id="cedulaForm" placeholder="Cédula">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
+                                <input type="text" name="fechaNac" class="form-control datepicker" id="" placeholder="dd/mm/aa">
                             </div>
+                            <div class="form-group">
+                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
+                            </div>                            
+                            <select class="form-control" name="idCarrera" >
+                                <option value="ninguna" >Seleccione la carrera</option>
+                            <% for (Carrera c : allCarreras) { %>
+                                <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
+                            <% } %>
+                            </select>
+                            <br>
                             <div class="form-group">
                                 <input type="text" name="telefono" class="form-control" id="telefonoForm" placeholder="Teléfono">
                             </div>
@@ -127,7 +164,7 @@
                         </div>
                         <div class="modal-footer">
                             <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
-                            <button type="submit" class="btn btn-default" name="action" value="AgregarProfesor">Agregar Profesor</button>
+                            <button type="submit" class="btn btn-default" name="action" value="AgregarEstudiante">Agregar Estudiante</button>
                         </div>
                     </form>                    
                 </div>
@@ -151,7 +188,7 @@
         });
         function cargarDataModal(element){
             var id = element.id;
-            var cedulaProfesor = document.getElementById("cedulaProfesorEdit");
+            var cedulaEstudiante = document.getElementById("cedulaEstudianteEdit");
             var cedulaInput = document.getElementById("cedulaEdit");
             var nombreInput = document.getElementById("nombreEdit");
             var telefonoInput = document.getElementById("telefonoEdit");
@@ -161,12 +198,41 @@
             var TD = element.parentNode;
             var TR = TD.parentNode;
             
-            cedulaProfesor.value = id;
+            cedulaEstudiante.value = id;
             cedulaInput.value = id;
             nombreInput.value = TR.childNodes[3].innerHTML;
             telefonoInput.value = TR.childNodes[5].innerHTML;
             emailInput.value = TR.childNodes[7].innerHTML;
             passwordInput.value = TR.childNodes[9].innerHTML;
         }
+    </script>
+    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script>
+        $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+       $(function () {
+       $("#fecha").datepicker();
+       });
+   </script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker();
+        });
     </script>
 </html>

@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import Control.Control;
 import LogicaNegocio.Carrera;
 import LogicaNegocio.Curso;
+import LogicaNegocio.Estudiante;
 import LogicaNegocio.Profesor;
 import LogicaNegocio.Usuario;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
@@ -31,6 +34,7 @@ public class Servlet extends HttpServlet {
         ArrayList<Carrera> carreras = null;
         ArrayList<Carrera> allCarreras = null;
         ArrayList<Profesor> profesores = null;
+        ArrayList<Estudiante> estudiantes = null;
         ArrayList<Curso> cursos = null;
 
         Control ctrl = new Control();
@@ -38,6 +42,7 @@ public class Servlet extends HttpServlet {
         
         carreras = ctrl.obtenerTodasCarreras();
         profesores = ctrl.obtenerTodosLosProfesores();
+        estudiantes = ctrl.obtenerTodosLosEstudiantes();
         
 //        Router y rutas
         if(router !=null){
@@ -63,6 +68,10 @@ public class Servlet extends HttpServlet {
                 }
                 break;
                 case "adminEstudiantes": {
+                    allCarreras = ctrl.obtenerTodasCarreras();
+                    session.setAttribute("allCarreras", allCarreras);
+                    estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                    session.setAttribute("estudiantes", estudiantes);
                     response.sendRedirect("adminEstudiantes.jsp");
                 }
                 break;
@@ -114,7 +123,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("allCarreras");
 //                        session.removeAttribute("cursos");
                         session.removeAttribute("profesores");
-//                        session.removeAttribute("estudiantes");
+                        session.removeAttribute("estudiantes");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();
@@ -246,6 +255,30 @@ public class Servlet extends HttpServlet {
                             response.sendRedirect("adminProfesores.jsp");
                         }else{
                             this.printHTML("ERROR: Profesor NO Actualizado!", response);
+                        }
+                    }
+                    break;
+                    case "AgregarEstudiante": {
+                        String cedula = request.getParameter("cedula");
+                        String fechaNacString = request.getParameter("fechaNac");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(sdf.parse(fechaNacString));
+                        System.out.println(fechaNacString);
+                        String nombre = request.getParameter("nombre");
+                        String idCarrera = request.getParameter("idCarrera");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,4);
+                        Carrera carrera = ctrl.getCarrera(idCarrera);
+                        Estudiante es = new Estudiante(cal,carrera,user,nombre,cedula,telefono,email);
+                        if(ctrl.addEstudiante(es) == 1){
+                            estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("adminEstudiantes.jsp");
+                        }else{
+                            this.printHTML("ERROR: Estudiante NO Agregado!", response);
                         }
                     }
                     break;
