@@ -29,8 +29,9 @@ public class Matriculadores extends AccesoDatos{
     
     public int actualizar(Matriculador c){
         String tableName = "Matriculador";
-        String tableParams = "nombre='%s', telefono='%s', email='%s', Usuario_id='%s' where id='%s'";
+        String tableParams = "nombre='%s', telefono='%s', email='%s' where id='%s'";
         tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId(), c.getCedula());
+        new Usuarios().actualizar(c.getUsuario());
         return super.actualizar(tableName, tableParams);
     }
     

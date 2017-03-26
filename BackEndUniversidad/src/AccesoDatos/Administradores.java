@@ -29,8 +29,9 @@ public class Administradores extends AccesoDatos{
     
     public int actualizar(Administrador c){
         String tableName = "Administrador";
-        String tableParams = "nombre='%s', telefono='%s', email='%s', Usuario_id='%s' where id='%s'";
-        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(),c.getUsuario().getId(), c.getCedula());
+        String tableParams = "nombre='%s', telefono='%s', email='%s' where id='%s'";
+        tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(), c.getCedula());
+        new Usuarios().actualizar(c.getUsuario());
         return super.actualizar(tableName, tableParams);
     }
     

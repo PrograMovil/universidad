@@ -27,7 +27,7 @@ public class Usuarios extends AccesoDatos{
     public int actualizar(Usuario c){
         String tableName = "Usuario";
         String tableParams = "clave='%s', tipo='%s' where idUsuario='%s'";
-        tableParams = String.format(tableParams, c.getClave(),c.getTipo(),c.getTipo());
+        tableParams = String.format(tableParams, c.getClave(),c.getTipo(),c.getId());
         return super.actualizar(tableName, tableParams);
     }
     
