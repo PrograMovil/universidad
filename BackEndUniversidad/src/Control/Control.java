@@ -21,6 +21,8 @@ public class Control {
     Profesores profesores;
     Usuarios usuarios;
     Administradores administradores;
+    Estudiante_Curso estudiante_curso;
+    Estudiante_Grupo estudiante_grupo;
 
     
 
@@ -36,6 +38,8 @@ public class Control {
         profesores=new Profesores();
         usuarios=new Usuarios();
         administradores=new Administradores();
+        estudiante_grupo=new Estudiante_Grupo();
+        estudiante_curso=new Estudiante_Curso();
     }
     
     
@@ -595,6 +599,86 @@ public class Control {
     }
 //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Metodos Relacion Estudiante-Grupo">
     
+    public int addEstudianteAGrupo(Estudiante est, Grupo gru){
+        try {
+            return this.estudiante_grupo.agregar(est, gru);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener usuario");
+        }
+        return 0;
+    }
+    
+    public int deleteEstudianteDeGrupo(Estudiante est, Grupo gru){
+        try {
+            return this.estudiante_grupo.eliminar(est, gru);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener usuario");
+        }
+        return 0;
+    }
+    
+    public ArrayList<Grupo> obtenerGruposDeEstudiante(Estudiante est){
+        
+        try {
+            return this.estudiante_grupo.obtenerGruposDeEstudiante(est);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        
+    }
+    
+    public ArrayList<Estudiante> obtenerEstudiantesDeGrupo(Grupo gru){
+        try {
+            return this.estudiante_grupo.obtenerEstudiantesDeGrupo(gru);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos relacion Estudiante-Curso">
+    
+    public int addEstudianteACurso(Estudiante est, Curso cur){
+        try {
+            return this.estudiante_curso.agregar(est, cur);
+        } catch (Exception ex) {
+            System.err.println("Error al agregar el estudiante");
+        }
+        return 0;
+    }
+    
+    public int deleteEstudianteDeCurso(Estudiante est, Curso cur){
+        try {
+            return this.estudiante_curso.eliminar(est, cur);
+        } catch (Exception ex) {
+            System.err.println("Error al borrar la relacion estudiante - curso");
+        }
+        return 0;
+    }
+    
+    public ArrayList<Curso> obtenerCursosDeEstudiante(Estudiante est){
+        
+        try {
+            return this.estudiante_curso.obtenerCursosDeEstudiante(est);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        
+    }
+    
+    public ArrayList<Estudiante> obtenerEstudiantesDeCurso(Curso cur){
+        try {
+            return this.estudiante_curso.obtenerEstudiantesDeCurso(cur);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+//</editor-fold>
     
 }

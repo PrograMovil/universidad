@@ -42,10 +42,22 @@ public class Grupos extends AccesoDatos {
         return obj;
     }
     
-    public Grupo obtener(Grupo c) throws SQLException, Exception{
+    public Grupo obtener(Grupo c) throws Exception{
         String tableName = "Grupo";
         String param = "id = '%s'";
         param = String.format(param, obtenerId(c));
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toGrupo(rs);
+        } else {
+            return null;
+        }
+    }
+    
+    public Grupo obtenerPorId(int id) throws Exception{
+        String tableName = "Grupo";
+        String param = "id = '%s'";
+        param = String.format(param, id);
         ResultSet rs = super.obtener(tableName, param);
         if (rs.next()) {
             return toGrupo(rs);

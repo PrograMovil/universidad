@@ -3,7 +3,6 @@ package AccesoDatos;
 
 import LogicaNegocio.Usuario;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Usuarios extends AccesoDatos{
 
