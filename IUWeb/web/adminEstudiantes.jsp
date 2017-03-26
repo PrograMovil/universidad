@@ -16,7 +16,8 @@
         <title>Estudiantes</title>
         <%@ include file="imports.jspf" %> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+        <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />-->
+        
 
     </head>
     <body>
@@ -98,12 +99,12 @@
                                 <input type="text" class="form-control" id="cedulaEdit" placeholder="Cédula" disabled><!--Solo es para que se muestre el codigo-->
                             </div>
                             <div class="form-group">
-                                <input type="text" name="fechaNac" class="form-control datepicker" id="" placeholder="dd/mm/aa">
+                                <input type="text" name="fechaNac" class="form-control datepicker" id="fechaNacEdit" placeholder="dd/mm/aa">
                             </div>
                             <div class="form-group">
                                 <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
                             </div>                            
-                            <select class="form-control" name="idCarrera" >
+                            <select class="form-control" name="idCarrera" id="idCarreraEdit">
                                 <option value="ninguna" >Seleccione la carrera</option>
                             <% for (Carrera c : allCarreras) { %>
                                 <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
@@ -140,12 +141,12 @@
                                 <input type="text" name="cedula" class="form-control" id="cedulaForm" placeholder="Cédula">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="fechaNac" class="form-control datepicker" id="" placeholder="dd/mm/aa">
+                                <input type="text" name="fechaNac" class="form-control datepicker" id="fechaNacForm" placeholder="dd/mm/aa">
                             </div>
                             <div class="form-group">
                                 <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
                             </div>                            
-                            <select class="form-control" name="idCarrera" >
+                            <select class="form-control" name="idCarrera" id="idCarreraForm" >
                                 <option value="ninguna" >Seleccione la carrera</option>
                             <% for (Carrera c : allCarreras) { %>
                                 <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
@@ -171,15 +172,21 @@
             </div>
         </div>
     </body>
+    
     <script>
         $(document).ready(function () {
-            $('#cedulaForm').tooltip({'trigger':'focus', 'title': 'Código'});
+            console.log("holaaaa");
+            $('#cedulaForm').tooltip({'trigger':'focus', 'title': 'Cédula'});
+            $('#fechaNacForm').tooltip({'trigger':'focus', 'title': 'Fecha de Nacimiento'});
             $('#nombreForm').tooltip({'trigger':'focus', 'title': 'Nombre'});
+//            $('#idCarreraForm').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
             $('#telefonoForm').tooltip({'trigger':'focus', 'title': 'Teléfono'});
             $('#emailForm').tooltip({'trigger':'focus', 'title': 'e-mail'});
             $('#passwordForm').tooltip({'trigger':'focus', 'title': 'Contraseña del Usuario'});
             $('#cedulaEdit').tooltip({'trigger':'focus', 'title': 'Código'});
+            $('#fechaNacEdit').tooltip({'trigger':'focus', 'title': 'Fecha de Nacimiento'});
             $('#nombreEdit').tooltip({'trigger':'focus', 'title': 'Nombre'});
+//            $('#idCarreraEdit').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
             $('#telefonoEdit').tooltip({'trigger':'focus', 'title': 'Teléfono'});
             $('#emailEdit').tooltip({'trigger':'focus', 'title': 'e-mail'});
             $('#passwordEdit').tooltip({'trigger':'focus', 'title': 'Ingrese la nueva Contraseña del Usuario'});
@@ -206,33 +213,6 @@
             passwordInput.value = TR.childNodes[9].innerHTML;
         }
     </script>
-    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <script>
-        $.datepicker.regional['es'] = {
-        closeText: 'Cerrar',
-        prevText: '< Ant',
-        nextText: 'Sig >',
-        currentText: 'Hoy',
-        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-        weekHeader: 'Sm',
-        dateFormat: 'dd/mm/yy',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-        };
-        $.datepicker.setDefaults($.datepicker.regional['es']);
-       $(function () {
-       $("#fecha").datepicker();
-       });
-   </script>
-    <script>
-        $(function () {
-            $(".datepicker").datepicker();
-        });
-    </script>
+<!--    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script src="js/datepickerScripts.js" ></script>-->
 </html>

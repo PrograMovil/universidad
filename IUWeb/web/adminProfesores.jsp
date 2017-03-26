@@ -122,7 +122,7 @@
                                 <input type="email" name="email" class="form-control" id="emailForm" placeholder="e-mail">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control" id="passwordForm" placeholder="Contraseña del Usuario">
+                                <input type="text" name="password" class="form-control" id="passwordForm" placeholder="Contraseña del Usuario">
                             </div>
                         </div>
                         <div class="modal-footer">

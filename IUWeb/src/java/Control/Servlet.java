@@ -264,7 +264,8 @@ public class Servlet extends HttpServlet {
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(sdf.parse(fechaNacString));
-                        System.out.println(fechaNacString);
+//                        SimpleDateFormat sdfTest = new SimpleDateFormat("dd/MM/yyyy");
+//                        System.out.println(sdfTest.format(cal.getTime()));
                         String nombre = request.getParameter("nombre");
                         String idCarrera = request.getParameter("idCarrera");
                         String telefono = request.getParameter("telefono");
