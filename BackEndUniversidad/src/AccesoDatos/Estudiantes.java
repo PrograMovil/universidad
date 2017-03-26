@@ -16,11 +16,11 @@ public class Estudiantes extends AccesoDatos{
     public Estudiantes() {
     }
     
-    public int agregar(Estudiante c){
+    public int agregar(Estudiante c) throws Exception{
         String tableAndParams = "Estudiante(cedula,nombre,telefono,email,fechaNac,Usuario_id,Carrera_id)";
         String values = "'%s','%s','%s','%s','%s','%s','%s'";
         java.sql.Date fechaNa = new java.sql.Date(c.getFechaNac().getTimeInMillis());
-        values = String.format(values,c.getCedula(),c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),c.getCarrera().getCodigo());
+        values = String.format(values,c.getCedula(),c.getNombre(),c.getTelefono(),c.getEmail(),fechaNa,c.getUsuario().getId(),new Carreras().obtenerId(c.getCarrera()));
         return super.agregar(tableAndParams, values);
     }
     
