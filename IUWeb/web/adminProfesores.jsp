@@ -58,7 +58,8 @@
                                     <td><%= pro.getNombre() %></td>
                                     <td><%= pro.getTelefono()%></td>
                                     <td><%= pro.getEmail() %></td>
-                                    <td><%= pro.getUsuario().getClave() %> | <a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= pro.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                    <td hidden="hidden"><%= pro.getUsuario().getClave() %></td>
+                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= pro.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 </tr>
                                 <%}%>                           
                             </table>
@@ -155,6 +156,7 @@
             var nombreInput = document.getElementById("nombreEdit")
             var telefonoInput = document.getElementById("telefonoEdit")
             var emailInput = document.getElementById("emailEdit")
+            var passwordInput = document.getElementById("passwordEdit")
             
             var TD = element.parentNode;
             var TR = TD.parentNode;
@@ -164,6 +166,7 @@
             nombreInput.value = TR.childNodes[3].innerHTML;
             telefonoInput.value = TR.childNodes[5].innerHTML;
             emailInput.value = TR.childNodes[7].innerHTML;
+            passwordInput.value = TR.childNodes[9].innerHTML;
         }
     </script>
 </html>
