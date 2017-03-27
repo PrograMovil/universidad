@@ -10,6 +10,7 @@ public class Curso implements Serializable{
     private int horasSemanales;
     private Carrera carrera;
     private String nivel;
+    private String ciclo;
     
 
     public Curso(String codigo, String nombre, int creditos, int horasSemanales, Carrera carrera, String nivel) {
@@ -76,6 +77,14 @@ public class Curso implements Serializable{
 
     public void setNivel(String nivel) {
         this.nivel = nivel;
+    }
+
+    public String getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(String ciclo) {
+        this.ciclo = ciclo;
     }
     
 }

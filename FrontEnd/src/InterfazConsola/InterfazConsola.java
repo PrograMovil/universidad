@@ -1,78 +1,26 @@
 package InterfazConsola;
 
 import Control.Control;
+import Control_Sockets.ConexionServidor;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-import LogicaNegocio.Carrera;
-import LogicaNegocio.Usuario;
+import LogicaNegocio.*;
 
-class ResponseListener implements Runnable {
 
-    public ResponseListener() {
-        Thread miHilo = new Thread(this);
-        miHilo.start();
-    }
 
-    @Override
-    public void run() {
-        try {
-            ServerSocket responseListener = new ServerSocket(9090);
 
-            while (true) {
-                Socket socketResponses = responseListener.accept();
-                DataInputStream flujoEntrada = new DataInputStream(socketResponses.getInputStream());
-                String dataRecibida = flujoEntrada.readUTF();
-                System.out.println(dataRecibida);
-            }
-
-        } catch (IOException ex) {
-            System.err.println("Exception: " + ex);
-        }
-    }
-
-}
 
 public class InterfazConsola extends Thread implements Runnable {
 
-    String menuOption = "";
-    String responseServer = "Conectando...";
-    String ipServidor = "127.0.0.1";
-    Control control;
-    //private DataOutputStream salidaDatos;
-   // private DataInputStream entradaDatos;
-    private ObjectOutputStream salidaObjetos;
-    private ObjectInputStream entradaObjetos;
-    private Socket socket;
-    private int puerto = 9090;
-    private String host = "127.0.0.1";
+    ConexionServidor conexion;
 
-    public void setResponseServer(String responseServer) {
-        this.responseServer = responseServer;
-    }
 
     public InterfazConsola() {
-        Thread miHilo = new Thread(this);
-        miHilo.start();
         
-        
-        control = new Control();
     }
 
-    @Override
-    public void run() {
-        try {
-            ServerSocket responseListener = new ServerSocket(9090);
-
-            while (true) {
-                Socket socketResponses = responseListener.accept();
-            }
-
-        } catch (IOException ex) {
-            System.err.println("Exception: " + ex);
-        }
-    }
 
     public int login() throws Exception {
         
@@ -87,14 +35,10 @@ public class InterfazConsola extends Thread implements Runnable {
             System.out.print("\n Contraseña: ");
             String contrasena = menuEscaner.nextLine();
 
-            salidaObjetos.writeObject(new Usuario(usuario, contrasena, 2));
-
-            nivel = (int) entradaObjetos.readInt();
+            nivel=conexion.login(new Usuario(usuario, contrasena, 2));
 
         } while (nivel == 0);
         
-        entradaObjetos.close();
-        salidaObjetos.close();
         return nivel;
         
     }
