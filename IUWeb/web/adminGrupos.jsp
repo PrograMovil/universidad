@@ -60,8 +60,8 @@
                                     <td hidden="" ><%= g.getProfesor().getCedula() %></td>
                                     <td><%= g.getProfesor().getNombre() %></td>
                                     <td><%= g.getCurso().getNombre() %></td>
-                                    <td><%= g.getCiclo() %></td> <!--g.getCiclo().getNumero()-->
-                                    <td hidden=""><%= g.getCiclo() %></td><!-- g.getCiclo().getAnio()-->
+                                    <td><%= g.getCiclo().getNumero() %></td> <!--g.getCiclo().getNumero()-->
+                                    <td hidden=""><%= g.getCiclo().getAnio() %></td><!-- g.getCiclo().getAnio()-->
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= g.getId() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 </tr>
                                 <%}%> 
@@ -236,7 +236,7 @@
             horaInicioInput.value = TR.childNodes[5].innerHTML;
             horaFinalInput.value = TR.childNodes[7].innerHTML;
             profesorInput.value = TR.childNodes[11].innerHTML;
-            anioCicloInput.value = TR.childNodes[19].innerHTML;
+            anioCicloInput.value = TR.childNodes[21].innerHTML;
         }
     </script>
 </html>
