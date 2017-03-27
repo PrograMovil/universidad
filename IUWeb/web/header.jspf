@@ -18,7 +18,7 @@
         <div id="navbar" class="collapse navbar-collapse pull-right">
             <form action="Servlet">
                 <ul class="nav navbar-nav ">
-                    <li><a>Bienvenido ${userId}</a></li>
+                    <li><a>Bienvenido <b>${userId}</b></a></li>
                     <li><input type="submit" name="action" class="btn btn-danger navbar-btn" value="Salir"></li>
                 </ul>
             </form>

@@ -11,6 +11,7 @@ import Control.Control;
 import LogicaNegocio.Carrera;
 import LogicaNegocio.Curso;
 import LogicaNegocio.Estudiante;
+import LogicaNegocio.Grupo;
 import LogicaNegocio.Profesor;
 import LogicaNegocio.Usuario;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,9 @@ public class Servlet extends HttpServlet {
         ArrayList<Estudiante> estudiantes = null;
         ArrayList<Curso> cursos = null;
         Curso cursoCurrent = null;
-
+        ArrayList<Grupo> grupos = null;
+        ArrayList<Profesor> allProfesores = null;
+        
         Control ctrl = new Control();
         HttpSession session = request.getSession();
         
@@ -82,6 +85,8 @@ public class Servlet extends HttpServlet {
                         String codigo = request.getParameter("idCurso");
                         cursoCurrent = ctrl.getCurso(codigo);
                         session.setAttribute("cursoCurrent", cursoCurrent);
+                        allProfesores = ctrl.obtenerTodosLosProfesores();
+                        session.setAttribute("allProfesores", allProfesores);
                         response.sendRedirect("adminGrupos.jsp");
                     }
                     break;
@@ -355,8 +360,10 @@ public class Servlet extends HttpServlet {
                         String horasSemanales = request.getParameter("horasSemanales");
                         String idCarrera = request.getParameter("idCarrera");
                         String nivel = request.getParameter("nivel");
+                        String ciclo = request.getParameter("ciclo");
                         Carrera ca = ctrl.getCarrera(idCarrera);
                         Curso cu = new Curso(codigo,nombre,Integer.parseInt(creditos),Integer.parseInt(horasSemanales),ca,nivel);
+                        cu.setCiclo(ciclo);
                         if(ctrl.addCurso(cu) == 1){
                             cursos = ctrl.obtenerTodosLosCursos();
                             session.setAttribute("cursos", cursos);
@@ -373,8 +380,10 @@ public class Servlet extends HttpServlet {
                         String horasSemanales = request.getParameter("horasSemanales");
                         String idCarrera = request.getParameter("idCarrera");
                         String nivel = request.getParameter("nivel");
+                        String ciclo = request.getParameter("ciclo");
                         Carrera ca = ctrl.getCarrera(idCarrera);
                         Curso cu = new Curso(codigo,nombre,Integer.parseInt(creditos),Integer.parseInt(horasSemanales),ca,nivel);
+                        cu.setCiclo(ciclo);
                         if(ctrl.updateCurso(cu) == 1){
                             cursos = ctrl.obtenerTodosLosCursos();
                             session.setAttribute("cursos", cursos);
@@ -417,6 +426,21 @@ public class Servlet extends HttpServlet {
                             session.setAttribute("cursos", cursos);
                             response.sendRedirect("adminCursos.jsp");
                         }
+                    }
+                    break;
+                    case "AgregarGrupo": {
+                        this.printHTML("Hola Grupo!", response);
+//                        String codigo = request.getParameter("codigo");
+//                        String nombre = request.getParameter("nombre");
+//                        String titulo = request.getParameter("titulo");
+//                        Carrera ca = new Carrera(codigo,nombre,titulo);
+//                        if(ctrl.addCarrera(ca) == 1){
+//                            carreras = ctrl.obtenerTodasCarreras();
+//                            session.setAttribute("carreras", carreras);
+//                            response.sendRedirect("adminDash.jsp");
+//                        }else{
+//                            this.printHTML("ERROR: Carrera NO Agregada!", response);
+//                        }
                     }
                     break;
                 }

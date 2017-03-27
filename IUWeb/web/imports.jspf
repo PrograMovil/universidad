@@ -1,10 +1,15 @@
-<link rel="stylesheet" href="assets/bootstrap.min.css" >
-<link rel="stylesheet" href="assets/jquery-ui.min.css" >
-<link rel="stylesheet" href="assets/jquery-ui.structure.min.css" >
-<link rel="stylesheet" href="assets/jquery-ui.theme.min.css" >
+<link rel="stylesheet" href="assets/css/bootstrap.min.css" crossorigin="anonymous" >
+<link rel="stylesheet" href="assets/css/bootstrap-theme.min.css" crossorigin="anonymous" >
+<link rel="stylesheet" href="assets/css/jquery-ui.min.css" >
+<link rel="stylesheet" href="assets/css/jquery-ui.structure.min.css" >
+<link rel="stylesheet" href="assets/css/jquery-ui.theme.min.css" >
+<link rel="stylesheet" href="assets/css/bootstrap-select.min.css" >
+<link type="text/css" href="assets/css/bootstrap-datetimepicker.min.css" />
 
-
-<script src="assets/jquery.min.js" ></script>
-<script src="assets/bootstrap.min.js" ></script>
-<script src="assets/jquery-ui.min.js" ></script>
-<script src="assets/datepickerScripts.js" ></script>
+<script src="assets/js/jquery.min.js" ></script>
+<script src="assets/js/bootstrap.min.js" crossorigin="anonymous" ></script>
+<script src="assets/js/jquery-ui.min.js" ></script>
+<script src="assets/js/datepickerScripts.js" ></script>
+<script src="assets/js/bootstrap-select.min.js" ></script>
+<script src="assets/js/moment.js" ></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>

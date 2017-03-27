@@ -59,6 +59,7 @@
                                     <td>Horas Semana</td>
                                     <td>Carrera</td>
                                     <td>Nivel</td>
+                                    <td>Ciclo</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -71,6 +72,7 @@
                                     <td hidden="" ><%= cur.getCarrera().getCodigo() %></td>
                                     <td><%= cur.getCarrera().getNombre() %></td>
                                     <td><%= cur.getNivel() %></td>
+                                    <td><%= cur.getCiclo() %></td>
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= cur.getCodigo() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 <form action="Servlet" method="POST">
                                     <input type="text" name="idCurso" value="<%= cur.getCodigo() %>" hidden="" />
@@ -119,6 +121,12 @@
                                 <option value="III NIVEL" >III Nivel</option>
                                 <option value="IV NIVEL<" >IV Nivel</option> 
                             </select>
+                            <br>
+                            <select class="form-control" name="ciclo" id="cicloEdit" >
+                                <option value="" >Seleccione el Ciclo al cual pertenece</option>
+                                <option value="I" >I</option>
+                                <option value="II" >II</option> 
+                            </select>
                         </div>
                         <div class="modal-footer">
                             <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
@@ -162,6 +170,12 @@
                                 <option value="III NIVEL" >III Nivel</option>
                                 <option value="IV NIVEL<" >IV Nivel</option> 
                             </select>
+                            <br>
+                            <select class="form-control" name="ciclo" id="cicloForm" >
+                                <option value="" >Seleccione el Ciclo al cual pertenece</option>
+                                <option value="I" >I</option>
+                                <option value="II" >II</option> 
+                            </select>
                         </div>
                         <div class="modal-footer">
                             <a class="btn btn-danger" data-dismiss="modal">Cancelar</a>
@@ -180,12 +194,14 @@
             $('#horasSemanalesForm').tooltip({'trigger':'focus', 'title': 'Horas Semanales'});
             $('#idCarreraForm').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
             $('#nivelForm').tooltip({'trigger':'focus', 'title': 'Seleccione el Nivel'});
+            $('#cicloForm').tooltip({'trigger':'focus', 'title': 'Ciclo al cual pertenece'});
             $('#codigoEdit').tooltip({'trigger':'focus', 'title': 'Código'});
             $('#nombreEdit').tooltip({'trigger':'focus', 'title': 'Nombre'});
             $('#creditosEdit').tooltip({'trigger':'focus', 'title': 'Créditos'});
             $('#horasSemanalesEdit').tooltip({'trigger':'focus', 'title': 'Horas Semanales'});
             $('#idCarreraEdit').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
             $('#nivelEdit').tooltip({'trigger':'focus', 'title': 'Seleccione el Nivel'});
+            $('#cicloEdit').tooltip({'trigger':'focus', 'title': 'Ciclo al cual pertenece'});
             $('#codigoSearch').tooltip({'trigger':'focus', 'title': 'Código'});
             $('#nombreSearch').tooltip({'trigger':'focus', 'title': 'Nombre'});
             $('[data-toggle="tooltip"]').tooltip();
@@ -199,6 +215,7 @@
             var horasInput = document.getElementById("horasSemanalesEdit");
             var carreraInput = document.getElementById("idCarreraEdit");
             var nivelInput = document.getElementById("nivelEdit");
+            var cicloInput = document.getElementById("cicloEdit");
             
             var TD = element.parentNode;
             var TR = TD.parentNode;
@@ -209,8 +226,8 @@
             creditosInput.value = TR.childNodes[5].innerHTML;
             horasInput.value = TR.childNodes[7].innerHTML;
             carreraInput.value = TR.childNodes[9].innerHTML;
-//            fechaInput.value = TR.childNodes[11].innerHTML;
             nivelInput.value = TR.childNodes[13].innerHTML;
+            cicloInput.value = TR.childNodes[15].innerHTML;
         }
     </script>
 </html>
