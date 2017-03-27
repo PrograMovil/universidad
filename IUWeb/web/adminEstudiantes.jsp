@@ -15,9 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Estudiantes</title>
         <%@ include file="imports.jspf" %> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-        <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />-->
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>        
 
     </head>
     <body>
@@ -33,21 +31,21 @@
                     <div class="row">
                         <h2>Lista de Estudiantes</h2>
                         <div class="col-md-10" >
-                            <form action="Servlet" method="POST" class="form-inline">
+                            <form action="Servlet" method="get" class="form-inline">
                                 <div class="form-group">
                                     <input type="text" name="cedula" class="form-control" id="cedulaSearch" placeholder="Cédula">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="nombre" class="form-control" id="nombreSearch" placeholder="Nombre">
                                 </div>                                
-                                <select class="form-control" name="carrera" >
-                                    <option value="default" >Seleccione la carrera</option>
+                                <select class="form-control" name="idCarrera" >
+                                    <option value="" >Seleccione la carrera</option>
                                 <% for (Carrera c : allCarreras) { %>
                                     <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
                                 <% } %>
                                 </select>
-                                <button type="submit" class="btn btn-default" name="action" value="BuscarProfesor">Buscar Estudiante</button>
-                            </form>
+                                <button type="submit" class="btn btn-default" name="action" value="BuscarEstudiante">Buscar Estudiante</button>
+                            </form>                                
                         </div>
                         <div class="col-md-2" >
                             <a href="#agregarModal" data-toggle="modal" class="btn btn-primary pull-right" >Agregar Estudiante</a>
@@ -76,6 +74,7 @@
                                     <td><%= es.getEmail() %></td>
                                     <td hidden="hidden"><%= es.getUsuario().getClave() %></td>
                                     <td><%= sdf.format(es.getFechaNac().getTime()) %></td>
+                                    <td hidden="hidden"><%= es.getCarrera().getCodigo() %></td>
                                     <td><%= es.getCarrera().getNombre() %></td>
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= es.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 </tr>
@@ -175,18 +174,17 @@
     
     <script>
         $(document).ready(function () {
-            console.log("holaaaa");
             $('#cedulaForm').tooltip({'trigger':'focus', 'title': 'Cédula'});
             $('#fechaNacForm').tooltip({'trigger':'focus', 'title': 'Fecha de Nacimiento'});
             $('#nombreForm').tooltip({'trigger':'focus', 'title': 'Nombre'});
-//            $('#idCarreraForm').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
+            $('#idCarreraForm').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
             $('#telefonoForm').tooltip({'trigger':'focus', 'title': 'Teléfono'});
             $('#emailForm').tooltip({'trigger':'focus', 'title': 'e-mail'});
             $('#passwordForm').tooltip({'trigger':'focus', 'title': 'Contraseña del Usuario'});
             $('#cedulaEdit').tooltip({'trigger':'focus', 'title': 'Código'});
             $('#fechaNacEdit').tooltip({'trigger':'focus', 'title': 'Fecha de Nacimiento'});
             $('#nombreEdit').tooltip({'trigger':'focus', 'title': 'Nombre'});
-//            $('#idCarreraEdit').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
+            $('#idCarreraEdit').tooltip({'trigger':'focus', 'title': 'Seleccione la Carrera'});
             $('#telefonoEdit').tooltip({'trigger':'focus', 'title': 'Teléfono'});
             $('#emailEdit').tooltip({'trigger':'focus', 'title': 'e-mail'});
             $('#passwordEdit').tooltip({'trigger':'focus', 'title': 'Ingrese la nueva Contraseña del Usuario'});
@@ -197,7 +195,9 @@
             var id = element.id;
             var cedulaEstudiante = document.getElementById("cedulaEstudianteEdit");
             var cedulaInput = document.getElementById("cedulaEdit");
+            var fechaInput = document.getElementById("fechaNacEdit");
             var nombreInput = document.getElementById("nombreEdit");
+            var carreraInput = document.getElementById("idCarreraEdit");
             var telefonoInput = document.getElementById("telefonoEdit");
             var emailInput = document.getElementById("emailEdit");
             var passwordInput = document.getElementById("passwordEdit");
@@ -211,8 +211,8 @@
             telefonoInput.value = TR.childNodes[5].innerHTML;
             emailInput.value = TR.childNodes[7].innerHTML;
             passwordInput.value = TR.childNodes[9].innerHTML;
+            fechaInput.value = TR.childNodes[11].innerHTML;
+            carreraInput.value = TR.childNodes[13].innerHTML;
         }
     </script>
-<!--    <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <script src="js/datepickerScripts.js" ></script>-->
 </html>

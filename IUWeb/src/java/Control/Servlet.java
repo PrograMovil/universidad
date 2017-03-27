@@ -264,8 +264,6 @@ public class Servlet extends HttpServlet {
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(sdf.parse(fechaNacString));
-//                        SimpleDateFormat sdfTest = new SimpleDateFormat("dd/MM/yyyy");
-//                        System.out.println(sdfTest.format(cal.getTime()));
                         String nombre = request.getParameter("nombre");
                         String idCarrera = request.getParameter("idCarrera");
                         String telefono = request.getParameter("telefono");
@@ -283,6 +281,68 @@ public class Servlet extends HttpServlet {
                         }
                     }
                     break;
+                    case "EditarEstudiante": {
+                        String cedula = request.getParameter("cedula");
+                        String fechaNacString = request.getParameter("fechaNac");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(sdf.parse(fechaNacString));
+                        String nombre = request.getParameter("nombre");
+                        String idCarrera = request.getParameter("idCarrera");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,4);
+                        Carrera carrera = ctrl.getCarrera(idCarrera);
+                        Estudiante es = new Estudiante(cal,carrera,user,nombre,cedula,telefono,email);
+                        if(ctrl.updateEstudiante(es) == 1){
+                            estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("adminEstudiantes.jsp");
+                        }else{
+                            this.printHTML("ERROR: Estudiante NO Actualizado!", response);
+                        }
+                    }
+                    break;
+                    case "BuscarEstudiante": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String idCarrera = request.getParameter("idCarrera");
+                        System.out.println("Cedula: "+cedula+" Nombre: "+nombre+"IdCarrera: "+idCarrera);
+                        if(cedula != "" && nombre == "" && idCarrera == ""){
+                            Estudiante es;
+                            if((es = ctrl.getEstudiante(cedula)) == null){
+                                estudiantes.clear();
+                                Estudiante e = new Estudiante(null,null,null,"","","","");
+                                estudiantes.add(e);
+                                session.setAttribute("estudiantes", estudiantes);
+                                response.sendRedirect("adminEstudiantes.jsp");
+                            }else{
+                                estudiantes.clear();
+                                estudiantes.add(es);                        
+                                session.setAttribute("estudiantes", estudiantes);
+                                response.sendRedirect("adminEstudiantes.jsp");
+                            }
+                        }else if(nombre != "" && cedula == "" && idCarrera == ""){
+                            estudiantes.clear();
+                            estudiantes = ctrl.obtenerEstudiantePorNombre(nombre);
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("adminEstudiantes.jsp");  
+                        }else if(idCarrera != "" && nombre == "" && cedula == ""){
+                            estudiantes.clear();
+                            Carrera ca = ctrl.getCarrera(idCarrera);
+                            estudiantes = ctrl.obtenerEstudiantesPorCarrera(ca);
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("adminEstudiantes.jsp");  
+                        }else if(nombre == "" && cedula == "" && idCarrera == ""){
+                            estudiantes.clear();
+                            estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("adminEstudiantes.jsp");
+                        }
+                    }
+                    break;
+                    
                 }
             }catch (Exception ex) {
                 Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);

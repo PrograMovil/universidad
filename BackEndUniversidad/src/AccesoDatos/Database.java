@@ -33,7 +33,6 @@ public class Database {
     public Connection getConnection(){
         try{
             String servidor = PROTOCOLO+"//"+SERVIDOR+":"+PUERTO+"/"+BASEDATOS;
-            System.out.println("El servidor es: "+servidor);
             String user = USUARIO;
             String pass = CLAVE;
             Class.forName(MANEJADOR_DB);
