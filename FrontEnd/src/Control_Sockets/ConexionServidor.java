@@ -1,11 +1,13 @@
 package Control_Sockets;
 
+import LogicaNegocio.Usuario;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ConexionServidor extends Thread {
 
@@ -78,6 +80,23 @@ public class ConexionServidor extends Thread {
             } catch (IOException ex2) {
             }
         }
+
+    }
+
+    public int login(Usuario usuario) throws Exception {
+
+        int nivel = 0;
+
+        //envia el tipo de accion
+        
+        //envia el objeto
+        salidaObjetos.writeObject(usuario);
+
+        //obtiene el resultado
+        nivel = (int) entradaObjetos.readInt();
+
+        //devuelve el resultado a la interfaz
+        return nivel;
 
     }
 
