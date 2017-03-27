@@ -50,14 +50,12 @@
                                     <td>Ciclo</td>
                                     <td></td>
                                 </tr>
-                                <% for( Grupo g : grupos ){
-                                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-                                %>
+                                <% for( Grupo g : grupos ){ %>
                                 <tr>
                                     <td><%= g.getNumero() %></td>
                                     <td hidden=""><%= g.getHorario().getDias() %></td>
-                                    <td hidden=""><%= sdf.format(g.getHorario().getHoraInicial().getTime()) %></td>
-                                    <td hidden=""><%= sdf.format(g.getHorario().getHoraFinal().getTime()) %></td>
+                                    <td hidden=""><%= g.getHorario().getHoraInicial() %></td>
+                                    <td hidden=""><%= g.getHorario().getHoraFinal() %></td>
                                     <td><%= g.getHorario().toString() %></td>
                                     <td hidden="" ><%= g.getProfesor().getCedula() %></td>
                                     <td><%= g.getProfesor().getNombre() %></td>

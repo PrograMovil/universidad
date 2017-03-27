@@ -458,12 +458,12 @@ public class Servlet extends HttpServlet {
                         for(String s : dias){
                             diasStr = diasStr +" "+ s;
                         }
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-                        Calendar horaInicioCal = Calendar.getInstance();
-                        horaInicioCal.setTime(sdf.parse(horaInicio));
-                        Calendar horaFinalCal = Calendar.getInstance();
-                        horaFinalCal.setTime(sdf.parse(horaFinal));
-                        Horario hora = new Horario(diasStr,horaInicioCal,horaFinalCal);
+//                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+//                        Calendar horaInicioCal = Calendar.getInstance();
+//                        horaInicioCal.setTime(sdf.parse(horaInicio));
+//                        Calendar horaFinalCal = Calendar.getInstance();
+//                        horaFinalCal.setTime(sdf.parse(horaFinal));
+                        Horario hora = new Horario(diasStr,horaInicio,horaFinal);
                         Profesor profe = ctrl.getProfesor(idProfesor);
                         Curso cur = ctrl.getCurso(idCurso);
                         Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
@@ -490,12 +490,12 @@ public class Servlet extends HttpServlet {
                         for(String s : dias){
                             diasStr = diasStr +" "+ s;
                         }
-                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-                        Calendar horaInicioCal = Calendar.getInstance();
-                        horaInicioCal.setTime(sdf.parse(horaInicio));
-                        Calendar horaFinalCal = Calendar.getInstance();
-                        horaFinalCal.setTime(sdf.parse(horaFinal));
-                        Horario hora = new Horario(diasStr,horaInicioCal,horaFinalCal);
+//                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+//                        Calendar horaInicioCal = Calendar.getInstance();
+//                        horaInicioCal.setTime(sdf.parse(horaInicio));
+//                        Calendar horaFinalCal = Calendar.getInstance();
+//                        horaFinalCal.setTime(sdf.parse(horaFinal));
+                        Horario hora = new Horario(diasStr,horaInicio,horaFinal);
                         Profesor profe = ctrl.getProfesor(idProfesor);
                         Curso cur = ctrl.getCurso(idCurso);
                         Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
