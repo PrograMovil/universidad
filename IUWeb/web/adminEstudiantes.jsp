@@ -95,7 +95,7 @@
                         <div class="modal-body">
                             <input type="text" name="cedula" id="cedulaEstudianteEdit" hidden="" /><!-- Usar este en la peticion xq el del input #cedulaEdit como tiene disabled envia el dato null-->
                             <div class="form-group">
-                                <input type="text" class="form-control" id="cedulaEdit" placeholder="Cédula" disabled><!--Solo es para que se muestre el codigo-->
+                                <input type="text" class="form-control" id="cedulaEdit" placeholder="Cédula" disabled><!--Solo es para que se muestre la cedula-->
                             </div>
                             <div class="form-group">
                                 <input type="text" name="fechaNac" class="form-control datepicker" id="fechaNacEdit" placeholder="dd/mm/aa">
@@ -171,7 +171,6 @@
             </div>
         </div>
     </body>
-    
     <script>
         $(document).ready(function () {
             $('#cedulaForm').tooltip({'trigger':'focus', 'title': 'Cédula'});

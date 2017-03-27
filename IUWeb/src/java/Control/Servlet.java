@@ -43,6 +43,7 @@ public class Servlet extends HttpServlet {
         carreras = ctrl.obtenerTodasCarreras();
         profesores = ctrl.obtenerTodosLosProfesores();
         estudiantes = ctrl.obtenerTodosLosEstudiantes();
+        cursos = ctrl.obtenerTodosLosCursos();
         
 //        Router y rutas
         if(router !=null){
@@ -56,8 +57,8 @@ public class Servlet extends HttpServlet {
                 case "adminCursos": {
                     allCarreras = ctrl.obtenerTodasCarreras();
                     session.setAttribute("allCarreras", allCarreras);
-//                    cursos = 
-//                    session.setAttribute("cursos", cursos);
+                    cursos = ctrl.obtenerTodosLosCursos();
+                    session.setAttribute("cursos", cursos);
                     response.sendRedirect("adminCursos.jsp");
                 }
                 break;
@@ -92,7 +93,7 @@ public class Servlet extends HttpServlet {
                             switch(tipoUsuario){ 
                                 case 1: //ADMINISTRADOR                                
                                     System.out.println("Es administrador");                                
-                                    session.setAttribute("carreras", carreras);
+                                    session.setAttribute("carreras", carreras); //al inicio debe pedir los datos del primer dash
                                     response.sendRedirect("adminDash.jsp");
                                     break;
                                 case 2: //MATRICULADOR
@@ -121,7 +122,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("userId");
                         session.removeAttribute("carreras");
                         session.removeAttribute("allCarreras");
-//                        session.removeAttribute("cursos");
+                        session.removeAttribute("cursos");
                         session.removeAttribute("profesores");
                         session.removeAttribute("estudiantes");
 //                        session.removeAttribute("administradores");
@@ -342,7 +343,24 @@ public class Servlet extends HttpServlet {
                         }
                     }
                     break;
-                    
+                    case "AgregarCurso": {
+                        String codigo = request.getParameter("codigo");
+                        String nombre = request.getParameter("nombre");
+                        String creditos = request.getParameter("creditos");
+                        String horasSemanales = request.getParameter("horasSemanales");
+                        String idCarrera = request.getParameter("idCarrera");
+                        String nivel = request.getParameter("nivel");
+                        Carrera ca = ctrl.getCarrera(idCarrera);
+                        Curso cu = new Curso(codigo,nombre,Integer.parseInt(creditos),Integer.parseInt(horasSemanales),ca,nivel);
+                        if(ctrl.addCurso(cu) == 1){
+                            cursos = ctrl.obtenerTodosLosCursos();
+                            session.setAttribute("cursos", cursos);
+                            response.sendRedirect("adminCursos.jsp");
+                        }else{
+                            this.printHTML("ERROR: Curso NO Agregado!", response);
+                        }
+                    }
+                    break;
                 }
             }catch (Exception ex) {
                 Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
