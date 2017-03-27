@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <input type="text" name="nombre" class="form-control" id="nombreSearch" placeholder="Nombre">
                                 </div>
-                                <select class="form-control">
+                                <select class="form-control" name="idCarrera">
                                     <option value="" >Seleccione la carrera</option>
                                 <% for (Carrera c : allCarreras) { %>
                                     <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
