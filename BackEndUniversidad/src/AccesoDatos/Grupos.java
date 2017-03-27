@@ -1,6 +1,7 @@
 
 package AccesoDatos;
 
+import LogicaNegocio.Curso;
 import LogicaNegocio.Grupo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,6 +103,24 @@ public class Grupos extends AccesoDatos {
         return lista;
     }
 
+    public ArrayList<Grupo> gruposPorCurso(Curso curso) throws Exception{
+        
+        String tableName = "Grupo";
+        String param = "Curso_id = '%s'";
+        param = String.format(param, new Cursos().obtenerId(curso));
+        ResultSet rs = super.obtener(tableName, param);
+        ArrayList<Grupo> lista=new ArrayList<>();
+        while (rs.next()) {
+            Grupo obj = new Grupo();
+            obj.setNumero(rs.getInt("numero"));
+            obj.setHorario(new Horarios().obtenerPorId(rs.getInt("Horario_id")));
+            obj.setCurso(new Cursos().obtenerPorId(rs.getInt("id")));
+            obj.setProfesor(new Profesores().obtener(rs.getString("Profesor_cedula")));
+            lista.add(obj);
+            
+        }
+        return lista;
+    }
     
     
 }

@@ -247,7 +247,17 @@ public class Control {
         try {
             return this.grupos.gruposPorProfesor(cedula);
         } catch (Exception ex) {
-            System.err.println("Error al actualizar grupo");
+            System.err.println("Error al obtener los grupos");
+        }
+        return null;
+        
+    }
+    
+    public ArrayList<Grupo> gruposPorCurso(Curso curso){
+        try {
+            return this.grupos.gruposPorCurso(curso);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener los grupos");
         }
         return null;
         
