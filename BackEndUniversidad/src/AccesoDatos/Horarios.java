@@ -13,9 +13,7 @@ public class Horarios extends AccesoDatos {
     public int agregar(Horario c) {
         String tableAndParams = "Horario(dias,horaInicial,horaFinal)";
         String values = "'%s','%s','%s'";
-        java.sql.Date horaInicial = new java.sql.Date(c.getHoraInicial().getTimeInMillis());
-        java.sql.Date horaFinal = new java.sql.Date(c.getHoraFinal().getTimeInMillis());
-        values = String.format(values, c.getDias(), horaInicial, horaFinal);
+        values = String.format(values, c.getDias(), c.getHoraInicial(), c.getHoraFinal());
         return super.agregar(tableAndParams, values);
     }
 
@@ -38,13 +36,8 @@ public class Horarios extends AccesoDatos {
     private Horario toHorario(ResultSet rs) throws Exception {
         Horario obj = new Horario();
         obj.setDias(rs.getString("dias"));
-
-        Calendar horaIni = new GregorianCalendar();
-        horaIni.setTime(rs.getDate("horaInicial"));
-        Calendar horaFin = new GregorianCalendar();
-        horaFin.setTime(rs.getDate("horaFinal"));
-        obj.setHoraInicial(horaIni);
-        obj.setHoraFinal(horaFin);
+        obj.setHoraInicial(rs.getString("horaInicial"));
+        obj.setHoraFinal(rs.getString("horaFinal"));
         return obj;
     }
 
@@ -64,10 +57,7 @@ public class Horarios extends AccesoDatos {
         //obtener id de horario manualmente:
         String param2 = "dias = '%s' AND horaInicial = '%s' AND HoraFinal = '%s'";
 
-        java.sql.Date horaInicial = new java.sql.Date(h.getHoraInicial().getTimeInMillis());
-        java.sql.Date horaFinal = new java.sql.Date(h.getHoraFinal().getTimeInMillis());
-
-        param2 = String.format(param2, h.getDias(), horaInicial, horaFinal);
+        param2 = String.format(param2, h.getDias(), h.getHoraInicial(), h.getHoraFinal());
         String sql2 = "select * from Horario o where o." + param2;
         ResultSet rs2 = db.executeQuery(sql2);
         int idHorario = -1;

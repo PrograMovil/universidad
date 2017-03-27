@@ -8,14 +8,23 @@ public class Grupo implements Serializable{
     private int numero;
     private Horario horario;
     private Profesor profesor;
-    //private ArrayList<Estudiante> estudiantes;
     private Curso curso;
     private Ciclo ciclo;
 
     public Grupo() {
     }
 
+    public Grupo(int id, int numero, Horario horario, Profesor profesor, Curso curso, Ciclo ciclo) {
+        this.id = id;
+        this.numero = numero;
+        this.horario = horario;
+        this.profesor = profesor;
+        this.curso = curso;
+        this.ciclo = ciclo;
+    }
+    
     public Grupo(int numero, Horario horario, Profesor profesor, Curso curso, Ciclo ciclo) {
+        this.id = -1;
         this.numero = numero;
         this.horario = horario;
         this.profesor = profesor;
