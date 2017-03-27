@@ -64,7 +64,7 @@ public class Ciclo implements Serializable {
 
     @Override
     public String toString() {
-        return "Ciclo: "+numero+" del año: "+anio+", inicia: "+fechaInicio+", finaliza: "+fechaFinalizacion;
+        return "Ciclo: "+numero+" del año: "+anio+"\nInicia: "+fechaInicio+", finaliza: "+fechaFinalizacion;
     }
 
     

@@ -42,7 +42,7 @@ public class Ciclos extends AccesoDatos {
         return obj;
     }
     
-    public Ciclo obtenerPorAnioYNumero(int anio, int numero) throws SQLException, Exception{
+    public Ciclo obtenerPorAnioYNumero(int anio, String numero) throws SQLException, Exception{
         String tableName = "ciclo";
         String param = "anio = '%s' and numero= '%s'";
         param = String.format(param, anio, numero);

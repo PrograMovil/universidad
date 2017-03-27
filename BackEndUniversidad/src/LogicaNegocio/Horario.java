@@ -7,13 +7,13 @@ import java.util.Calendar;
 
 public class Horario implements Serializable{
     private String dias;
-    private Calendar horaInicial;
-    private Calendar horaFinal;
+    private String horaInicial;
+    private String horaFinal;
 
     public Horario() {
     }
 
-    public Horario(String dias, Calendar horaInicial, Calendar horaFinal) {
+    public Horario(String dias, String horaInicial, String horaFinal) {
         this.dias = dias;
         this.horaInicial = horaInicial;
         this.horaFinal = horaFinal;
@@ -27,26 +27,25 @@ public class Horario implements Serializable{
         this.dias = dias;
     }
 
-    public Calendar getHoraInicial() {
+    public String getHoraInicial() {
         return horaInicial;
     }
 
-    public void setHoraInicial(Calendar horaInicial) {
+    public void setHoraInicial(String horaInicial) {
         this.horaInicial = horaInicial;
     }
 
-    public Calendar getHoraFinal() {
+    public String getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(Calendar horaFinal) {
+    public void setHoraFinal(String horaFinal) {
         this.horaFinal = horaFinal;
     }
-    
+
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-        return " Dias: " + dias + ", Hora inicial: " + sdf.format(horaInicial.getTime())  + ", Hora final: " + sdf.format(horaFinal.getTime());
+        return " Dias: " + dias + ", Hora inicial: " + horaInicial  + ", Hora final: " + horaFinal;
     }
     
 }
