@@ -42,6 +42,7 @@ public class Servlet extends HttpServlet {
         Curso cursoCurrent = null;
         ArrayList<Grupo> grupos = null;
         ArrayList<Profesor> allProfesores = null;
+        ArrayList<Ciclo> ciclos = null;
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -92,6 +93,16 @@ public class Servlet extends HttpServlet {
                         grupos = ctrl.gruposPorCurso(cursoCurrent);
                         session.setAttribute("grupos", grupos);
                         response.sendRedirect("adminGrupos.jsp");
+                    }
+                    break;
+                    case "matricula": {
+                        response.sendRedirect("adminMatricula.jsp");
+                    }
+                    break;
+                    case "cicloLectivo": {
+                        ciclos = ctrl.obtenerTodosLosCiclos();
+                        session.setAttribute("ciclos", ciclos);
+                        response.sendRedirect("adminCiclos.jsp");
                     }
                     break;
                 }
@@ -147,6 +158,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("estudiantes");
                         session.removeAttribute("cursoCurrent");
                         session.removeAttribute("grupos");
+                        session.removeAttribute("ciclos");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();

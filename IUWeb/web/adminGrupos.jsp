@@ -117,7 +117,7 @@
                                 <input type="text" class="form-control" id="cicloEdit" value="<%= cursoCurrent.getCiclo()%>" disabled="" >
                             </div>
                             <div class="form-group">
-                                <input type="text" name="anioCiclo" class="form-control" id="anioCicloEdit" placeholder="Año en que se imparte la Clase">
+                                <input type="number" name="anioCiclo" class="form-control" id="anioCicloEdit" placeholder="Año en que se imparte la Clase">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -171,7 +171,7 @@
                                 <input type="text" class="form-control" id="cicloForm" value="<%= cursoCurrent.getCiclo()%>" disabled="" >
                             </div>
                             <div class="form-group">
-                                <input type="text" name="anioCiclo" class="form-control" id="anioCicloForm" placeholder="Año en que se imparte la Clase">
+                                <input type="number" name="anioCiclo" class="form-control" id="anioCicloForm" placeholder="Año en que se imparte la Clase">
                             </div>
                         </div>
                         <div class="modal-footer">
