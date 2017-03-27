@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Control.Control;
 import LogicaNegocio.Carrera;
+import LogicaNegocio.Ciclo;
 import LogicaNegocio.Curso;
 import LogicaNegocio.Estudiante;
 import LogicaNegocio.Grupo;
+import LogicaNegocio.Horario;
 import LogicaNegocio.Profesor;
 import LogicaNegocio.Usuario;
 import java.text.SimpleDateFormat;
@@ -87,6 +89,8 @@ public class Servlet extends HttpServlet {
                         session.setAttribute("cursoCurrent", cursoCurrent);
                         allProfesores = ctrl.obtenerTodosLosProfesores();
                         session.setAttribute("allProfesores", allProfesores);
+                        grupos = ctrl.gruposPorCurso(cursoCurrent);
+                        session.setAttribute("grupos", grupos);
                         response.sendRedirect("adminGrupos.jsp");
                     }
                     break;
@@ -142,6 +146,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("profesores");
                         session.removeAttribute("estudiantes");
                         session.removeAttribute("cursoCurrent");
+                        session.removeAttribute("grupos");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();
@@ -429,18 +434,67 @@ public class Servlet extends HttpServlet {
                     }
                     break;
                     case "AgregarGrupo": {
-                        this.printHTML("Hola Grupo!", response);
-//                        String codigo = request.getParameter("codigo");
-//                        String nombre = request.getParameter("nombre");
-//                        String titulo = request.getParameter("titulo");
-//                        Carrera ca = new Carrera(codigo,nombre,titulo);
-//                        if(ctrl.addCarrera(ca) == 1){
-//                            carreras = ctrl.obtenerTodasCarreras();
-//                            session.setAttribute("carreras", carreras);
-//                            response.sendRedirect("adminDash.jsp");
-//                        }else{
-//                            this.printHTML("ERROR: Carrera NO Agregada!", response);
-//                        }
+                        String idCurso = request.getParameter("idCurso");
+                        String numeroCiclo = request.getParameter("numeroCiclo");
+                        String numero = request.getParameter("numero");
+                        String[] dias = request.getParameterValues("dias");
+                        String horaInicio = request.getParameter("horaInicio");
+                        String horaFinal = request.getParameter("horaFinal");
+                        String idProfesor = request.getParameter("idProfesor");
+                        String anioCiclo = request.getParameter("anioCiclo");
+                        String diasStr = "";
+                        for(String s : dias){
+                            diasStr = diasStr +" "+ s;
+                        }
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+                        Calendar horaInicioCal = Calendar.getInstance();
+                        horaInicioCal.setTime(sdf.parse(horaInicio));
+                        Calendar horaFinalCal = Calendar.getInstance();
+                        horaFinalCal.setTime(sdf.parse(horaFinal));
+                        Horario hora = new Horario(diasStr,horaInicioCal,horaFinalCal);
+                        Profesor profe = ctrl.getProfesor(idProfesor);
+                        Curso cur = ctrl.getCurso(idCurso);
+                        Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
+                        Grupo gru = new Grupo(Integer.parseInt(numero),hora,profe,cur,ci);
+                        if(ctrl.addGrupo(gru) == 1){
+                            grupos = ctrl.gruposPorCurso(cur);
+                            session.setAttribute("grupos", grupos);
+                            response.sendRedirect("adminGrupos.jsp");
+                        }else{
+                            this.printHTML("ERROR: Grupo NO Agregado!", response);
+                        }
+                    }
+                    break;
+                    case "EditarGrupo": {
+                        String idCurso = request.getParameter("idCurso");
+                        String numeroCiclo = request.getParameter("numeroCiclo");
+                        String numero = request.getParameter("numero");
+                        String[] dias = request.getParameterValues("dias");
+                        String horaInicio = request.getParameter("horaInicio");
+                        String horaFinal = request.getParameter("horaFinal");
+                        String idProfesor = request.getParameter("idProfesor");
+                        String anioCiclo = request.getParameter("anioCiclo");
+                        String diasStr = "";
+                        for(String s : dias){
+                            diasStr = diasStr +" "+ s;
+                        }
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+                        Calendar horaInicioCal = Calendar.getInstance();
+                        horaInicioCal.setTime(sdf.parse(horaInicio));
+                        Calendar horaFinalCal = Calendar.getInstance();
+                        horaFinalCal.setTime(sdf.parse(horaFinal));
+                        Horario hora = new Horario(diasStr,horaInicioCal,horaFinalCal);
+                        Profesor profe = ctrl.getProfesor(idProfesor);
+                        Curso cur = ctrl.getCurso(idCurso);
+                        Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
+                        Grupo gru = new Grupo(Integer.parseInt(numero),hora,profe,cur,ci);
+                        if(ctrl.updateGrupo(gru) == 1){
+                            grupos = ctrl.gruposPorCurso(cur);
+                            session.setAttribute("grupos", grupos);
+                            response.sendRedirect("adminGrupos.jsp");
+                        }else{
+                            this.printHTML("ERROR: Grupo NO Actualizado!", response);
+                        }
                     }
                     break;
                 }

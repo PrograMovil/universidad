@@ -4,7 +4,7 @@ package LogicaNegocio;
 import java.io.Serializable;
 
 public class Grupo implements Serializable{
-    
+    private int id; //es lo que se manda en la query para pedir el grupo en la BD y se setea en la base
     private int numero;
     private Horario horario;
     private Profesor profesor;
@@ -62,7 +62,13 @@ public class Grupo implements Serializable{
     public void setCiclo(Ciclo ciclo) {
         this.ciclo = ciclo;
     }
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }

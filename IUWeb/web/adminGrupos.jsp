@@ -4,6 +4,8 @@
     Author     : SheshoVega
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="LogicaNegocio.Grupo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="LogicaNegocio.Profesor"%>
 <%@page import="LogicaNegocio.Curso"%>
@@ -20,6 +22,7 @@
         <%@ include file="header.jspf" %>
         <%  Curso cursoCurrent = (Curso) session.getAttribute("cursoCurrent"); %>
         <%  ArrayList<Profesor> allProfesores = (ArrayList<Profesor>) session.getAttribute("allProfesores"); %>
+        <%  ArrayList<Grupo> grupos = (ArrayList<Grupo>) session.getAttribute("grupos"); %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -47,6 +50,23 @@
                                     <td>Ciclo</td>
                                     <td></td>
                                 </tr>
+                                <% for( Grupo g : grupos ){
+                                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+                                %>
+                                <tr>
+                                    <td><%= g.getNumero() %></td>
+                                    <td hidden=""><%= g.getHorario().getDias() %></td>
+                                    <td hidden=""><%= sdf.format(g.getHorario().getHoraInicial().getTime()) %></td>
+                                    <td hidden=""><%= sdf.format(g.getHorario().getHoraFinal().getTime()) %></td>
+                                    <td><%= g.getHorario().toString() %></td>
+                                    <td hidden="" ><%= g.getProfesor().getCedula() %></td>
+                                    <td><%= g.getProfesor().getNombre() %></td>
+                                    <td><%= g.getCurso().getNombre() %></td>
+                                    <td><%= g.getCiclo() %></td> <!--g.getCiclo().getNumero()-->
+                                    <td hidden=""><%= g.getCiclo() %></td><!-- g.getCiclo().getAnio()-->
+                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= g.getId() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                </tr>
+                                <%}%> 
                             </table>
                         </div>
                     </div>
@@ -61,6 +81,7 @@
                             <h4>Editar Grupo</h4>                        
                         </div>
                         <div class="modal-body">
+                            <input type="text" name="idGrupo" id="idGrupoEdit" hidden="" >
                             <input type="text" name="idCurso" id="codigoCursoEdit" value="<%= cursoCurrent.getCodigo() %>" hidden="" >
                             <input type="text" name="numeroCiclo" id="numeroCicloEdit" value="<%= cursoCurrent.getCiclo()%>" hidden="" >
                             <div class="form-group">
@@ -129,10 +150,10 @@
                             </select>
                             <br><br>
                             <div class="form-group">
-                                <input type="text"  class="form-control bootstrap-timepicker timepicker" id="horaInicioForm" placeholder="hh:mm">
+                                <input type="text" name="horaInicio" class="form-control bootstrap-timepicker timepicker" id="horaInicioForm" placeholder="hh:mm">
                             </div>
                             <div class="form-group">
-                                <input type="text"  class="form-control bootstrap-timepicker timepicker" id="horaFinalForm" placeholder="hh:mm">
+                                <input type="text" name="horaFinal" class="form-control bootstrap-timepicker timepicker" id="horaFinalForm" placeholder="hh:mm">
                             </div>
                             <select class="form-control" name="idProfesor" id="idProfesorForm" >
                                 <option value="" >Seleccione el Profesor</option>
@@ -192,5 +213,32 @@
             $('[data-toggle="tooltip"]').tooltip();
             
         });
+        function cargarDataModal(element){
+            var id = element.id;
+            var idGrupo = document.getElementById("idGrupoEdit");
+            var numeroInput = document.getElementById("numeroEdit");
+            var diasInput = document.getElementById("diasEdit");
+            var horaInicioInput = document.getElementById("horaInicioEdit");
+            var horaFinalInput = document.getElementById("horaFinalEdit");
+            var profesorInput = document.getElementById("idProfesorEdit");
+            var anioCicloInput = document.getElementById("anioCicloEdit");
+            
+            var TD = element.parentNode;
+            var TR = TD.parentNode;
+            
+            idGrupo.value = id;
+            numeroInput.value = TR.childNodes[1].innerHTML;
+            
+            var diasStr = TR.childNodes[3].innerHTML;
+            var diasArray = diasStr.split(" ");
+            diasArray.forEach(function(item){
+                console.log(item);
+                $('.selectpicker').selectpicker('val', item);
+            });
+            horaInicioInput.value = TR.childNodes[5].innerHTML;
+            horaFinalInput.value = TR.childNodes[7].innerHTML;
+            profesorInput.value = TR.childNodes[11].innerHTML;
+            anioCicloInput.value = TR.childNodes[19].innerHTML;
+        }
     </script>
 </html>

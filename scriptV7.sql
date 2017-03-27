@@ -300,7 +300,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `universidad`;
-INSERT INTO `universidad`.`Curso` (`id`, `codigo`, `nombre`, `creditos`, `horas_semanales`, `nivel`, `ciclo`, `Carrera_id`) VALUES (1, 'EIF-200', 'Funda', 10, 5, '1ero', 'ciclo I', 1);
+INSERT INTO `universidad`.`Curso` (`id`, `codigo`, `nombre`, `creditos`, `horas_semanales`, `nivel`, `ciclo`, `Carrera_id`) VALUES (1, 'EIF-200', 'Funda', 10, 5, '1ero', 'I', 1);
 
 COMMIT;
 

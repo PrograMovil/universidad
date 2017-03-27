@@ -2,6 +2,7 @@
 package LogicaNegocio;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Horario implements Serializable{
@@ -44,7 +45,8 @@ public class Horario implements Serializable{
     
     @Override
     public String toString() {
-        return "Horario{" + " Dias: " + dias + ", hora inicial: " + horaInicial.getTime().getHours() + ":"+ horaInicial.getTime().getMinutes() + ", hora final: " + horaFinal.getTime().getHours() + ":"+ horaFinal.getTime().getMinutes() + " }";
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
+        return " Dias: " + dias + ", Hora inicial: " + sdf.format(horaInicial.getTime())  + ", Hora final: " + sdf.format(horaFinal.getTime());
     }
     
 }
