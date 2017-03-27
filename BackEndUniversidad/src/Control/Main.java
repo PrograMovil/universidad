@@ -5,66 +5,63 @@ import LogicaNegocio.*;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-class Server implements Runnable {
-
-    public Server() {
-        Thread miHilo = new Thread(this);
-        miHilo.start();
-    }
-
-    @Override
-    public void run() {
-//        Variables
-        String ipClient ="127.0.0.1";
-        Control control = new Control();
-        String responseMsg = "";
-        
-        System.out.println("Server Corriendo!");
-        
-        try {
-//            Server socket para recibir las peticiones
-            ServerSocket miServicio = new ServerSocket(9999);
-            
-            
-            
-            while(true){
-                
-                int nivel=0;
-                do{
-                //Verificar Usuario y contraseña en la base
-                Socket socketConectado = miServicio.accept();
-                ObjectInputStream usuario = new ObjectInputStream(socketConectado.getInputStream());
-                Usuario usuarioRecibido=(Usuario) usuario.readObject();
-                
-                
-                Socket toCliente = new Socket(ipClient, 9090);
-                //devolviendo el resultado del login
-                DataOutputStream flujoToClient = new DataOutputStream(toCliente.getOutputStream());
-                nivel=control.verificaUsuario(usuarioRecibido.getId(), usuarioRecibido.getClave());
-                toCliente.close();
-                flujoToClient.writeInt(nivel);
-                }while(nivel==0);
-                
-            miServicio.close();
-            
-               
-            } 
-
-        } catch (IOException ex) {
-            System.err.println("Exception: " + ex );
-        } catch (ClassNotFoundException ex) {
-            System.err.println("Exception: " + ex );
-        }
-
-    }
-
-}
+//class Server implements Runnable {
+//
+//    public Server() {
+//        Thread miHilo = new Thread(this);
+//        miHilo.start();
+//    }
+//
+//    @Override
+//    public void run() {
+////        Variables
+//        String ipClient ="127.0.0.1";
+//        Control control = new Control();
+//        String responseMsg = "";
+//        
+//        System.out.println("Server Corriendo!");
+//        
+//        try {
+////            Server socket para recibir las peticiones
+//            ServerSocket miServicio = new ServerSocket(9999);
+//            
+//            
+//            
+//            while(true){
+//                
+//                int nivel=0;
+//                do{
+//                //Verificar Usuario y contraseña en la base
+//                Socket socketConectado = miServicio.accept();
+//                ObjectInputStream usuario = new ObjectInputStream(socketConectado.getInputStream());
+//                Usuario usuarioRecibido=(Usuario) usuario.readObject();
+//                
+//                
+//                Socket toCliente = new Socket(ipClient, 9090);
+//                //devolviendo el resultado del login
+//                DataOutputStream flujoToClient = new DataOutputStream(toCliente.getOutputStream());
+//                nivel=control.verificaUsuario(usuarioRecibido.getId(), usuarioRecibido.getClave());
+//                toCliente.close();
+//                flujoToClient.writeInt(nivel);
+//                }while(nivel==0);
+//                
+//            miServicio.close();
+//            
+//               
+//            } 
+//
+//        } catch (IOException ex) {
+//            System.err.println("Exception: " + ex );
+//        } catch (ClassNotFoundException ex) {
+//            System.err.println("Exception: " + ex );
+//        }
+//
+//    }
+//
+//}
 
 public class Main {
     
@@ -84,9 +81,9 @@ public class Main {
         Profesor profesor=new Profesor(new Usuario("profesor", "profesor", 3), "Georges", "111", "88995566", "j@g.c");
         Grupo grupo=new Grupo(3, horario, profesor, curso, ciclo);
         
-        profesor.setNombre("Juanmito");
+        //profesor.setNombre("Juanmito");
         
-        control.updateProfesor(profesor);
+        //control.updateProfesor(profesor);
         
         
 //        if(control.updateGrupo(grupo)!=null)

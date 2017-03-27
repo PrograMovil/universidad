@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class Cursos extends AccesoDatos {
     
-    public int agregar(Curso c){
-        String tableAndParams = "Curso(codigo,nombre,creditos,horas_semanales,nivel,Carrera_codigo)";
+    public int agregar(Curso c) throws SQLException{
+        String tableAndParams = "Curso(codigo,nombre,creditos,horas_semanales,nivel,Carrera_id)";
         String values = "'%s','%s','%s','%s','%s','%s'";
-        values = String.format(values,c.getCodigo(),c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo());
+        values = String.format(values,c.getCodigo(),c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),new Carreras().obtenerId(c.getCarrera()));
         return super.agregar(tableAndParams, values);
     }
     
@@ -25,8 +25,8 @@ public class Cursos extends AccesoDatos {
     
     public int actualizar(Curso c) throws SQLException{
         String tableName = "curso";
-        String tableParams = "nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_codigo='%s' where codigo='%s'";
-        tableParams = String.format(tableParams,c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),c.getCarrera().getCodigo(), c.getCodigo());
+        String tableParams = "nombre='%s', creditos='%s', horas_semanales='%s', nivel='%s', Carrera_id='%s' where codigo='%s'";
+        tableParams = String.format(tableParams,c.getNombre(),c.getCreditos(),c.getHorasSemanales(),c.getNivel(),new Carreras().obtenerId(c.getCarrera()), c.getCodigo());
         return super.actualizar(tableName, tableParams);
     }
     

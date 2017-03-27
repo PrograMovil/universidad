@@ -100,7 +100,12 @@ public class Control {
     
     
     public int addCurso(Curso ca){
-        return this.cursos.agregar(ca);
+        try {
+            return this.cursos.agregar(ca);
+        } catch (SQLException ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
     
     public int deleteCurso(Curso ca){

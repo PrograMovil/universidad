@@ -76,24 +76,6 @@ public class InterfazConsola extends Thread implements Runnable {
 
     public int login() throws Exception {
         
-        try {
-
-            this.socket = new Socket(host, puerto);
-
-            //this.salidaDatos = new DataOutputStream(socket.getOutputStream());
-            //this.entradaDatos = new DataInputStream(socket.getInputStream());
-            this.entradaObjetos=new ObjectInputStream(socket.getInputStream());
-            this.salidaObjetos=new ObjectOutputStream(socket.getOutputStream());
-            this.start();
-
-        } catch (Exception ex) {
-
-            System.out.println(ex.getClass());
-            System.out.println(ex.toString());
-
-        }
-
-        Thread.sleep(300);
         int nivel = 0;
         
         do {
@@ -115,119 +97,15 @@ public class InterfazConsola extends Thread implements Runnable {
         salidaObjetos.close();
         return nivel;
         
-        
-
-    }
-
-    public void menu() throws InterruptedException {
-        Thread.sleep(300);
-        Scanner menuEscaner = new Scanner(System.in);
-//        System.out.println(this.responseServer);
-        System.out.print("<---------- MENU ---------->"
-                + "\n 1 - Regristrar Carrera."
-                + "\n 2 - Eliminar Carrera."
-                + "\n 3 - Actualizar Carrera."
-                + "\n 4 - Buscar Carrera."
-                + "\n 5 - Salir."
-                + "\n\n Seleccione una opción:");
-        this.menuOption = menuEscaner.nextLine();
-    }
-
-    public void routerMenu() throws InterruptedException {
-
-//        this.menu();
-        switch (this.menuOption) {
-            case "1": {
-                System.out.println("< ---------- Registrar Carrera ---------->.");
-
-                this.registrarCarrera();
-
-                this.menu();
-                this.routerMenu();
-            }
-            break;
-            case "2": {
-                System.out.println("Opcion 2.");
-                this.menu();
-                this.routerMenu();
-            }
-            break;
-            case "3": {
-                System.out.println("Opcion 3.");
-                this.menu();
-                this.routerMenu();
-            }
-            break;
-            case "4": {
-                System.out.println("Opcion 4.");
-                this.menu();
-                this.routerMenu();
-            }
-            break;
-            case "5": {
-                System.exit(0);
-            }
-            break;
-            default: {
-                System.out.println("Error, opcion invalida.");
-                this.menu();
-                this.routerMenu();
-            }
-            break;
-        }
-    }
-
-    public void registrarCarrera() {
-        try {
-            Scanner entradaEscaner = new Scanner(System.in);
-            Carrera carrera = new Carrera();
-
-            Socket cliente = new Socket(this.ipServidor, 9999);
-
-            //Mandar una Carrera
-            System.out.println("Ingrese el Codigo de la carrera:");
-            carrera.setCodigo(entradaEscaner.nextLine());
-            System.out.println("Ingrese el nombre de la carrera:");
-            carrera.setNombre(entradaEscaner.nextLine());
-            System.out.println("Ingrese el titulo de la carrera:");
-            carrera.setTitulo(entradaEscaner.nextLine());
-
-            ObjectOutputStream carreraDatos = new ObjectOutputStream(cliente.getOutputStream());
-            carreraDatos.writeObject(carrera);
-            carreraDatos.close();
-
-        } catch (UnknownHostException ex) {
-            System.err.println("Exception: " + ex);
-        } catch (Exception e) {
-            System.err.println("Exception: " + e);
-        }
     }
 
     public static void main(String[] args) throws Exception {
-//        Sockets para la conexion con las interfaces.
-//        ResponseListener resposes = new ResponseListener();
 
         try {
-//            Scanner entradaEscaner = new Scanner(System.in);
-//            Carrera carrera = new Carrera();
+            
             InterfazConsola interfaz = new InterfazConsola();
-            //Socket cliente = new Socket("127.0.0.1", 9999);
             interfaz.login();
-
-//            
-//            //Mandar una Carrera
-//            System.out.println("Ingrese el Codigo de la carrera:");
-//            carrera.setCodigo(entradaEscaner.nextLine());
-//            System.out.println("Ingrese el nombre de la carrera:");
-//            carrera.setNombre(entradaEscaner.nextLine());
-//            System.out.println("Ingrese el titulo de la carrera:");
-//            carrera.setTitulo(entradaEscaner.nextLine());
-//            
-//            ObjectOutputStream carreraDatos = new ObjectOutputStream(cliente.getOutputStream());
-//            carreraDatos.writeObject(carrera);
-//            carreraDatos.close();      
-        } catch (UnknownHostException ex) {
-            System.err.println("Exception: " + ex);
+            
         } catch (Exception e) {
             System.err.println("Exception: " + e);
         }
@@ -235,3 +113,6 @@ public class InterfazConsola extends Thread implements Runnable {
     }
 
 }
+
+
+
