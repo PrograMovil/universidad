@@ -60,6 +60,7 @@
                                     <td>Carrera</td>
                                     <td>Nivel</td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                                 <% for( Curso cur : cursos ){ %>
                                 <tr>
@@ -71,12 +72,15 @@
                                     <td><%= cur.getCarrera().getNombre() %></td>
                                     <td><%= cur.getNivel() %></td>
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= cur.getCodigo() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                <form action="Servlet" method="POST">
+                                    <input type="text" name="idCurso" value="<%= cur.getCodigo() %>" hidden="" />
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Agregar y Editar los Grupos del Curso" id="gruposBtn" name="router" value="adminGrupos">Grupos</button></td>
+                                </form>
                                 </tr>
                                 <%}%>                           
                             </table>
                         </div>                        
-                    </div>
-                            
+                    </div>                            
                 </div>
             </div>            
         </div>
@@ -184,6 +188,7 @@
             $('#nivelEdit').tooltip({'trigger':'focus', 'title': 'Seleccione el Nivel'});
             $('#codigoSearch').tooltip({'trigger':'focus', 'title': 'Código'});
             $('#nombreSearch').tooltip({'trigger':'focus', 'title': 'Nombre'});
+            $('[data-toggle="tooltip"]').tooltip();
         });
         function cargarDataModal(element){
             var id = element.id;

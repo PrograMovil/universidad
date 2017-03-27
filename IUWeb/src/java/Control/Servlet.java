@@ -36,6 +36,7 @@ public class Servlet extends HttpServlet {
         ArrayList<Profesor> profesores = null;
         ArrayList<Estudiante> estudiantes = null;
         ArrayList<Curso> cursos = null;
+        Curso cursoCurrent = null;
 
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -46,39 +47,49 @@ public class Servlet extends HttpServlet {
         cursos = ctrl.obtenerTodosLosCursos();
         
 //        Router y rutas
-        if(router !=null){
-            switch(router){
-                case "adminDash": {
-                    carreras = ctrl.obtenerTodasCarreras();
-                    session.setAttribute("allCarreras", carreras);
-                    response.sendRedirect("adminDash.jsp");
+        try {
+            if(router != null){
+                switch(router){
+                    case "adminDash": {
+                        carreras = ctrl.obtenerTodasCarreras();
+                        session.setAttribute("allCarreras", carreras);
+                        response.sendRedirect("adminDash.jsp");
+                    }
+                    break;
+                    case "adminCursos": {
+                        allCarreras = ctrl.obtenerTodasCarreras();
+                        session.setAttribute("allCarreras", allCarreras);
+                        cursos = ctrl.obtenerTodosLosCursos();
+                        session.setAttribute("cursos", cursos);
+                        response.sendRedirect("adminCursos.jsp");
+                    }
+                    break;
+                    case "adminProfesores": {
+                        profesores = ctrl.obtenerTodosLosProfesores();
+                        session.setAttribute("profesores", profesores);
+                        response.sendRedirect("adminProfesores.jsp");
+                    }
+                    break;
+                    case "adminEstudiantes": {
+                        allCarreras = ctrl.obtenerTodasCarreras();
+                        session.setAttribute("allCarreras", allCarreras);
+                        estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                        session.setAttribute("estudiantes", estudiantes);
+                        response.sendRedirect("adminEstudiantes.jsp");
+                    }
+                    break;
+                    case "adminGrupos": {
+                        String codigo = request.getParameter("idCurso");
+                        cursoCurrent = ctrl.getCurso(codigo);
+                        session.setAttribute("cursoCurrent", cursoCurrent);
+                        response.sendRedirect("adminGrupos.jsp");
+                    }
+                    break;
                 }
-                break;
-                case "adminCursos": {
-                    allCarreras = ctrl.obtenerTodasCarreras();
-                    session.setAttribute("allCarreras", allCarreras);
-                    cursos = ctrl.obtenerTodosLosCursos();
-                    session.setAttribute("cursos", cursos);
-                    response.sendRedirect("adminCursos.jsp");
-                }
-                break;
-                case "adminProfesores": {
-                    profesores = ctrl.obtenerTodosLosProfesores();
-                    session.setAttribute("profesores", profesores);
-                    response.sendRedirect("adminProfesores.jsp");
-                }
-                break;
-                case "adminEstudiantes": {
-                    allCarreras = ctrl.obtenerTodasCarreras();
-                    session.setAttribute("allCarreras", allCarreras);
-                    estudiantes = ctrl.obtenerTodosLosEstudiantes();
-                    session.setAttribute("estudiantes", estudiantes);
-                    response.sendRedirect("adminEstudiantes.jsp");
-                }
-                break;
             }
-        }
-        
+        } catch (Exception ex) {
+                    Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
 //        Acciones
         if(accion != null){
             try{
@@ -125,6 +136,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("cursos");
                         session.removeAttribute("profesores");
                         session.removeAttribute("estudiantes");
+                        session.removeAttribute("cursoCurrent");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();

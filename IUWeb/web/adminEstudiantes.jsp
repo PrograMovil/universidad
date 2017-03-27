@@ -20,7 +20,7 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        <%ArrayList<Estudiante> estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes"); %>
+        <%  ArrayList<Estudiante> estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes"); %>
         <%  ArrayList<Carrera> allCarreras = (ArrayList<Carrera>) session.getAttribute("allCarreras"); %>
         <div class="container">
             <div class="row">
