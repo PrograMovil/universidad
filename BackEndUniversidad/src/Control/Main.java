@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        
+        Sockets s=new Sockets();
         
 //        Control control=new Control();
 //        Carrera carrera=new Carrera("1", "Informatica", "Bachillerato");

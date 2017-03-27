@@ -1,31 +1,34 @@
-
 package LogicaNegocio;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+public class Ciclo implements Serializable {
 
-public class Ciclo implements Serializable{
     private int anio;
-    private int numero;
-    private Calendar fechaInicio;
-    private Calendar fechaFinalizacion;
+    private String numero;
+    private String fechaInicio;
+    private String fechaFinalizacion;
 
-    public Ciclo(int anio, int numero, Calendar fechaInicio, Calendar fechaFinalizacion) {
+    public Ciclo(int anio, String numero) {
         this.anio = anio;
         this.numero = numero;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinalizacion = fechaFinalizacion;
+        if (numero == "I") {
+            this.fechaInicio = "15 de Febrero";
+            this.fechaFinalizacion = "20 de Junio";
+        } else if (numero == "II") {
+            this.fechaInicio = "20 de Julio";
+            this.fechaFinalizacion = "22 de Noviembre";
+        }
     }
-    
+
     public Ciclo() {
         this.anio = 0;
-        this.numero = 0;
-        this.fechaInicio = new GregorianCalendar(2000, 10, 11);
-        this.fechaFinalizacion = new GregorianCalendar(2000, 10, 12);
+        this.numero = "";
+        this.fechaInicio = "";
+        this.fechaFinalizacion = "";
     }
-    
 
     public int getAnio() {
         return anio;
@@ -35,30 +38,35 @@ public class Ciclo implements Serializable{
         this.anio = anio;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public Calendar getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Calendar fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Calendar getFechaFinalizacion() {
+    public String getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(Calendar fechaFinalizacion) {
+    public void setFechaFinalizacion(String fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
+    @Override
+    public String toString() {
+        return "Ciclo: "+numero+" del año: "+anio+", inicia: "+fechaInicio+", finaliza: "+fechaFinalizacion;
+    }
+
     
-    
+
 }

@@ -42,5 +42,9 @@ public class Horario implements Serializable{
         this.horaFinal = horaFinal;
     }
     
+    @Override
+    public String toString() {
+        return "Horario{" + " Dias: " + dias + ", hora inicial: " + horaInicial.getTime().getHours() + ":"+ horaInicial.getTime().getMinutes() + ", hora final: " + horaFinal.getTime().getHours() + ":"+ horaFinal.getTime().getMinutes() + " }";
+    }
     
 }

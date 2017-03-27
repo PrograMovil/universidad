@@ -71,7 +71,7 @@ public class Sockets {
                     System.out.println(action);
 
                     switch (action) {
-                        case "Login": {
+                        case "login": {
                             Usuario usuarioRecibido = (Usuario) entradaObjetos.readObject();
                             //devolviendo el resultado del login
                             int nivel = control.verificaUsuario(usuarioRecibido.getId(), usuarioRecibido.getClave());
