@@ -1,28 +1,25 @@
 package InterfazConsola;
 
-import Control.Control;
-import Control_Sockets.ConexionServidor;
-import java.io.*;
-import java.net.*;
+import Control_Sockets.Control_Sockets;
 import java.util.Scanner;
 
-import LogicaNegocio.*;
 
 
 
 
 
-public class InterfazConsola extends Thread implements Runnable {
+public class InterfazConsola{
 
-    ConexionServidor conexion;
+    Control_Sockets control;
 
 
     public InterfazConsola() {
         
+       control=new Control_Sockets();
+        
     }
 
-
-    public int login() throws Exception {
+    public int login(){
         
         int nivel = 0;
         
@@ -35,26 +32,14 @@ public class InterfazConsola extends Thread implements Runnable {
             System.out.print("\n Contraseña: ");
             String contrasena = menuEscaner.nextLine();
 
-            nivel=conexion.login(new Usuario(usuario, contrasena, 2));
+            nivel=control.login(usuario, contrasena);
 
         } while (nivel == 0);
         
         return nivel;
         
     }
-
-    public static void main(String[] args) throws Exception {
-
-        try {
-            
-            InterfazConsola interfaz = new InterfazConsola();
-            interfaz.login();
-            
-        } catch (Exception e) {
-            System.err.println("Exception: " + e);
-        }
-
-    }
+    
 
 }
 

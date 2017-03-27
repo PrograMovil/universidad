@@ -5,9 +5,6 @@ import LogicaNegocio.Ciclo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class Ciclos extends AccesoDatos {
@@ -16,9 +13,7 @@ public class Ciclos extends AccesoDatos {
         String tableAndParams = "Ciclo(anio,numero,fecha_Inicio,fecha_Finalizacion)";
         String values = "'%s','%s','%s','%s'";
         
-        java.sql.Date fechaInicio = new java.sql.Date(c.getFechaInicio().getTimeInMillis());
-        java.sql.Date fechaFinal = new java.sql.Date(c.getFechaFinalizacion().getTimeInMillis());
-        values = String.format(values,c.getAnio(),c.getNumero(),fechaInicio,fechaFinal);
+        values = String.format(values,c.getAnio(),c.getNumero(),c.getFechaInicio(),c.getFechaFinalizacion());
         return super.agregar(tableAndParams, values);
     }
     
@@ -29,26 +24,21 @@ public class Ciclos extends AccesoDatos {
         return super.eliminar(tableName, query);
     }
     
-    public int actualizar(Ciclo c){//actualizar fecha de inicio y fecha final
-        String tableName = "ciclo";
-        String tableParams = "fecha_Inicio='%s', fecha_Finalizacion='%s' where anio='%s' and numero='%s'";
-        
-        java.sql.Date fechaInicio = new java.sql.Date(c.getFechaInicio().getTimeInMillis());
-        java.sql.Date fechaFinal = new java.sql.Date(c.getFechaFinalizacion().getTimeInMillis());
-        tableParams = String.format(tableParams, fechaInicio, fechaFinal, c.getAnio(), c.getNumero());
-        return super.actualizar(tableName, tableParams);
-    }
+    //no se usa porque las fechas son fijas
+//    public int actualizar(Ciclo c){//actualizar fecha de inicio y fecha final
+//        String tableName = "ciclo";
+//        String tableParams = "fecha_Inicio='%s', fecha_Finalizacion='%s' where anio='%s' and numero='%s'";
+//        
+//        tableParams = String.format(tableParams, c.getFechaInicio(), c.getFechaFinalizacion(), c.getAnio(), c.getNumero());
+//        return super.actualizar(tableName, tableParams);
+//    }
     
     private Ciclo toCiclo(ResultSet rs) throws Exception {
         Ciclo obj = new Ciclo();
         obj.setAnio(rs.getInt("anio"));
-        obj.setNumero(rs.getInt("numero"));
-        Calendar horaIni = new GregorianCalendar();
-        horaIni.setTime(rs.getDate("fecha_Inicio"));
-        Calendar horaFin = new GregorianCalendar();
-        horaFin.setTime(rs.getDate("fecha_Finalizacion"));
-        obj.setFechaInicio(horaIni);
-        obj.setFechaFinalizacion(horaFin);
+        obj.setNumero(rs.getString("numero"));
+        obj.setFechaInicio(rs.getString("fecha_Inicio"));
+        obj.setFechaFinalizacion(rs.getString("fecha_Finalizacion"));
         return obj;
     }
     

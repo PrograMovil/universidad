@@ -1,6 +1,6 @@
 package Control_Sockets;
 
-import LogicaNegocio.Usuario;
+import LogicaNegocio.*;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -20,9 +20,13 @@ public class ConexionServidor extends Thread {
     //private DataOutputStream salidaDatos;
     //private DataInputStream entradaDatos;
     private Control_Sockets control;
+    
 
     private volatile boolean esperando = true;
     private volatile String action;
+    
+    private int nivel;
+    
 
     public ConexionServidor(String IP) throws Exception {
 
@@ -30,12 +34,12 @@ public class ConexionServidor extends Thread {
 
         try {
 
+            nivel=0;
             this.socket = new Socket(host, puerto);
-            action = "login";
             //this.salidaDatos = new DataOutputStream(socket.getOutputStream());
             //this.entradaDatos = new DataInputStream(socket.getInputStream());
             this.entradaObjetos = new ObjectInputStream(socket.getInputStream());
-            this.salidaObjetos = new ObjectOutputStream(socket.getOutputStream());
+           this.salidaObjetos = new ObjectOutputStream(socket.getOutputStream());
             this.control = new Control_Sockets();
             this.start();
 
@@ -59,6 +63,14 @@ public class ConexionServidor extends Thread {
 
                 switch (action) {
                     case "login": {
+                        //envia el tipo de accion
+                        salidaObjetos.writeUTF("login");
+
+                        //envia el objeto
+                        salidaObjetos.writeObject(control.getUsuario());
+
+                        //obtiene el resultado
+                        control.setNivel((int) entradaObjetos.readInt());
 
                     }
                     break;
@@ -80,23 +92,6 @@ public class ConexionServidor extends Thread {
             } catch (IOException ex2) {
             }
         }
-
-    }
-
-    public int login(Usuario usuario) throws Exception {
-
-        int nivel = 0;
-
-        //envia el tipo de accion
-        
-        //envia el objeto
-        salidaObjetos.writeObject(usuario);
-
-        //obtiene el resultado
-        nivel = (int) entradaObjetos.readInt();
-
-        //devuelve el resultado a la interfaz
-        return nivel;
 
     }
 

@@ -247,7 +247,17 @@ public class Control {
         try {
             return this.grupos.gruposPorProfesor(cedula);
         } catch (Exception ex) {
-            System.err.println("Error al actualizar grupo");
+            System.err.println("Error al obtener los grupos");
+        }
+        return null;
+        
+    }
+    
+    public ArrayList<Grupo> gruposPorCurso(Curso curso){
+        try {
+            return this.grupos.gruposPorCurso(curso);
+        } catch (Exception ex) {
+            System.err.println("Error al obtener los grupos");
         }
         return null;
         
@@ -311,9 +321,10 @@ public class Control {
         return this.ciclos.eliminar(ca);
     }
     
-    public int updateCiclo(Ciclo ca){
-        return this.ciclos.actualizar(ca);
-    }
+    //No se usa porque las fechas son fijas, y lo demas es primary key (tendria que enviar una copia)
+//    public int updateCiclo(Ciclo ca){
+//        return this.ciclos.actualizar(ca);
+//    }
     
     public Ciclo getCiclo(int anio) throws Exception{
         return this.ciclos.obtener(anio);
