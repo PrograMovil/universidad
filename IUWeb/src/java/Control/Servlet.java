@@ -152,8 +152,6 @@ public class Servlet extends HttpServlet {
                             Carrera ca;
                             if((ca = ctrl.getCarrera(codigo)) == null){
                                 carreras.clear();
-                                Carrera c = new Carrera("","","");
-                                carreras.add(c);
                                 session.setAttribute("carreras", carreras);
                                 response.sendRedirect("adminDash.jsp");
                             }else{
@@ -216,8 +214,6 @@ public class Servlet extends HttpServlet {
                             Profesor pro;
                             if((pro = ctrl.getProfesor(cedula)) == null){
                                 profesores.clear();
-                                Profesor p = new Profesor(null,"","","","");
-                                profesores.add(p);
                                 session.setAttribute("profesores", profesores);
                                 response.sendRedirect("adminProfesores.jsp");
                             }else{
@@ -309,13 +305,10 @@ public class Servlet extends HttpServlet {
                         String cedula = request.getParameter("cedula");
                         String nombre = request.getParameter("nombre");
                         String idCarrera = request.getParameter("idCarrera");
-                        System.out.println("Cedula: "+cedula+" Nombre: "+nombre+"IdCarrera: "+idCarrera);
                         if(cedula != "" && nombre == "" && idCarrera == ""){
                             Estudiante es;
                             if((es = ctrl.getEstudiante(cedula)) == null){
                                 estudiantes.clear();
-                                Estudiante e = new Estudiante(null,null,null,"","","","");
-                                estudiantes.add(e);
                                 session.setAttribute("estudiantes", estudiantes);
                                 response.sendRedirect("adminEstudiantes.jsp");
                             }else{
@@ -358,6 +351,59 @@ public class Servlet extends HttpServlet {
                             response.sendRedirect("adminCursos.jsp");
                         }else{
                             this.printHTML("ERROR: Curso NO Agregado!", response);
+                        }
+                    }
+                    break;
+                    case "EditarCurso": {
+                        String codigo = request.getParameter("codigo");
+                        String nombre = request.getParameter("nombre");
+                        String creditos = request.getParameter("creditos");
+                        String horasSemanales = request.getParameter("horasSemanales");
+                        String idCarrera = request.getParameter("idCarrera");
+                        String nivel = request.getParameter("nivel");
+                        Carrera ca = ctrl.getCarrera(idCarrera);
+                        Curso cu = new Curso(codigo,nombre,Integer.parseInt(creditos),Integer.parseInt(horasSemanales),ca,nivel);
+                        if(ctrl.updateCurso(cu) == 1){
+                            cursos = ctrl.obtenerTodosLosCursos();
+                            session.setAttribute("cursos", cursos);
+                            response.sendRedirect("adminCursos.jsp");
+                        }else{
+                            this.printHTML("ERROR: Curso NO Actualizado!", response);
+                        }
+                    }
+                    break;
+                    case "BuscarCurso": {
+                        String codigo = request.getParameter("codigo");
+                        String nombre = request.getParameter("nombre");
+                        String idCarrera = request.getParameter("idCarrera");
+                        if(codigo != "" && nombre == "" && idCarrera == ""){
+                            Curso cu;
+                            if((cu = ctrl.getCurso(codigo)) == null){
+                                cursos.clear();
+                                session.setAttribute("cursos", cursos);
+                                response.sendRedirect("adminCursos.jsp");
+                            }else{
+                                cursos.clear();
+                                cursos.add(cu);                        
+                                session.setAttribute("cursos", cursos);
+                                response.sendRedirect("adminCursos.jsp");
+                            }
+                        }else if(nombre != "" && codigo == "" && idCarrera == ""){
+                            cursos.clear();
+                            cursos = ctrl.getCursoPorNombre(nombre);
+                            session.setAttribute("cursos", cursos);
+                            response.sendRedirect("adminCursos.jsp");  
+                        }else if(idCarrera != "" && nombre == "" && codigo == ""){
+                            cursos.clear();
+                            Carrera ca = ctrl.getCarrera(idCarrera);
+                            cursos = ctrl.getCursoPorCarrera(ca);
+                            session.setAttribute("cursos", cursos);
+                            response.sendRedirect("adminCursos.jsp");  
+                        }else if(nombre == "" && codigo == "" && idCarrera == ""){
+                            cursos.clear();
+                            cursos = ctrl.obtenerTodosLosCursos();
+                            session.setAttribute("cursos", cursos);
+                            response.sendRedirect("adminCursos.jsp");
                         }
                     }
                     break;
