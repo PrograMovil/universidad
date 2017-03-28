@@ -4,6 +4,7 @@
     Author     : SheshoVega
 --%>
 
+<%@page import="LogicaNegocio.Ciclo"%>
 <%@page import="LogicaNegocio.Grupo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="LogicaNegocio.Curso"%>
@@ -22,6 +23,7 @@
         <%@ include file="header.jspf" %>
         <%  Estudiante estudianteCurrent = (Estudiante) session.getAttribute("estudianteCurrent"); 
           Carrera carreraEstudianteCurrent = (Carrera) session.getAttribute("carreraEstudianteCurrent"); 
+          Ciclo cicloDefault = (Ciclo) session.getAttribute("cicloDefault");
           ArrayList< ArrayList<Grupo> > listaGrupos = (ArrayList< ArrayList<Grupo> >) session.getAttribute("listaGrupos"); %>
         <div class="container">
             <div class="row">
@@ -46,6 +48,7 @@
                                     ArrayList<Grupo> gruposList = listaGrupos.get(i);
                                     for( int j=0; j<gruposList.size(); j++ ){ 
                                         Grupo grupo = gruposList.get(j);
+                                        if(cicloDefault.getNumero()==grupo.getCiclo().getNumero()){
                             %>
                                 <tr>
                                     <td><%= grupo.getCurso().getNombre() %></td>
@@ -59,7 +62,8 @@
                                     <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Matricular" id="matriculaBtn" name="action" value="Matricular">Matrícula</button></td>
                                 </form>
                                 </tr>
-                            <%  } 
+                            <%      }
+                                } 
                              } %>
                             </table>
                         </div>
