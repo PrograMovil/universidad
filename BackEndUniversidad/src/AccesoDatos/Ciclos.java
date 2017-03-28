@@ -98,12 +98,12 @@ public class Ciclos extends AccesoDatos {
         return lista;
     }
     
-    public int cambiarCicloActivo(Ciclo c) throws Exception{
+    public int cambiarCicloActivo(int anio, String numero) throws Exception{
         
         String tableName = "CicloActivo";
         String tableParams = "anio='%s', numero='%s'";
         
-        tableParams = String.format(tableParams, c.getAnio(), c.getNumero());
+        tableParams = String.format(tableParams, anio, numero);
         String sql = "update " + tableName + " set " + tableParams + " where id='1'";
         int count = db.executeUpdate(sql);
         return count;
