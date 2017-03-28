@@ -77,6 +77,10 @@
                                     <td hidden="hidden"><%= es.getCarrera().getCodigo() %></td>
                                     <td><%= es.getCarrera().getNombre() %></td>
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= es.getCedula() %>" onclick="cargarDataModal(this)">Editar</a></td>
+                                <form action="Servlet" method="POST">
+                                    <input type="text" name="idEstudiante" value="<%= es.getCedula() %>" hidden="" />
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Ver o Realizar Matrícula" id="matriculaBtn" name="router" value="adminMatricula">Matrícula</button></td>
+                                </form>
                                 </tr>
                                 <%}%>                           
                             </table>
@@ -189,6 +193,7 @@
             $('#passwordEdit').tooltip({'trigger':'focus', 'title': 'Ingrese la nueva Contraseña del Usuario'});
             $('#cedulaSearch').tooltip({'trigger':'focus', 'title': 'Cédula'});
             $('#nombreSearch').tooltip({'trigger':'focus', 'title': 'Nombre'});
+            $('[data-toggle="tooltip"]').tooltip();
         });
         function cargarDataModal(element){
             var id = element.id;

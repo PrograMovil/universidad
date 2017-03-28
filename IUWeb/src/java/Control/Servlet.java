@@ -43,6 +43,7 @@ public class Servlet extends HttpServlet {
         ArrayList<Grupo> grupos = null;
         ArrayList<Profesor> allProfesores = null;
         ArrayList<Ciclo> ciclos = null;
+        Estudiante estudianteCurrent = null;
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -95,7 +96,10 @@ public class Servlet extends HttpServlet {
                         response.sendRedirect("adminGrupos.jsp");
                     }
                     break;
-                    case "matricula": {
+                    case "adminMatricula": {
+                        String idEstudiante = request.getParameter("idEstudiante");
+                        estudianteCurrent = ctrl.getEstudiante(idEstudiante);
+                        session.setAttribute("estudianteCurrent", estudianteCurrent);
                         response.sendRedirect("adminMatricula.jsp");
                     }
                     break;
@@ -159,6 +163,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("cursoCurrent");
                         session.removeAttribute("grupos");
                         session.removeAttribute("ciclos");
+                        session.removeAttribute("estudianteCurrent");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();
@@ -458,23 +463,19 @@ public class Servlet extends HttpServlet {
                         for(String s : dias){
                             diasStr = diasStr +" "+ s;
                         }
-//                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-//                        Calendar horaInicioCal = Calendar.getInstance();
-//                        horaInicioCal.setTime(sdf.parse(horaInicio));
-//                        Calendar horaFinalCal = Calendar.getInstance();
-//                        horaFinalCal.setTime(sdf.parse(horaFinal));
                         Horario hora = new Horario(diasStr,horaInicio,horaFinal);
                         Profesor profe = ctrl.getProfesor(idProfesor);
                         Curso cur = ctrl.getCurso(idCurso);
                         Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
                         Grupo gru = new Grupo(Integer.parseInt(numero),hora,profe,cur,ci);
-                        if(ctrl.addGrupo(gru) == 1){
-                            grupos = ctrl.gruposPorCurso(cur);
-                            session.setAttribute("grupos", grupos);
-                            response.sendRedirect("adminGrupos.jsp");
-                        }else{
-                            this.printHTML("ERROR: Grupo NO Agregado!", response);
-                        }
+                        this.printHTML(gru.toString(), response);
+//                        if(ctrl.addGrupo(gru) == 1){
+//                            grupos = ctrl.gruposPorCurso(cur);
+//                            session.setAttribute("grupos", grupos);
+//                            response.sendRedirect("adminGrupos.jsp");
+//                        }else{
+//                            this.printHTML("ERROR: Grupo NO Agregado!", response);
+//                        }
                     }
                     break;
                     case "EditarGrupo": {
@@ -490,11 +491,6 @@ public class Servlet extends HttpServlet {
                         for(String s : dias){
                             diasStr = diasStr +" "+ s;
                         }
-//                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-//                        Calendar horaInicioCal = Calendar.getInstance();
-//                        horaInicioCal.setTime(sdf.parse(horaInicio));
-//                        Calendar horaFinalCal = Calendar.getInstance();
-//                        horaFinalCal.setTime(sdf.parse(horaFinal));
                         Horario hora = new Horario(diasStr,horaInicio,horaFinal);
                         Profesor profe = ctrl.getProfesor(idProfesor);
                         Curso cur = ctrl.getCurso(idCurso);
