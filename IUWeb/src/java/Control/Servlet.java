@@ -563,6 +563,9 @@ public class Servlet extends HttpServlet {
                         session.setAttribute("cicloDefault", cicloDefault);
                         String idEstudiante= request.getParameter("idEstudiante");
                         String idGrupo= request.getParameter("idGrupo");
+//                        if((ctrl.addEstudianteAGrupo(ctrl.getEstudiante(idEstudiante), ctrl)) == 1){
+//                            
+//                        }
                         this.printHTML("Matriculado "+idEstudiante+" en: "+idGrupo, response);
                     }
                     break;
