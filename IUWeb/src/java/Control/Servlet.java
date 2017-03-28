@@ -47,7 +47,7 @@ public class Servlet extends HttpServlet {
         Carrera carreraEstudianteCurrent = null;
         ArrayList<Curso> cursosCarrera = null;
         ArrayList<Grupo> gruposCurso = null;
-        Ciclo cicloDefault = null;
+        Ciclo cicloDefault = null;;
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -56,7 +56,7 @@ public class Servlet extends HttpServlet {
         profesores = ctrl.obtenerTodosLosProfesores();
         estudiantes = ctrl.obtenerTodosLosEstudiantes();
         cursos = ctrl.obtenerTodosLosCursos();
-        
+        cicloDefault = ctrl.obtenerCicloActivo();
 //        Router y rutas
         try {
             if(router != null){
@@ -114,7 +114,8 @@ public class Servlet extends HttpServlet {
                             listaGrupos.add(gruposCurso);
                         }
                         session.setAttribute("listaGrupos", listaGrupos);
-                        
+                        cicloDefault = ctrl.obtenerCicloActivo();
+                        session.setAttribute("cicloDefault", cicloDefault);
                         response.sendRedirect("adminMatricula.jsp");
                     }
                     break;
