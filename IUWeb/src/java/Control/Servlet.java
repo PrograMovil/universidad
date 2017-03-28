@@ -494,6 +494,7 @@ public class Servlet extends HttpServlet {
                     }
                     break;
                     case "EditarGrupo": {
+                        String idGrupo= request.getParameter("idGrupo");
                         String idCurso = request.getParameter("idCurso");
                         String numeroCiclo = request.getParameter("numeroCiclo");
                         String numero = request.getParameter("numero");
@@ -510,7 +511,7 @@ public class Servlet extends HttpServlet {
                         Profesor profe = ctrl.getProfesor(idProfesor);
                         Curso cur = ctrl.getCurso(idCurso);
                         Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
-                        Grupo gru = new Grupo(Integer.parseInt(numero),hora,profe,cur,ci);
+                        Grupo gru = new Grupo(Integer.parseInt(idGrupo),Integer.parseInt(numero),hora,profe,cur,ci);
                         if(ctrl.updateGrupo(gru) == 1){
                             grupos = ctrl.gruposPorCurso(cur);
                             session.setAttribute("grupos", grupos);

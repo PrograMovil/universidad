@@ -237,7 +237,7 @@ public class Control {
     public int updateGrupo(Grupo ca){
         try {
             return this.grupos.actualizar(ca);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println("Error al actualizar grupo");
         }
         return 0;
@@ -343,6 +343,16 @@ public class Control {
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Estudiante">
     
+    public Estudiante getEstudiantePorCarrera(String cedula){
+         try {
+            return this.estudiantes.obtener(cedula);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
     /**
      * 
      * @param nombre
@@ -430,6 +440,8 @@ public class Control {
         }
         return null;
     }
+    
+    
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Horario">

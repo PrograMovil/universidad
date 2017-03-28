@@ -15,6 +15,8 @@ public class Grupos extends AccesoDatos {
         
         Horarios horario=new Horarios();
         horario.agregar(c.getHorario());
+        if(horario.obtener(c.getHorario())==null)
+            horario.agregar(c.getHorario());
         Ciclos ciclo=new Ciclos();
         if(ciclo.obtener(c.getCiclo())==null)
             ciclo.agregar(c.getCiclo());
@@ -30,9 +32,17 @@ public class Grupos extends AccesoDatos {
         return super.eliminar(tableName, query);
     }
     
-    public int actualizar(Grupo c) throws SQLException{
+    public int actualizar(Grupo c) throws SQLException, Exception{
         String tableName = "Grupo";
         String tableParams = "numero = '%s',Horario_id='%s', Curso_id='%s', Profesor_cedula='%s', Ciclo_anio='%s', Ciclo_numero='%s' where id='%s'";
+        
+        Horarios horarios=new Horarios();
+        if(horarios.obtener(c.getHorario())==null)
+            horarios.agregar(c.getHorario());
+        Ciclos ciclo=new Ciclos();
+        if(ciclo.obtener(c.getCiclo())==null)
+            ciclo.agregar(c.getCiclo());
+        
         tableParams = String.format(tableParams, c.getNumero(), new Horarios().obtenerId(c.getHorario()), new Cursos().obtenerId(c.getCurso()), c.getProfesor().getCedula(),c.getCiclo().getAnio(),c.getCiclo().getNumero(), c.getId());
         return super.actualizar(tableName, tableParams);
     }

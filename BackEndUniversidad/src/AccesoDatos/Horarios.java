@@ -44,7 +44,19 @@ public class Horarios extends AccesoDatos {
     public Horario obtener(String dias, Date horaInicial, Date horaFinal) throws SQLException, Exception {
         String tableName = "Horario";
         String param = "dias = '%s' and horaInicial = '%s' and horaFinal = '%s'";
-        param = String.format(param, dias);
+        param = String.format(param, dias, horaInicial, horaFinal);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toHorario(rs);
+        } else {
+            return null;
+        }
+    }
+    
+    public Horario obtener(Horario horario) throws SQLException, Exception {
+        String tableName = "Horario";
+        String param = "dias = '%s' and horaInicial = '%s' and horaFinal = '%s'";
+        param = String.format(param, horario.getDias(), horario.getHoraInicial(), horario.getHoraFinal());
         ResultSet rs = super.obtener(tableName, param);
         if (rs.next()) {
             return toHorario(rs);
