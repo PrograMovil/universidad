@@ -8,6 +8,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        Control control=new Control();
+        
+        //Ciclo ciclo=new Ciclo(2016, 1, null, null);
+        
         //Sockets s=new Sockets();
         
 //        Control control=new Control();

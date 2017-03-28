@@ -98,4 +98,30 @@ public class Ciclos extends AccesoDatos {
         return lista;
     }
     
+    public int cambiarCicloActivo(Ciclo c) throws Exception{
+        
+        String tableName = "CicloActivo";
+        String tableParams = "anio='%s', numero='%s'";
+        
+        tableParams = String.format(tableParams, c.getAnio(), c.getNumero());
+        String sql = "update " + tableName + " set " + tableParams + " where id='1'";
+        int count = db.executeUpdate(sql);
+        return count;
+        
+    }
+    
+    public Ciclo obtenerCicloActivo() throws Exception{
+        
+        String tableName = "CicloActivo";
+        String sql = "select * from " + tableName ;
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            Ciclo obj = obtenerPorAnioYNumero(rs.getInt("anio"), rs.getString("numero"));
+            return obj;
+        } else {
+            return null;
+        } 
+        
+    }
+    
 }

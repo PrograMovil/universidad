@@ -709,4 +709,28 @@ public class Control {
     }
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Metodos Ciclo activo">
+    
+    public int cambiarCicloActivo(Ciclo c){
+        try {
+            return ciclos.cambiarCicloActivo(c);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    
+    public Ciclo obtenerCicloActivo(){
+        try {
+            return ciclos.obtenerCicloActivo();
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+//</editor-fold>
+    
+    
 }

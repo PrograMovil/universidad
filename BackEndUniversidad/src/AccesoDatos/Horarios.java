@@ -4,9 +4,7 @@ import LogicaNegocio.Horario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Horarios extends AccesoDatos {
 
@@ -70,7 +68,7 @@ public class Horarios extends AccesoDatos {
         String param2 = "dias = '%s' AND horaInicial = '%s' AND HoraFinal = '%s'";
 
         param2 = String.format(param2, h.getDias(), h.getHoraInicial(), h.getHoraFinal());
-        String sql2 = "select * from Horario o where o." + param2;
+        String sql2 = "select * from Horario where " + param2;
         ResultSet rs2 = db.executeQuery(sql2);
         int idHorario = -1;
         if (rs2.next()) {
