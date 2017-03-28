@@ -25,6 +25,7 @@
                     <%@ include file="adminMenu.jspf" %>
                 </div>
                 <div class="col-md-10">
+                    <div class="label label-danger col-md-12">${errores}</div>
                     <div class="row">
                         <h2>Lista de Carreras</h2>
                         <div class="col-md-10" >

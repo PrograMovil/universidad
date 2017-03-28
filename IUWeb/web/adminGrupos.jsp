@@ -29,6 +29,7 @@
                     <%@ include file="adminMenu.jspf" %>                    
                 </div>
                 <div class="col-md-10">
+                    <div class="label label-danger col-md-12">${errores}</div>
                     <div class="row">
                         <div class="col-md-10" >
                             <h1>Curso: <%= cursoCurrent.getCodigo() %> <%= cursoCurrent.getNombre() %></h1>
