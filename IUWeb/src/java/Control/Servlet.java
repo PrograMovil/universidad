@@ -47,7 +47,7 @@ public class Servlet extends HttpServlet {
         Carrera carreraEstudianteCurrent = null;
         ArrayList<Curso> cursosCarrera = null;
         ArrayList<Grupo> gruposCurso = null;
-        
+        Ciclo cicloDefault = null;
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -119,6 +119,8 @@ public class Servlet extends HttpServlet {
                     }
                     break;
                     case "cicloLectivo": {
+                        session.setAttribute("exito", "");
+                        session.setAttribute("errores", "");
                         ciclos = ctrl.obtenerTodosLosCiclos();
                         session.setAttribute("ciclos", ciclos);
                         response.sendRedirect("adminCiclos.jsp");
@@ -181,6 +183,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("estudianteCurrent");
                         session.removeAttribute("carreraEstudianteCurrent");
                         session.removeAttribute("listaGrupos");
+                        session.removeAttribute("cicloDefault");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();
@@ -554,9 +557,26 @@ public class Servlet extends HttpServlet {
                     }
                     break;
                     case "Matricular": {
+                        cicloDefault = ctrl.obtenerCicloActivo();
+                        session.setAttribute("cicloDefault", cicloDefault);
                         String idEstudiante= request.getParameter("idEstudiante");
                         String idGrupo= request.getParameter("idGrupo");
                         this.printHTML("Matriculado "+idEstudiante+" en: "+idGrupo, response);
+                    }
+                    break;
+                    case "CicloDefault": {
+                        String anio= request.getParameter("anio");
+                        String numero= request.getParameter("numero");
+                        this.printHTML("Matriculado "+anio+" en: "+numero, response);
+                        if((ctrl.cambiarCicloActivo(Integer.parseInt(anio), numero)) == 1){
+                            session.setAttribute("errores", "");
+                            session.setAttribute("exito", "Ciclo Cambiado Correctamente");
+                            response.sendRedirect("adminCiclos.jsp");
+                        }else{
+                            session.setAttribute("errores", "");
+                            session.setAttribute("exito", "");
+                            response.sendRedirect("adminCiclos.jsp");
+                        }
                     }
                     break;
                 }
