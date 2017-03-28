@@ -127,7 +127,7 @@ public class Grupos extends AccesoDatos {
             obj.setId(rs.getInt("id"));
             obj.setNumero(rs.getInt("numero"));
             obj.setHorario(new Horarios().obtenerPorId(rs.getInt("Horario_id")));
-            obj.setCurso(new Cursos().obtenerPorId(rs.getInt("id")));
+            obj.setCurso(new Cursos().obtenerPorId(rs.getInt("Curso_id")));
             obj.setProfesor(new Profesores().obtener(rs.getString("Profesor_cedula")));
             int anio=rs.getInt("Ciclo_anio");
             String num=rs.getString("Ciclo_numero");
