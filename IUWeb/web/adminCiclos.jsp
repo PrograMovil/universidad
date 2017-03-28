@@ -42,7 +42,11 @@
                                     <td><%= ci.getNumero() %></td>
                                     <td><%= ci.getFechaInicio() %></td>
                                     <td><%= ci.getFechaFinalizacion() %></td>
-                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="" onclick="cargarDataModal(this)">Seleccionar como Default</a></td>
+                                <form action="Servlet" method="POST">
+                                    <input type="text" name="anio" value="<%= ci.getAnio() %>" hidden="" />
+                                    <input type="text" name="numero" value="<%= ci.getNumero() %>" hidden="" />
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="" id="cicloDefaultBtn" name="action" value="CicloDefault">Seleccionar como Default</button></td>
+                                </form>
                                 </tr>
                                 <%}%>                           
                             </table>
