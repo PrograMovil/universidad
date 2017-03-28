@@ -558,6 +558,7 @@ public class Servlet extends HttpServlet {
                     break;
                     case "Matricular": {
                         cicloDefault = ctrl.obtenerCicloActivo();
+                        System.out.println(cicloDefault);
                         session.setAttribute("cicloDefault", cicloDefault);
                         String idEstudiante= request.getParameter("idEstudiante");
                         String idGrupo= request.getParameter("idGrupo");
