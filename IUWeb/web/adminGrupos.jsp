@@ -99,10 +99,10 @@
                             </select>
                             <br><br>
                             <div class="form-group">
-                                <input type="text"  class="form-control" id="horaInicioEdit" placeholder="hh:mm">
+                                <input type="text" name="horaInicio" class="form-control bootstrap-timepicker timepicker" id="horaInicioEdit" placeholder="hh:mm">
                             </div>
                             <div class="form-group">
-                                <input type="text"  class="form-control" id="horaFinalEdit" placeholder="hh:mm">
+                                <input type="text" name="horaFinal" class="form-control bootstrap-timepicker timepicker" id="horaFinalEdit" placeholder="hh:mm">
                             </div>
                             <select class="form-control" name="idProfesor" id="idProfesorEdit" >
                                 <option value="" >Seleccione el Profesor</option>
@@ -192,6 +192,14 @@
             showClear: true
         });
         $('#horaFinalForm').datetimepicker({
+            format: 'HH:mm A',
+            showClear: true
+        });
+        $('#horaInicioEdit').datetimepicker({
+            format: 'HH:mm A',
+            showClear: true
+        });
+        $('#horaFinalEdit').datetimepicker({
             format: 'HH:mm A',
             showClear: true
         });
