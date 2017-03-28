@@ -13,10 +13,10 @@ public class Ciclos extends AccesoDatos {
         String tableAndParams = "Ciclo(anio,numero,fecha_Inicio,fecha_Finalizacion)";
         String values = "'%s','%s','%s','%s'";
         
-        if (c.getNumero() == "I") {
+        if (c.getNumero().equals("I")) {
             c.setFechaInicio("15 de Febrero");
             c.setFechaFinalizacion("20 de Junio");
-        } else if (c.getNumero() == "II") {
+        } else if (c.getNumero().equals("II")) {
             c.setFechaInicio("20 de Julio");
             c.setFechaFinalizacion("22 de Noviembre");
         }
