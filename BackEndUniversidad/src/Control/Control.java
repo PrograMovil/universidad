@@ -711,9 +711,9 @@ public class Control {
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Ciclo activo">
     
-    public int cambiarCicloActivo(Ciclo c){
+    public int cambiarCicloActivo(int anio, String numero){
         try {
-            return ciclos.cambiarCicloActivo(c);
+            return ciclos.cambiarCicloActivo(anio, numero);
         } catch (Exception ex) {
             Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
         }
