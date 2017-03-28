@@ -9,12 +9,15 @@ import java.util.ArrayList;
 
 public class Grupos extends AccesoDatos {
     
-    public int agregar(Grupo c) throws SQLException{
+    public int agregar(Grupo c) throws SQLException, Exception{
         String query = "'%s','%s','%s','%s','%s','%s'";
         String tableAndParams="Grupo(numero,Horario_id,Curso_id,Profesor_cedula,Ciclo_anio,Ciclo_numero)";
         
         Horarios horario=new Horarios();
         horario.agregar(c.getHorario());
+        Ciclos ciclo=new Ciclos();
+        if(ciclo.obtener(c.getCiclo())==null)
+            ciclo.agregar(c.getCiclo());
         
         query = String.format(query,c.getNumero(),horario.obtenerId(c.getHorario()),new Cursos().obtenerId(c.getCurso()),c.getProfesor().getCedula(),c.getCiclo().getAnio(),c.getCiclo().getNumero());
         return super.agregar(tableAndParams, query);

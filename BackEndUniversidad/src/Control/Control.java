@@ -219,7 +219,7 @@ public class Control {
     public int addGrupo(Grupo ca){
         try {
             return this.grupos.agregar(ca);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println("Error al agregar grupo");
         }
         return 0;
