@@ -179,6 +179,8 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("grupos");
                         session.removeAttribute("ciclos");
                         session.removeAttribute("estudianteCurrent");
+                        session.removeAttribute("carreraEstudianteCurrent");
+                        session.removeAttribute("listaGrupos");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();
@@ -193,9 +195,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.addCarrera(ca) == 1){
                             carreras = ctrl.obtenerTodasCarreras();
                             session.setAttribute("carreras", carreras);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminDash.jsp");
                         }else{
-                            this.printHTML("ERROR: Carrera NO Agregada!", response);
+                            String errores = "ERROR: Carrera NO Agregada!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminDash.jsp");
                         }
                     }
                     break;
@@ -238,9 +243,12 @@ public class Servlet extends HttpServlet {
                             carreras.clear();
                             carreras = ctrl.obtenerTodasCarreras();
                             session.setAttribute("carreras", carreras);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminDash.jsp");
                         }else{
-                            this.printHTML("ERROR: Carrera NO Actualizada!", response);
+                            String errores = "ERROR: Carrera NO Actualizada!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminDash.jsp");
                         }
                     }
                     break;
@@ -255,9 +263,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.addProfesor(profe) == 1){
                             profesores = ctrl.obtenerTodosLosProfesores();
                             session.setAttribute("profesores", profesores);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminProfesores.jsp");
                         }else{
-                            this.printHTML("ERROR: Profesor NO Agregado!", response);
+                            String errores = "ERROR: Profesor NO Agregado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminProfesores.jsp");
                         }
                     }
                     break;
@@ -303,9 +314,12 @@ public class Servlet extends HttpServlet {
                             profesores.clear();
                             profesores = ctrl.obtenerTodosLosProfesores();
                             session.setAttribute("profesores", profesores);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminProfesores.jsp");
                         }else{
-                            this.printHTML("ERROR: Profesor NO Actualizado!", response);
+                            String errores = "ERROR: Profesor NO Actualizado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminProfesores.jsp");
                         }
                     }
                     break;
@@ -326,9 +340,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.addEstudiante(es) == 1){
                             estudiantes = ctrl.obtenerTodosLosEstudiantes();
                             session.setAttribute("estudiantes", estudiantes);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminEstudiantes.jsp");
                         }else{
-                            this.printHTML("ERROR: Estudiante NO Agregado!", response);
+                            String errores = "ERROR: Estudiante NO Agregado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminEstudiantes.jsp");
                         }
                     }
                     break;
@@ -349,9 +366,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.updateEstudiante(es) == 1){
                             estudiantes = ctrl.obtenerTodosLosEstudiantes();
                             session.setAttribute("estudiantes", estudiantes);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminEstudiantes.jsp");
                         }else{
-                            this.printHTML("ERROR: Estudiante NO Actualizado!", response);
+                            String errores = "ERROR: Estudiante NO Actualizado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminEstudiantes.jsp");
                         }
                     }
                     break;
@@ -404,9 +424,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.addCurso(cu) == 1){
                             cursos = ctrl.obtenerTodosLosCursos();
                             session.setAttribute("cursos", cursos);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminCursos.jsp");
                         }else{
-                            this.printHTML("ERROR: Curso NO Agregado!", response);
+                            String errores = "ERROR: Curso NO Agregado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminCursos.jsp");
                         }
                     }
                     break;
@@ -424,9 +447,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.updateCurso(cu) == 1){
                             cursos = ctrl.obtenerTodosLosCursos();
                             session.setAttribute("cursos", cursos);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminCursos.jsp");
                         }else{
-                            this.printHTML("ERROR: Curso NO Actualizado!", response);
+                            String errores = "ERROR: Curso NO Actualizado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminCursos.jsp");
                         }
                     }
                     break;
@@ -487,9 +513,12 @@ public class Servlet extends HttpServlet {
                         if(ctrl.addGrupo(gru) == 1){
                             grupos = ctrl.gruposPorCurso(cur);
                             session.setAttribute("grupos", grupos);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminGrupos.jsp");
                         }else{
-                            this.printHTML("ERROR: Grupo NO Agregado!", response);
+                            String errores = "ERROR: Grupo NO Agregado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminGrupos.jsp");
                         }
                     }
                     break;
@@ -515,10 +544,19 @@ public class Servlet extends HttpServlet {
                         if(ctrl.updateGrupo(gru) == 1){
                             grupos = ctrl.gruposPorCurso(cur);
                             session.setAttribute("grupos", grupos);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminGrupos.jsp");
                         }else{
-                            this.printHTML("ERROR: Grupo NO Actualizado!", response);
+                            String errores = "ERROR: Grupo NO Actualizado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminGrupos.jsp");
                         }
+                    }
+                    break;
+                    case "Matricular": {
+                        String idEstudiante= request.getParameter("idEstudiante");
+                        String idGrupo= request.getParameter("idGrupo");
+                        this.printHTML("Matriculado "+idEstudiante+" en: "+idGrupo, response);
                     }
                     break;
                 }
@@ -535,7 +573,7 @@ public class Servlet extends HttpServlet {
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet Servlet</title>");            
+        out.println("<title>Error</title>");            
         out.println("</head>");
         out.println("<body>");
         out.println("<h1>"+msg+"</h1>");

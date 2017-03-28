@@ -29,6 +29,7 @@
                     <%@ include file="adminMenu.jspf" %>                    
                 </div>
                 <div class="col-md-10">
+                    <div class="label label-danger col-md-12">${errores}</div>
                     <div class="row">
                         <h2>Matrícula de <%= estudianteCurrent.getNombre() %> de  </h2>
                         <div class="col-md-12" >
@@ -52,7 +53,11 @@
                                     <td><%= grupo.getHorario().toString() %></td>
                                     <td><%= grupo.getProfesor().getNombre() %></td>
                                     <td><%= grupo.getCiclo().getNumero() %></td>
-                                    <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="" onclick="cargarDataModal(this)">Matricular</a></td>
+                                <form action="Servlet" method="POST">
+                                    <input type="text" name="idEstudiante" value="<%= estudianteCurrent.getCedula() %>" hidden="" />
+                                    <input type="text" name="idGrupo" value="<%= grupo.getId() %>" hidden="" />
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Matricular" id="matriculaBtn" name="action" value="Matricular">Matrícula</button></td>
+                                </form>
                                 </tr>
                             <%  } 
                              } %>
