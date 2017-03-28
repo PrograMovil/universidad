@@ -44,6 +44,10 @@ public class Servlet extends HttpServlet {
         ArrayList<Profesor> allProfesores = null;
         ArrayList<Ciclo> ciclos = null;
         Estudiante estudianteCurrent = null;
+        Carrera carreraEstudianteCurrent = null;
+        ArrayList<Curso> cursosCarrera = null;
+        ArrayList<Grupo> gruposCurso = null;
+        
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -100,6 +104,17 @@ public class Servlet extends HttpServlet {
                         String idEstudiante = request.getParameter("idEstudiante");
                         estudianteCurrent = ctrl.getEstudiante(idEstudiante);
                         session.setAttribute("estudianteCurrent", estudianteCurrent);
+                        carreraEstudianteCurrent = estudianteCurrent.getCarrera();
+                        session.setAttribute("carreraEstudianteCurrent", carreraEstudianteCurrent);
+                        cursosCarrera = ctrl.getCursoPorCarrera(carreraEstudianteCurrent);
+                        session.setAttribute("cursosCarrera", cursosCarrera);
+                        ArrayList<ArrayList<Grupo>> listaGrupos = new ArrayList();
+                        for(Curso curso : cursosCarrera ){
+                            gruposCurso = ctrl.gruposPorCurso(curso);
+                            listaGrupos.add(gruposCurso);
+                        }
+                        session.setAttribute("listaGrupos", listaGrupos);
+                        
                         response.sendRedirect("adminMatricula.jsp");
                     }
                     break;

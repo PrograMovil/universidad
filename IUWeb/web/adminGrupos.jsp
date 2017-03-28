@@ -44,10 +44,15 @@
                             <table class="table" style="text-align: center">
                                 <tr>
                                     <td>Número</td>
+                                    <td hidden=""></td>
+                                    <td hidden=""></td>
+                                    <td hidden=""></td>
                                     <td>Horario</td>
+                                    <td hidden=""></td>
                                     <td>Profesor</td>
                                     <td>Curso</td>
                                     <td>Ciclo</td>
+                                    <td hidden=""></td>
                                     <td></td>
                                 </tr>
                                 <% for( Grupo g : grupos ){ %>
@@ -60,9 +65,7 @@
                                     <td hidden="" ><%= g.getProfesor().getCedula() %></td>
                                     <td><%= g.getProfesor().getNombre() %></td>
                                     <td><%= g.getCurso().getNombre() %></td>
-                                    <!--.getNombre()-->
                                     <td><%= g.getCiclo().getNumero() %></td> 
-                                    <!--.getNumero()-->
                                     <td hidden=""><%= g.getCiclo().getAnio() %></td>
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= g.getId() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 </tr>
@@ -231,14 +234,11 @@
             
             var diasStr = TR.childNodes[3].innerHTML;
             var diasArray = diasStr.split(" ");
-            diasArray.forEach(function(item){
-                console.log(item);
-                $('.selectpicker').selectpicker('val', item);
-            });
+            $('.selectpicker').selectpicker('val', diasArray);
             horaInicioInput.value = TR.childNodes[5].innerHTML;
             horaFinalInput.value = TR.childNodes[7].innerHTML;
             profesorInput.value = TR.childNodes[11].innerHTML;
-            anioCicloInput.value = TR.childNodes[21].innerHTML;
+            anioCicloInput.value = TR.childNodes[19].innerHTML;
         }
     </script>
 </html>

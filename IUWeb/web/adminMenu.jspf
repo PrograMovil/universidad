@@ -3,6 +3,5 @@
     <button type="submit" class="btn btn-default btn-block" name="router" value="adminCursos">Cursos</button>
     <button type="submit" class="btn btn-default btn-block" name="router" value="adminProfesores">Profesores</button>
     <button type="submit" class="btn btn-default btn-block" name="router" value="adminEstudiantes">Estudiantes</button> 
-    <button type="submit" class="btn btn-default btn-block" name="router" value="matricula">Matricula</button>
     <button type="submit" class="btn btn-default btn-block" name="router" value="cicloLectivo">Ciclo Lectivo</button>
 </form>
