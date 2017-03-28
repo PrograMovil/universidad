@@ -54,6 +54,19 @@ public class Ciclos extends AccesoDatos {
         }
     }
     
+    
+    public Ciclo obtener(Ciclo ciclo) throws SQLException, Exception{
+        String tableName = "ciclo";
+        String param = "anio = '%s' and numero= '%s'";
+        param = String.format(param, ciclo.getAnio(), ciclo.getNumero());
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toCiclo(rs);
+        } else {
+            return null;
+        }
+    }
+    
     public Ciclo obtener(int anio) throws SQLException, Exception{
         String tableName = "ciclo";
         String param = "anio = '%s'";
