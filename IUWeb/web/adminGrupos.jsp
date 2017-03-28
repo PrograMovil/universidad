@@ -60,7 +60,9 @@
                                     <td hidden="" ><%= g.getProfesor().getCedula() %></td>
                                     <td><%= g.getProfesor().getNombre() %></td>
                                     <td><%= g.getCurso().getNombre() %></td>
+                                    <!--.getNombre()-->
                                     <td><%= g.getCiclo().getNumero() %></td> 
+                                    <!--.getNumero()-->
                                     <td hidden=""><%= g.getCiclo().getAnio() %></td>
                                     <td><a href="#editarModal" data-toggle="modal" class="btn btn-default" id="<%= g.getId() %>" onclick="cargarDataModal(this)">Editar</a></td>
                                 </tr>

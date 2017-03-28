@@ -468,14 +468,14 @@ public class Servlet extends HttpServlet {
                         Curso cur = ctrl.getCurso(idCurso);
                         Ciclo ci = new Ciclo(Integer.parseInt(anioCiclo),numeroCiclo);
                         Grupo gru = new Grupo(Integer.parseInt(numero),hora,profe,cur,ci);
-                        this.printHTML(gru.toString(), response);
-//                        if(ctrl.addGrupo(gru) == 1){
-//                            grupos = ctrl.gruposPorCurso(cur);
-//                            session.setAttribute("grupos", grupos);
-//                            response.sendRedirect("adminGrupos.jsp");
-//                        }else{
-//                            this.printHTML("ERROR: Grupo NO Agregado!", response);
-//                        }
+//                        this.printHTML(gru.toString(), response);
+                        if(ctrl.addGrupo(gru) == 1){
+                            grupos = ctrl.gruposPorCurso(cur);
+                            session.setAttribute("grupos", grupos);
+                            response.sendRedirect("adminGrupos.jsp");
+                        }else{
+                            this.printHTML("ERROR: Grupo NO Agregado!", response);
+                        }
                     }
                     break;
                     case "EditarGrupo": {
