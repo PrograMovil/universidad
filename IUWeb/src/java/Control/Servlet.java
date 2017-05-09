@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Control.Control;
+import LogicaNegocio.Administrador;
 import LogicaNegocio.Carrera;
 import LogicaNegocio.Ciclo;
 import LogicaNegocio.Curso;
 import LogicaNegocio.Estudiante;
 import LogicaNegocio.Grupo;
 import LogicaNegocio.Horario;
+import LogicaNegocio.Matriculador;
 import LogicaNegocio.Nota;
 import LogicaNegocio.Profesor;
 import LogicaNegocio.Usuario;
@@ -38,6 +40,8 @@ public class Servlet extends HttpServlet {
         ArrayList<Carrera> carreras = null;
         ArrayList<Carrera> allCarreras = null;
         ArrayList<Profesor> profesores = null;
+        ArrayList<Matriculador> matriculadores = null;
+        ArrayList<Administrador> administradores = null;
         ArrayList<Estudiante> estudiantes = null;
         ArrayList<Estudiante> listaEstudiantesDelGrupo = null;
         ArrayList<Curso> cursos = null;
@@ -61,6 +65,8 @@ public class Servlet extends HttpServlet {
         
         carreras = ctrl.obtenerTodasCarreras();
         profesores = ctrl.obtenerTodosLosProfesores();
+        matriculadores = ctrl.obtenerTodosLosMatriculadores();
+        administradores = ctrl.obtenerTodosLosAdministradores();
         estudiantes = ctrl.obtenerTodosLosEstudiantes();
         cursos = ctrl.obtenerTodosLosCursos();
         cicloDefault = ctrl.obtenerCicloActivo();
@@ -100,6 +106,18 @@ public class Servlet extends HttpServlet {
                         profesores = ctrl.obtenerTodosLosProfesores();
                         session.setAttribute("profesores", profesores);
                         response.sendRedirect("adminProfesores.jsp");
+                    }
+                    break;
+                    case "adminMatriculadores": {
+                        matriculadores = ctrl.obtenerTodosLosMatriculadores();
+                        session.setAttribute("matriculadores", matriculadores);
+                        response.sendRedirect("adminMatriculadores.jsp");
+                    }
+                    break;
+                    case "adminAdministradores": {
+                        administradores = ctrl.obtenerTodosLosAdministradores();
+                        session.setAttribute("administradores", administradores);
+                        response.sendRedirect("adminAdministradores.jsp");
                     }
                     break;
                     case "adminEstudiantes": {
@@ -257,6 +275,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("allCarreras");
                         session.removeAttribute("cursos");
                         session.removeAttribute("profesores");
+                        session.removeAttribute("matriculadores");
                         session.removeAttribute("estudiantes");
                         session.removeAttribute("cursoCurrent");
                         session.removeAttribute("grupos");
@@ -269,8 +288,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("tipoUsuario");
                         session.removeAttribute("gruposDelEstudiante");
                         session.removeAttribute("estudianteCurrent");
-//                        session.removeAttribute("administradores");
-//                        session.removeAttribute("matriculadores");
+                        session.removeAttribute("administradores");
                         session.invalidate();
                         response.sendRedirect("login.jsp");
                     }
@@ -408,6 +426,77 @@ public class Servlet extends HttpServlet {
                             String errores = "ERROR: Profesor NO Actualizado!";
                             session.setAttribute("errores", errores);
                             response.sendRedirect("adminProfesores.jsp");
+                        }
+                    }
+                    break;
+                    case "AgregarMatriculador": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,3);
+                        Matriculador ma = new Matriculador(user,nombre,cedula,telefono,email);
+                        if(ctrl.addMatriculador(ma) == 1){
+                            matriculadores = ctrl.obtenerTodosLosMatriculadores();
+                            session.setAttribute("matriculadores", matriculadores);
+                            session.setAttribute("errores", "");
+                            response.sendRedirect("adminMatriculadores.jsp");
+                        }else{
+                            String errores = "ERROR: Matriculador NO Agregado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminMatriculadores.jsp");
+                        }
+                    }
+                    break;
+                    case "BuscarMatriculador": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        if(cedula != "" && nombre == ""){
+                            Matriculador ma;
+                            if((ma = ctrl.getMatriculador(cedula)) == null){
+                                matriculadores.clear();
+                                session.setAttribute("matriculadores", matriculadores);
+                                response.sendRedirect("adminMatriculadores.jsp");
+                            }else{
+                                matriculadores.clear();
+                                matriculadores.add(ma);                        
+                                session.setAttribute("matriculadores", matriculadores);
+                                response.sendRedirect("adminMatriculadores.jsp");
+                            }
+
+                        }else if(nombre != "" && cedula == ""){
+                            matriculadores.clear();
+                            matriculadores = ctrl.obtenerMatriculadoresPorNombre(nombre);
+                            session.setAttribute("matriculadores", matriculadores);
+                            response.sendRedirect("adminMatriculadores.jsp");  
+                        }else if(nombre == "" && cedula == ""){
+                            matriculadores.clear();
+                            matriculadores = ctrl.obtenerTodosLosMatriculadores();
+                            session.setAttribute("matriculadores", matriculadores);
+                            response.sendRedirect("adminMatriculadores.jsp");
+                        }
+                    }
+                    break;
+                    case "EditarMatriculador":{
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,3);
+                        Matriculador ma = new Matriculador(user,nombre,cedula,telefono,email);
+                        System.out.println(ma.toString());
+                        if(ctrl.updateMatriculador(ma) == 1){
+                            matriculadores.clear();
+                            matriculadores = ctrl.obtenerTodosLosMatriculadores();
+                            session.setAttribute("matriculadores", matriculadores);
+                            session.setAttribute("errores", "");
+                            response.sendRedirect("adminMatriculadores.jsp");
+                        }else{
+                            String errores = "ERROR: Matriculador NO Actualizado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminMatriculadores.jsp");
                         }
                     }
                     break;
