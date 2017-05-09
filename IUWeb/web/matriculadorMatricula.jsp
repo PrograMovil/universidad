@@ -82,7 +82,7 @@
                                     ArrayList<Grupo> gruposList = listaGrupos.get(i);
                                     for( int j=0; j<gruposList.size(); j++ ){ 
                                         Grupo grupo = gruposList.get(j);
-                                        if(grupo.getCiclo().getNumero().equals(cicloDefault.getNumero())){
+                                        if((grupo.getCiclo().getNumero().equals(cicloDefault.getNumero())) && (grupo.getCiclo().getAnio() == (cicloDefault.getAnio()))){
                             %>
                                 <tr>
                                     <td><%= grupo.getCurso().getNombre() %></td>

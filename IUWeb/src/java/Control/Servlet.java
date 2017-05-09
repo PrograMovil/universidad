@@ -226,13 +226,15 @@ public class Servlet extends HttpServlet {
                         if(tipoUsuario != 0){
                             session.setAttribute("userId", id);
                             switch(tipoUsuario){ 
-                                case 1: //ADMINISTRADOR                                
+                                case 1: //ADMINISTRADOR    
+                                    session.setAttribute("errores", "");
                                     System.out.println("Es administrador");                                
                                     session.setAttribute("carreras", carreras); //al inicio debe pedir los datos del primer dash
                                     session.setAttribute("tipoUsuario", tipoUsuario);
                                     response.sendRedirect("adminDash.jsp");
                                     break;
                                 case 2: //MATRICULADOR
+                                    session.setAttribute("errores", "");
                                     System.out.println("Es matriculador");
                                     allCarreras = ctrl.obtenerTodasCarreras();
                                     session.setAttribute("allCarreras", allCarreras);
@@ -242,6 +244,7 @@ public class Servlet extends HttpServlet {
                                     response.sendRedirect("matriculadorDash.jsp");
                                     break;
                                 case 3: //PROFESOR
+                                    session.setAttribute("errores", "");
                                     System.out.println("Es profesor");
                                     profeCurrent = ctrl.getProfesor(id);
                                     gruposDelProfe = ctrl.gruposDelProfesor(id);
@@ -251,6 +254,7 @@ public class Servlet extends HttpServlet {
                                     response.sendRedirect("profesorDash.jsp");
                                     break;
                                 case 4: //ESTUDIANTE
+                                    session.setAttribute("errores", "");
                                     System.out.println("Es estudiante");
                                     Estudiante est = ctrl.getEstudiante(id);
                                     gruposDelEstudiante = ctrl.obtenerGruposDeEstudiante(est);
@@ -848,9 +852,12 @@ public class Servlet extends HttpServlet {
                         if((ctrl.addEstudianteAGrupo(est,gru)) == 1 ){ // && (ctrl.addEstudianteACurso(est, cur) == 1)){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminMatricula.jsp");
                         }else {
-                            this.printHTML("NO Matriculado", response);
+                            String errores = "ERROR: Curso NO Matriculado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminMatricula.jsp");
                         }                        
                     }
                     break;
@@ -866,9 +873,12 @@ public class Servlet extends HttpServlet {
                         if((ctrl.addEstudianteAGrupo(est,gru)) == 1 ){ //&& (ctrl.addEstudianteACurso(est, cur) == 1)){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("matriculadorMatricula.jsp");
                         }else {
-                            this.printHTML("NO Matriculado", response);
+                            String errores = "ERROR: Curso NO Matriculado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("matriculadorMatricula.jsp");
                         }                        
                     }
                     break;
@@ -881,9 +891,12 @@ public class Servlet extends HttpServlet {
                         if((ctrl.deleteEstudianteDeGrupo(est,gru)) == 1 ){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("adminMatricula.jsp");
                         }else {
-                            this.printHTML("NO Retirado", response);
+                            String errores = "ERROR: Curso NO Retirado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminMatricula.jsp");
                         }                        
                     }
                     break;
@@ -896,9 +909,12 @@ public class Servlet extends HttpServlet {
                         if((ctrl.deleteEstudianteDeGrupo(est,gru)) == 1 ){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            session.setAttribute("errores", "");
                             response.sendRedirect("matriculadorMatricula.jsp");
                         }else {
-                            this.printHTML("NO Retirado", response);
+                            String errores = "ERROR: Curso NO Retirado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("matriculadorMatricula.jsp");
                         }                        
                     }
                     break;                    
@@ -923,9 +939,12 @@ public class Servlet extends HttpServlet {
                         String nota = request.getParameter("notaEstudiante");
                         Nota no =  new Nota(Float.parseFloat(nota),ctrl.getEstudiante(idEstudiante),ctrl.getCurso(idCurso));
                         if(ctrl.addNota(no) == 1){
+                            session.setAttribute("errores", "");
                             response.sendRedirect("profeNotasEstudiantes.jsp");
                         }else{
-                            this.printHTML("Notas NO Registrada", response);
+                            String errores = "ERROR: Nota NO Registrada!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("matriculadorMatricula.jsp");
                         }
                     }
                     break;
