@@ -82,16 +82,16 @@
                                 <input type="text" class="form-control" id="cedulaEdit" placeholder="Cédula" disabled><!--Solo es para que se muestre el codigo-->
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
+                                <input required="" type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="telefono" class="form-control" id="telefonoEdit" placeholder="Teléfono">
+                                <input required="" type="number" name="telefono" class="form-control" id="telefonoEdit" placeholder="Teléfono sin (-)" min="10000000">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="email" class="form-control" id="emailEdit" placeholder="e-mail">
+                                <input required="" type="text" name="email" class="form-control" id="emailEdit" placeholder="e-mail">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="password" class="form-control" id="passwordEdit" placeholder="Ingrese la nueva Contraseña del Usuario">
+                                <input required="" type="text" name="password" class="form-control" id="passwordEdit" placeholder="Ingrese la nueva Contraseña del Usuario">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -111,19 +111,19 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="text" name="cedula" class="form-control" id="cedulaForm" placeholder="Cédula">
+                                <input required="" type="number" name="cedula" class="form-control" id="cedulaForm" placeholder="Cédula" min="100000000">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
+                                <input required="" type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="telefono" class="form-control" id="telefonoForm" placeholder="Teléfono">
+                                <input required="" type="number" name="telefono" class="form-control" id="telefonoForm" placeholder="Teléfono sin (-)" min="10000000">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control" id="emailForm" placeholder="e-mail">
+                                <input required="" type="email" name="email" class="form-control" id="emailForm" placeholder="e-mail">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="password" class="form-control" id="passwordForm" placeholder="Contraseña del Usuario">
+                                <input required="" type="text" name="password" class="form-control" id="passwordForm" placeholder="Contraseña del Usuario">
                             </div>
                         </div>
                         <div class="modal-footer">

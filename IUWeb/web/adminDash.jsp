@@ -80,10 +80,10 @@
                                 <input type="text" class="form-control" id="codigoEdit" placeholder="Código" disabled><!--Solo es para que se muestre el codigo-->
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
+                                <input required="" type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="titulo" class="form-control" id="tituloEdit" placeholder="Título">
+                                <input required="" type="text" name="titulo" class="form-control" id="tituloEdit" placeholder="Título">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -103,13 +103,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
+                                <input required="" type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
+                                <input required="" type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
+                                <input required="" type="text" name="titulo" class="form-control" id="tituloForm" placeholder="Título">
                             </div>
                         </div>
                         <div class="modal-footer">

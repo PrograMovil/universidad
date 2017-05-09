@@ -89,9 +89,9 @@
                             <input type="text" name="idCurso" id="codigoCursoEdit" value="<%= cursoCurrent.getCodigo() %>" hidden="" >
                             <input type="text" name="numeroCiclo" id="numeroCicloEdit" value="<%= cursoCurrent.getCiclo()%>" hidden="" >
                             <div class="form-group">
-                                <input type="text" name="numero" class="form-control" id="numeroEdit" placeholder="Número">
+                                <input required="" type="number" name="numero" class="form-control" id="numeroEdit" placeholder="Número" min="1">
                             </div>
-                            <select class="selectpicker form-control" name="dias" multiple id="diasEdit" title="Seleccione los Días" >
+                            <select required="" class="selectpicker form-control" name="dias" multiple id="diasEdit" title="Seleccione los Días" >
                                 <option value="Lunes">Lunes</option>
                                 <option value="Martes">Martes</option>
                                 <option value="Miércoles">Miércoles</option>
@@ -100,12 +100,12 @@
                             </select>
                             <br><br>
                             <div class="form-group">
-                                <input type="text" name="horaInicio" class="form-control bootstrap-timepicker timepicker" id="horaInicioEdit" placeholder="hh:mm">
+                                <input required="" type="text" name="horaInicio" class="form-control bootstrap-timepicker timepicker" id="horaInicioEdit" placeholder="hh:mm">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="horaFinal" class="form-control bootstrap-timepicker timepicker" id="horaFinalEdit" placeholder="hh:mm">
+                                <input required="" type="text" name="horaFinal" class="form-control bootstrap-timepicker timepicker" id="horaFinalEdit" placeholder="hh:mm">
                             </div>
-                            <select class="form-control" name="idProfesor" id="idProfesorEdit" >
+                            <select required="" class="form-control" name="idProfesor" id="idProfesorEdit" >
                                 <option value="" >Seleccione el Profesor</option>
                             <% for (Profesor p : allProfesores) { %>
                                 <option value="<%= p.getCedula() %>"><%= p.getNombre() %></option>
@@ -114,14 +114,14 @@
                             <br>
                             <div class="form-group">
                                 <label for="cursoEdit" >Curso de la Clase:</label>
-                                <input type="text" class="form-control" id="cursoEdit" value="<%= cursoCurrent.getNombre()%>" disabled="" >
+                                <input required="" type="text" class="form-control" id="cursoEdit" value="<%= cursoCurrent.getNombre()%>" disabled="" >
                             </div>
                             <div class="form-group">
                                 <label for="cicloEdit" >Ciclo en que se imparte la Clase:</label>
-                                <input type="text" class="form-control" id="cicloEdit" value="<%= cursoCurrent.getCiclo()%>" disabled="" >
+                                <input required="" type="text" class="form-control" id="cicloEdit" value="<%= cursoCurrent.getCiclo()%>" disabled="" >
                             </div>
                             <div class="form-group">
-                                <input type="number" name="anioCiclo" class="form-control" id="anioCicloEdit" placeholder="Año en que se imparte la Clase">
+                                <input required="" type="number" name="anioCiclo" class="form-control" id="anioCicloEdit" placeholder="Año en que se imparte la Clase" min="1900">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -143,9 +143,9 @@
                             <input type="text" name="idCurso" id="codigoCursoForm" value="<%= cursoCurrent.getCodigo() %>" hidden="" >
                             <input type="text" name="numeroCiclo" id="numeroCicloForm" value="<%= cursoCurrent.getCiclo()%>" hidden="" >
                             <div class="form-group">
-                                <input type="text" name="numero" class="form-control" id="numeroForm" placeholder="Número">
+                                <input required="" type="number" name="numero" class="form-control" id="numeroForm" placeholder="Número" min="1">
                             </div>
-                            <select class="selectpicker form-control" name="dias" multiple id="diasForm" title="Seleccione los Días" >
+                            <select required="" class="selectpicker form-control" name="dias" multiple id="diasForm" title="Seleccione los Días" >
                                 <option value="Lunes">Lunes</option>
                                 <option value="Martes">Martes</option>
                                 <option value="Miércoles">Miércoles</option>
@@ -154,12 +154,12 @@
                             </select>
                             <br><br>
                             <div class="form-group">
-                                <input type="text" name="horaInicio" class="form-control bootstrap-timepicker timepicker" id="horaInicioForm" placeholder="hh:mm">
+                                <input required="" type="text" name="horaInicio" class="form-control bootstrap-timepicker timepicker" id="horaInicioForm" placeholder="hh:mm">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="horaFinal" class="form-control bootstrap-timepicker timepicker" id="horaFinalForm" placeholder="hh:mm">
+                                <input required="" type="text" name="horaFinal" class="form-control bootstrap-timepicker timepicker" id="horaFinalForm" placeholder="hh:mm">
                             </div>
-                            <select class="form-control" name="idProfesor" id="idProfesorForm" >
+                            <select required="" class="form-control" name="idProfesor" id="idProfesorForm" >
                                 <option value="" >Seleccione el Profesor</option>
                             <% for (Profesor p : allProfesores) { %>
                                 <option value="<%= p.getCedula() %>"><%= p.getNombre() %></option>
@@ -168,14 +168,14 @@
                             <br>
                             <div class="form-group">
                                 <label for="cursoForm" >Curso de la Clase:</label>
-                                <input type="text" class="form-control" id="cursoForm" value="<%= cursoCurrent.getNombre()%>" disabled="" >
+                                <input required="" type="text" class="form-control" id="cursoForm" value="<%= cursoCurrent.getNombre()%>" disabled="" >
                             </div>
                             <div class="form-group">
                                 <label for="cicloForm" >Ciclo en que se imparte la Clase:</label>
-                                <input type="text" class="form-control" id="cicloForm" value="<%= cursoCurrent.getCiclo()%>" disabled="" >
+                                <input required="" type="text" class="form-control" id="cicloForm" value="<%= cursoCurrent.getCiclo()%>" disabled="" >
                             </div>
                             <div class="form-group">
-                                <input type="number" name="anioCiclo" class="form-control" id="anioCicloForm" placeholder="Año en que se imparte la Clase">
+                                <input required="" type="number" name="anioCiclo" class="form-control" id="anioCicloForm" placeholder="Año en que se imparte la Clase" min="1900">
                             </div>
                         </div>
                         <div class="modal-footer">

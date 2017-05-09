@@ -95,27 +95,27 @@
                             <h4>Editar Curso</h4>                        
                         </div>
                         <div class="modal-body">
-                            <input type="text" name="codigo" id="codigoCursoEdit" hidden="" /><!-- Usar este en la peticion xq el del input #cedulaEdit como tiene disabled envia el dato null-->
+                            <input required="" type="text" name="codigo" id="codigoCursoEdit" hidden="" /><!-- Usar este en la peticion xq el del input #cedulaEdit como tiene disabled envia el dato null-->
                             <div class="form-group">
-                                <input type="text" class="form-control" id="codigoEdit" placeholder="Código" disabled><!--Solo es para que se muestre el codigo-->
+                                <input required="" type="text" class="form-control" id="codigoEdit" placeholder="Código" disabled><!--Solo es para que se muestre el codigo-->
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
+                                <input required="" type="text" name="nombre" class="form-control" id="nombreEdit" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="number" name="creditos" class="form-control" id="creditosEdit" placeholder="Créditos">
+                                <input required="" type="number" name="creditos" class="form-control" id="creditosEdit" placeholder="Créditos" min="1">
                             </div>
                             <div class="form-group">
-                                <input type="number" name="horasSemanales" class="form-control" id="horasSemanalesEdit" placeholder="Horas Semanales">
+                                <input required="" type="number" name="horasSemanales" class="form-control" id="horasSemanalesEdit" placeholder="Horas Semanales" min="1" max="168">
                             </div>
-                            <select class="form-control" name="idCarrera" id="idCarreraEdit" >
+                            <select required="" class="form-control" name="idCarrera" id="idCarreraEdit" >
                                 <option value="" >Seleccione la carrera</option>
                             <% for (Carrera c : allCarreras) { %>
                                 <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
                             <% } %>
                             </select>
                             <br>
-                            <select class="form-control" name="nivel" id="nivelEdit" >
+                            <select required="" class="form-control" name="nivel" id="nivelEdit" >
                                 <option value="" >Seleccione el Nivel</option>
                                 <option value="I NIVEL" >I Nivel</option>
                                 <option value="II NIVEL" >II Nivel</option>
@@ -123,7 +123,7 @@
                                 <option value="IV NIVEL<" >IV Nivel</option> 
                             </select>
                             <br>
-                            <select class="form-control" name="ciclo" id="cicloEdit" >
+                            <select required="" class="form-control" name="ciclo" id="cicloEdit" >
                                 <option value="" >Seleccione el Ciclo al cual pertenece</option>
                                 <option value="I" >I</option>
                                 <option value="II" >II</option> 
@@ -146,25 +146,25 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
+                                <input required="" type="text" name="codigo" class="form-control" id="codigoForm" placeholder="Código">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
+                                <input required="" type="text" name="nombre" class="form-control" id="nombreForm" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="number" name="creditos" class="form-control" id="creditosForm" placeholder="Créditos">
+                                <input required="" type="number" name="creditos" class="form-control" id="creditosForm" placeholder="Créditos" min="1">
                             </div>
                             <div class="form-group">
-                                <input type="number" name="horasSemanales" class="form-control" id="horasSemanalesForm" placeholder="Horas Semanales">
+                                <input required="" type="number" name="horasSemanales" class="form-control" id="horasSemanalesForm" placeholder="Horas Semanales" min="1" max="168" >
                             </div>
-                            <select class="form-control" name="idCarrera" id="idCarreraForm" >
+                            <select required="" class="form-control" name="idCarrera" id="idCarreraForm" >
                                 <option value="" >Seleccione la carrera</option>
                             <% for (Carrera c : allCarreras) { %>
                                 <option value="<%= c.getCodigo() %>"><%= c.getNombre() %></option>
                             <% } %>
                             </select>
                             <br>
-                            <select class="form-control" name="nivel" id="nivelForm" >
+                            <select required="" class="form-control" name="nivel" id="nivelForm" >
                                 <option value="" >Seleccione el Nivel</option>
                                 <option value="I NIVEL" >I Nivel</option>
                                 <option value="II NIVEL" >II Nivel</option>
@@ -172,7 +172,7 @@
                                 <option value="IV NIVEL<" >IV Nivel</option> 
                             </select>
                             <br>
-                            <select class="form-control" name="ciclo" id="cicloForm" >
+                            <select required="" class="form-control" name="ciclo" id="cicloForm" >
                                 <option value="" >Seleccione el Ciclo al cual pertenece</option>
                                 <option value="I" >I</option>
                                 <option value="II" >II</option> 
