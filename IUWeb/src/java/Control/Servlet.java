@@ -84,6 +84,10 @@ public class Servlet extends HttpServlet {
                         response.sendRedirect("estudianteDash.jsp");
                     }
                     break;
+                    case "matriculadorDash": {
+                        response.sendRedirect("matriculadorDash.jsp");
+                    }
+                    break;
                     case "adminCursos": {
                         allCarreras = ctrl.obtenerTodasCarreras();
                         session.setAttribute("allCarreras", allCarreras);
@@ -136,6 +140,27 @@ public class Servlet extends HttpServlet {
                         gruposMatriculados = ctrl.obtenerGruposDeEstudiante(estudianteCurrent);
                         session.setAttribute("gruposMatriculados", gruposMatriculados);                            
                         response.sendRedirect("adminMatricula.jsp");
+                    }
+                    break;
+                    case "matriculadorMatricula": {
+                        String idEstudiante = request.getParameter("idEstudiante");
+                        estudianteCurrent = ctrl.getEstudiante(idEstudiante);
+                        session.setAttribute("estudianteCurrent", estudianteCurrent);
+                        carreraEstudianteCurrent = estudianteCurrent.getCarrera();
+                        session.setAttribute("carreraEstudianteCurrent", carreraEstudianteCurrent);
+                        cursosCarrera = ctrl.getCursoPorCarrera(carreraEstudianteCurrent);
+                        session.setAttribute("cursosCarrera", cursosCarrera);
+                        ArrayList<ArrayList<Grupo>> listaGrupos = new ArrayList();
+                        for(Curso curso : cursosCarrera ){
+                            gruposCurso = ctrl.gruposPorCurso(curso);
+                            listaGrupos.add(gruposCurso);
+                        }
+                        session.setAttribute("listaGrupos", listaGrupos);
+                        cicloDefault = ctrl.obtenerCicloActivo();
+                        session.setAttribute("cicloDefault", cicloDefault);
+                        gruposMatriculados = ctrl.obtenerGruposDeEstudiante(estudianteCurrent);
+                        session.setAttribute("gruposMatriculados", gruposMatriculados);                            
+                        response.sendRedirect("matriculadorMatricula.jsp");
                     }
                     break;
                     case "cicloLectivo": {
@@ -191,6 +216,10 @@ public class Servlet extends HttpServlet {
                                     break;
                                 case 2: //MATRICULADOR
                                     System.out.println("Es matriculador");
+                                    allCarreras = ctrl.obtenerTodasCarreras();
+                                    session.setAttribute("allCarreras", allCarreras);
+                                    estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                                    session.setAttribute("estudiantes", estudiantes);
                                     session.setAttribute("tipoUsuario", tipoUsuario);
                                     response.sendRedirect("matriculadorDash.jsp");
                                     break;
@@ -466,6 +495,41 @@ public class Servlet extends HttpServlet {
                             estudiantes = ctrl.obtenerTodosLosEstudiantes();
                             session.setAttribute("estudiantes", estudiantes);
                             response.sendRedirect("adminEstudiantes.jsp");
+                        }
+                    }
+                    break;
+                    case "BuscarEstudianteEnMatriculador": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String idCarrera = request.getParameter("idCarrera");
+                        if(cedula != "" && nombre == "" && idCarrera == ""){
+                            Estudiante es;
+                            if((es = ctrl.getEstudiante(cedula)) == null){
+                                estudiantes.clear();
+                                session.setAttribute("estudiantes", estudiantes);
+                                response.sendRedirect("matriculadorDash.jsp");
+                            }else{
+                                estudiantes.clear();
+                                estudiantes.add(es);                        
+                                session.setAttribute("estudiantes", estudiantes);
+                                response.sendRedirect("matriculadorDash.jsp");
+                            }
+                        }else if(nombre != "" && cedula == "" && idCarrera == ""){
+                            estudiantes.clear();
+                            estudiantes = ctrl.obtenerEstudiantePorNombre(nombre);
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("matriculadorDash.jsp");  
+                        }else if(idCarrera != "" && nombre == "" && cedula == ""){
+                            estudiantes.clear();
+                            Carrera ca = ctrl.getCarrera(idCarrera);
+                            estudiantes = ctrl.obtenerEstudiantesPorCarrera(ca);
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("matriculadorDash.jsp");  
+                        }else if(nombre == "" && cedula == "" && idCarrera == ""){
+                            estudiantes.clear();
+                            estudiantes = ctrl.obtenerTodosLosEstudiantes();
+                            session.setAttribute("estudiantes", estudiantes);
+                            response.sendRedirect("matriculadorDash.jsp");
                         }
                     }
                     break;
