@@ -60,7 +60,7 @@
                                 <form action="Servlet" method="POST">
                                     <input type="text" name="idEstudiante" value="<%= estudianteCurrent.getCedula() %>" hidden="" />
                                     <input type="text" name="idGrupo" value="<%= g.getId() %>" hidden="" />
-                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Retirar" id="matriculaBtn" name="action" value="Retirar">Retirar</button></td>
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Retirar" id="matriculaBtn" name="action" value="RetirarEnMatriculador">Retirar</button></td>
                                 </form>
                                 </tr>
                             <% } %>                            
@@ -93,7 +93,7 @@
                                 <form action="Servlet" method="POST">
                                     <input type="text" name="idEstudiante" value="<%= estudianteCurrent.getCedula() %>" hidden="" />
                                     <input type="text" name="idGrupo" value="<%= grupo.getId() %>" hidden="" />
-                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Matricular" id="matriculaBtn" name="action" value="Matricular">Matrícular</button></td>
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Matricular" id="matriculaBtn" name="action" value="MatricularEnMatriculador">Matrícular</button></td>
                                 </form>
                                 </tr>
                             <%      }

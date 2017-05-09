@@ -500,6 +500,77 @@ public class Servlet extends HttpServlet {
                         }
                     }
                     break;
+                    case "AgregarAdministrador": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,3);
+                        Administrador ad = new Administrador(user,nombre,cedula,telefono,email);
+                        if(ctrl.addAdministrador(ad) == 1){
+                            administradores = ctrl.obtenerTodosLosAdministradores();
+                            session.setAttribute("administradores", administradores);
+                            session.setAttribute("errores", "");
+                            response.sendRedirect("adminAdministradores.jsp");
+                        }else{
+                            String errores = "ERROR: Administrador NO Agregado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminAdministradores.jsp");
+                        }
+                    }
+                    break;
+                    case "BuscarAdministrador": {
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        if(cedula != "" && nombre == ""){
+                            Administrador ad;
+                            if((ad = ctrl.getAdministrador(cedula)) == null){
+                                administradores.clear();
+                                session.setAttribute("administradores", administradores);
+                                response.sendRedirect("adminAdministradores.jsp");
+                            }else{
+                                administradores.clear();
+                                administradores.add(ad);                        
+                                session.setAttribute("administradores", administradores);
+                                response.sendRedirect("adminAdministradores.jsp");
+                            }
+
+                        }else if(nombre != "" && cedula == ""){
+                            administradores.clear();
+                            administradores = ctrl.obtenerAdministradoresPorNombre(nombre);
+                            session.setAttribute("administradores", administradores);
+                            response.sendRedirect("adminAdministradores.jsp");  
+                        }else if(nombre == "" && cedula == ""){
+                            administradores.clear();
+                            administradores = ctrl.obtenerTodosLosAdministradores();
+                            session.setAttribute("administradores", administradores);
+                            response.sendRedirect("adminAdministradores.jsp");
+                        }
+                    }
+                    break;
+                    case "EditarAdministrador":{
+                        String cedula = request.getParameter("cedula");
+                        String nombre = request.getParameter("nombre");
+                        String telefono = request.getParameter("telefono");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        Usuario user = new Usuario(cedula,password,3);
+                        Administrador ad = new Administrador(user,nombre,cedula,telefono,email);
+                        System.out.println(ad.toString());
+                        if(ctrl.updateAdministrador(ad) == 1){
+                            administradores.clear();
+                            administradores = ctrl.obtenerTodosLosAdministradores();
+                            session.setAttribute("administradores", administradores);
+                            session.setAttribute("errores", "");
+                            response.sendRedirect("adminAdministradores.jsp");
+                        }else{
+                            String errores = "ERROR: Administrador NO Actualizado!";
+                            session.setAttribute("errores", errores);
+                            response.sendRedirect("adminAdministradores.jsp");
+                        }
+                    }
+                    break;
                     case "AgregarEstudiante": {
                         String cedula = request.getParameter("cedula");
                         String fechaNacString = request.getParameter("fechaNac");
@@ -774,10 +845,28 @@ public class Servlet extends HttpServlet {
                         Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
                         Curso cur = gru.getCurso();
                         Estudiante est = ctrl.getEstudiante(idEstudiante);
-                        if(((ctrl.addEstudianteAGrupo(est,gru)) == 1) && (ctrl.addEstudianteACurso(est, cur) == 1)){
+                        if((ctrl.addEstudianteAGrupo(est,gru)) == 1 ){ // && (ctrl.addEstudianteACurso(est, cur) == 1)){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
                             response.sendRedirect("adminMatricula.jsp");
+                        }else {
+                            this.printHTML("NO Matriculado", response);
+                        }                        
+                    }
+                    break;
+                    case "MatricularEnMatriculador": {
+                        cicloDefault = ctrl.obtenerCicloActivo();
+                        session.setAttribute("cicloDefault", cicloDefault);
+                        String idEstudiante= request.getParameter("idEstudiante");
+                        String idGrupo= request.getParameter("idGrupo");
+                        System.out.println("id del grupo: "+idGrupo);
+                        Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
+                        Curso cur = gru.getCurso();
+                        Estudiante est = ctrl.getEstudiante(idEstudiante);
+                        if((ctrl.addEstudianteAGrupo(est,gru)) == 1 ){ //&& (ctrl.addEstudianteACurso(est, cur) == 1)){
+                            gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
+                            session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            response.sendRedirect("matriculadorMatricula.jsp");
                         }else {
                             this.printHTML("NO Matriculado", response);
                         }                        
@@ -793,6 +882,21 @@ public class Servlet extends HttpServlet {
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
                             response.sendRedirect("adminMatricula.jsp");
+                        }else {
+                            this.printHTML("NO Retirado", response);
+                        }                        
+                    }
+                    break;
+                    case "RetirarEnMatriculador": {
+                        String idEstudiante= request.getParameter("idEstudiante");
+                        String idGrupo= request.getParameter("idGrupo");
+                        System.out.println("id del grupo: "+idGrupo);
+                        Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
+                        Estudiante est = ctrl.getEstudiante(idEstudiante);
+                        if((ctrl.deleteEstudianteDeGrupo(est,gru)) == 1 ){
+                            gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
+                            session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            response.sendRedirect("matriculadorMatricula.jsp");
                         }else {
                             this.printHTML("NO Retirado", response);
                         }                        
