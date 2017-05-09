@@ -4,6 +4,7 @@ package LogicaNegocio;
 import java.io.Serializable;
 
 public class Curso implements Serializable{
+    private int id; //es lo que se manda en la query para pedir el grupo en la BD y se setea en la base
     private String codigo;
     private String nombre;
     private int creditos;
@@ -13,7 +14,8 @@ public class Curso implements Serializable{
     private String ciclo;
     
 
-    public Curso(String codigo, String nombre, int creditos, int horasSemanales, Carrera carrera, String nivel) {
+    public Curso(int id, String codigo, String nombre, int creditos, int horasSemanales, Carrera carrera, String nivel) {
+        this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
         this.creditos = creditos;
@@ -23,6 +25,7 @@ public class Curso implements Serializable{
     }
 
     public Curso() {
+        this.id = -1;
         this.codigo = "";
         this.nombre = "";
         this.creditos = 0;
@@ -85,6 +88,14 @@ public class Curso implements Serializable{
 
     public void setCiclo(String ciclo) {
         this.ciclo = ciclo;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }
