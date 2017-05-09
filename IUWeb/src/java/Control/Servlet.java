@@ -14,6 +14,7 @@ import LogicaNegocio.Curso;
 import LogicaNegocio.Estudiante;
 import LogicaNegocio.Grupo;
 import LogicaNegocio.Horario;
+import LogicaNegocio.Nota;
 import LogicaNegocio.Profesor;
 import LogicaNegocio.Usuario;
 import java.text.SimpleDateFormat;
@@ -639,7 +640,18 @@ public class Servlet extends HttpServlet {
                         }
                     }
                     break;
-                    
+                    case "RegistrarNota": {
+                        String idEstudiante= request.getParameter("idEstudiante");
+                        String idCurso = request.getParameter("idCurso");
+                        String nota = request.getParameter("notaEstudiante");
+                        Nota no =  new Nota(Float.parseFloat(nota),ctrl.getEstudiante(idEstudiante),ctrl.getCurso(idCurso));
+                        if(ctrl.addNota(no) == 1){
+                            response.sendRedirect("profeNotasEstudiantes.jsp");
+                        }else{
+                            this.printHTML("Notas NO Registrada", response);
+                        }
+                    }
+                    break;
                 }
             }catch (Exception ex) {
                 Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);

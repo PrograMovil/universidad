@@ -623,9 +623,9 @@ public class Control {
         return 0;
     }
     
-//    public Nota getNota(float calificacion, String Estudiante_cedula, String Codigo_Curso) throws Exception{
-//        return this.notas.obtener(calificacion,Estudiante_cedula,Codigo_Curso);
-//    }
+    public Nota getNota(String Estudiante_cedula, int Codigo_Curso) throws Exception{
+        return this.notas.obtener(Estudiante_cedula, Codigo_Curso);
+    }
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Usuario">

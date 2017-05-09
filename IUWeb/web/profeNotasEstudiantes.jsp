@@ -4,6 +4,8 @@
     Author     : SheshoVega
 --%>
 
+<%@page import="LogicaNegocio.Nota"%>
+<%@page import="Control.Control"%>
 <%@page import="LogicaNegocio.Grupo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="LogicaNegocio.Estudiante"%>
@@ -20,7 +22,7 @@
         <%  
             ArrayList<Estudiante> listaEstudiantesDelGrupo = (ArrayList<Estudiante>) session.getAttribute("listaEstudiantesDelGrupo"); 
             Grupo grupoCurrent = (Grupo) session.getAttribute("grupoCurrent"); 
-            
+            Control ctrl = new Control();
         %>
         <div class="container">
             <div class="row">
@@ -38,7 +40,7 @@
                                     <td>Nombre</td>
                                     <td>e-mail</td>
                                     <td>Carrera</td>
-                                    <td></td>
+                                    <td>Nota</td>
                                 </tr>                            
                             <%  for( Estudiante est : listaEstudiantesDelGrupo ){ %>
                                 <tr>
@@ -46,7 +48,13 @@
                                     <td><%= est.getNombre() %></td>
                                     <td><%= est.getEmail() %></td>
                                     <td><%= est.getCarrera().getNombre() %></td>
-                                    <td><a href="#notaModal" data-toggle="modal" class="btn btn-default" id="<%= est.getCedula() %>" onclick="cargarDataModal(this)">Nota</a></td>
+                                    <td hidden="hidden"><%= grupoCurrent.getCurso().getCodigo() %></td>
+                                    <% if(ctrl.getNota(est.getCedula(), grupoCurrent.getCurso().getId()) != null){ %>
+                                    <td><%= ctrl.getNota(est.getCedula(), grupoCurrent.getCurso().getId()).getCalificacion() %></td>
+                                    <% } else { %>
+                                    <td>Sin asignar</td>
+                                    <td><a href="#notaModal" data-toggle="modal" class="btn btn-default" id="<%= est.getCedula() %>" onclick="cargarDataModal(this)">Asignar Nota</a></td>
+                                    <% } %>                                    
                                 </tr>
                             <%  } %>
                             </table>
@@ -63,7 +71,7 @@
                             <h4>Asignar nota al Estudiante</h4>                        
                         </div>
                         <div class="modal-body">
-                            <input type="text" name="idEstudiante" id="cedulaEstudiante" hidden="" />
+                            <input type="text" name="idEstudiante" id="idEstudiante" hidden="" />
                             <input type="text" name="idCurso" id="idCurso" hidden="" />
                             <div class="form-group">
                                 <input type="number" class="form-control" name="notaEstudiante" id="notaEstudiante" placeholder="Nota del estudiante">
@@ -85,6 +93,16 @@
         });
         function cargarDataModal(element){
             var id = element.id;
+            var idCurso = document.getElementById("idCurso");
+            var idEstudiante = document.getElementById("idEstudiante");
+            
+            var TD = element.parentNode;
+            var TR = TD.parentNode;
+            
+            idEstudiante.value = id;
+            idCurso.value = TR.childNodes[9].innerHTML;
+            console.log(idCurso.value);
+            console.log(idEstudiante.value);
         }
     </script>
 </html>

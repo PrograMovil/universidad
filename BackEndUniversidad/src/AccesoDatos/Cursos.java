@@ -39,6 +39,7 @@ public class Cursos extends AccesoDatos {
     
     private Curso toCurso(ResultSet rs) throws Exception {
         Curso obj = new Curso();
+        obj.setId(rs.getInt("id"));
         obj.setCodigo(rs.getString("codigo"));
         obj.setNombre(rs.getString("nombre"));
         obj.setCreditos(rs.getInt("creditos"));

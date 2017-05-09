@@ -13,6 +13,14 @@ public class Curso implements Serializable{
     private String nivel;
     private String ciclo;
     
+    public Curso( String codigo, String nombre, int creditos, int horasSemanales, Carrera carrera, String nivel) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.creditos = creditos;
+        this.horasSemanales = horasSemanales;
+        this.carrera=carrera;
+        this.nivel = nivel;
+    }
 
     public Curso(int id, String codigo, String nombre, int creditos, int horasSemanales, Carrera carrera, String nivel) {
         this.id = id;
@@ -96,6 +104,11 @@ public class Curso implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Curso{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", creditos=" + creditos + ", horasSemanales=" + horasSemanales + ", carrera=" + carrera + ", nivel=" + nivel + ", ciclo=" + ciclo + '}';
     }
     
 }

@@ -6,6 +6,8 @@ import LogicaNegocio.Estudiante;
 import LogicaNegocio.Nota;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Notas  extends AccesoDatos {
 
@@ -46,6 +48,18 @@ public class Notas  extends AccesoDatos {
         obj.setEstudiante(new Estudiantes(db).obtener(rs.getString("Estudiante_cedula")));
         obj.setCurso(new Cursos(db).obtener(rs.getString("Curso_id")));
         return obj;
+    }
+    
+    public Nota obtener(String idEstudiante, int idCurso) throws SQLException, Exception {
+        String tableName = "Nota";
+        String param = "Estudiante_cedula= '%s' and Curso_id= '%s'";
+        param = String.format(param, idEstudiante,idCurso);
+        ResultSet rs = super.obtener(tableName, param);
+        if (rs.next()) {
+            return toNota(rs);
+        } else {
+            return null;
+        }
     }
     
 //    public Nota obtener(float calificacion, String Estudiante_cedula, String Codigo_Curso) throws SQLException, Exception{
