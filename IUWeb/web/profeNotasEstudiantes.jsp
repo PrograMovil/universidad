@@ -74,7 +74,7 @@
                             <input type="text" name="idEstudiante" id="idEstudiante" hidden="" />
                             <input type="text" name="idCurso" id="idCurso" hidden="" />
                             <div class="form-group">
-                                <input type="number" class="form-control" name="notaEstudiante" id="notaEstudiante" placeholder="Nota del estudiante">
+                                <input required="" type="number" class="form-control" name="notaEstudiante" id="notaEstudiante" placeholder="Nota del estudiante" min="0" max="100">
                             </div>
                         </div>
                         <div class="modal-footer">
