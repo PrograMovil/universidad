@@ -134,6 +134,16 @@ public class Control {
         return this.cursos.obtener(codigo);
     }
     
+    
+    public int getIdCurso(String codigo){
+        try {
+            return this.cursos.obtenerId(codigo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Metodos Profesor">
