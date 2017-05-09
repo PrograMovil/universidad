@@ -43,5 +43,11 @@ public class Estudiante extends Persona implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "fechaNac=" + fechaNac + ", carrera=" + carrera.toString() + ", usuario=" + usuario.toString() + '}';
+    }
+    
     
 }

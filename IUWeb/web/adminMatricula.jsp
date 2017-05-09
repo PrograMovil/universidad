@@ -24,7 +24,9 @@
         <%  Estudiante estudianteCurrent = (Estudiante) session.getAttribute("estudianteCurrent"); 
           Carrera carreraEstudianteCurrent = (Carrera) session.getAttribute("carreraEstudianteCurrent"); 
           Ciclo cicloDefault = (Ciclo) session.getAttribute("cicloDefault");
-          ArrayList< ArrayList<Grupo> > listaGrupos = (ArrayList< ArrayList<Grupo> >) session.getAttribute("listaGrupos"); %>
+          ArrayList< ArrayList<Grupo> > listaGrupos = (ArrayList< ArrayList<Grupo> >) session.getAttribute("listaGrupos");
+          ArrayList< Grupo > gruposMatriculados = (ArrayList< Grupo>) session.getAttribute("gruposMatriculados");
+        %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
@@ -32,9 +34,41 @@
                 </div>
                 <div class="col-md-10">
                     <div class="label label-danger col-md-12">${errores}</div>
+                    
                     <div class="row">
-                        <h2>Matrícula de <%= estudianteCurrent.getNombre() %> de  </h2>
+                        <h2>Matrícula de <%= estudianteCurrent.getNombre() %> </h2>
                         <div class="col-md-12" >
+                            <%if(gruposMatriculados.size() == 0) {%>
+                            <h4 style="color:red; width: 100%; text-align: center;">Sin matricula.</h4>
+                            <% } else { %>
+                            <table class="table" style="text-align: center">
+                                <tr>
+                                    <td>Curso</td>
+                                    <td># Grupo</td>
+                                    <td>Horario</td>
+                                    <td>Profesor</td>
+                                    <td>Ciclo</td>
+                                    <td></td>
+                                </tr>                            
+                            <%  for( Grupo g : gruposMatriculados ){ %>
+                                <tr>
+                                    <td><%= g.getCurso().getNombre() %></td>
+                                    <td><%= g.getNumero() %></td>
+                                    <td><%= g.getHorario().toString() %></td>
+                                    <td><%= g.getProfesor().getNombre() %></td>
+                                    <td><%= g.getCiclo().getNumero() %></td>
+                                <form action="Servlet" method="POST">
+                                    <input type="text" name="idEstudiante" value="<%= estudianteCurrent.getCedula() %>" hidden="" />
+                                    <input type="text" name="idGrupo" value="<%= g.getId() %>" hidden="" />
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Retirar" id="matriculaBtn" name="action" value="Retirar">Retirar</button></td>
+                                </form>
+                                </tr>
+                            <% } %>                            
+                            </table>
+                            <% } %>   
+                        </div>
+                        <div class="col-md-12" >
+                            <h2>Lista de Grupos: </h2>
                             <table class="table" style="text-align: center">
                                 <tr>
                                     <td>Curso</td>

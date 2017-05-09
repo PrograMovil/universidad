@@ -27,19 +27,20 @@ public class Control {
     
 
     public Control() {
-        carreras=new Carreras();
-        ciclos=new Ciclos();
-        cursos=new Cursos();
-        estudiantes=new Estudiantes();
-        grupos=new Grupos();
-        horarios=new Horarios();
-        matriculadores=new Matriculadores();
-        notas=new Notas();
-        profesores=new Profesores();
-        usuarios=new Usuarios();
-        administradores=new Administradores();
-        estudiante_grupo=new Estudiante_Grupo();
-        estudiante_curso=new Estudiante_Curso();
+        Database db=new Database();
+        carreras=new Carreras(db);
+        ciclos=new Ciclos(db);
+        cursos=new Cursos(db);
+        estudiantes=new Estudiantes(db);
+        grupos=new Grupos(db);
+        horarios=new Horarios(db);
+        matriculadores=new Matriculadores(db);
+        notas=new Notas(db);
+        profesores=new Profesores(db);
+        usuarios=new Usuarios(db);
+        administradores=new Administradores(db);
+        estudiante_grupo=new Estudiante_Grupo(db);
+        estudiante_curso=new Estudiante_Curso(db);
     }
     
     
@@ -264,9 +265,9 @@ public class Control {
     }
     
     //para obtener el grupo se ocupa algo especifica, ya que solo tiene un numero como atributo, lo demas son llaves foraneas
-//    public Grupo getGrupo(int numero) throws Exception{
-//        return this.grupos.obtener(numero);
-//    }
+    public Grupo getGrupo(int numero) throws Exception{
+        return this.grupos.obtenerPorId(numero);
+    }
     
 //</editor-fold>
     
@@ -494,7 +495,14 @@ public class Control {
         return null;
     }
     
-    
+    public ArrayList<Matriculador> obtenerMatriculadoresPorNombre(String nombre){
+        try {
+            return matriculadores.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     
     public int addMatriculador(Matriculador ca){
@@ -526,7 +534,7 @@ public class Control {
     }
 //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Metodos Matriculador">
+    //<editor-fold defaultstate="collapsed" desc="Metodos Administrador">
     
     public ArrayList<Administrador> obtenerTodosLosAdministradores(){
         try {
@@ -537,7 +545,14 @@ public class Control {
         return null;
     }
     
-    
+    ArrayList<Administrador> obtenerAdministradoresPorNombre(String nombre) {
+        try {
+            return administradores.obtenerPorNombre(nombre);
+        } catch (Exception ex) {
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     
     public int addAdministrador(Administrador ca){
@@ -731,6 +746,8 @@ public class Control {
     }
     
 //</editor-fold>
+
+    
     
     
 }

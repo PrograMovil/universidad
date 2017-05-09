@@ -79,5 +79,10 @@ public class Grupo implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Grupo{" + "id=" + id + ", numero=" + numero + ", horario=" + horario + ", profesor=" + profesor.toString() + ", curso=" + curso.toString() + ", ciclo=" + ciclo + '}';
+    }
     
 }

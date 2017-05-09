@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class Administradores extends AccesoDatos{
 
-    public Administradores() {
+    public Administradores(Database db) {
+        super(db);
     }
     
     public int agregar(Administrador c){
@@ -29,9 +30,10 @@ public class Administradores extends AccesoDatos{
     
     public int actualizar(Administrador c){
         String tableName = "Administrador";
-        String tableParams = "nombre='%s', telefono='%s', email='%s' where id='%s'";
+        String tableParams = "nombre='%s', telefono='%s', email='%s' where cedula='%s'";
         tableParams = String.format(tableParams, c.getNombre(),c.getTelefono(),c.getEmail(), c.getCedula());
-        new Usuarios().actualizar(c.getUsuario());
+        
+        new Usuarios(db).actualizar(c.getUsuario());
         return super.actualizar(tableName, tableParams);
     }
     
@@ -41,7 +43,7 @@ public class Administradores extends AccesoDatos{
         obj.setNombre(rs.getString("nombre"));
         obj.setTelefono(rs.getString("telefono"));
         obj.setEmail(rs.getString("email"));
-        Usuario u=new Usuarios().obtener(rs.getString("Usuario_id"));
+        Usuario u=new Usuarios(db).obtener(rs.getString("Usuario_id"));
         obj.setUsuario(u);
         
         
@@ -64,6 +66,17 @@ public class Administradores extends AccesoDatos{
         
         String tableName = "Administrador";
         ResultSet rs = super.obtenerTodo(tableName);
+        ArrayList<Administrador> lista=new ArrayList();
+        while (rs.next()) {
+            lista.add(toAdministrador(rs));
+        }
+        return lista;
+    }
+
+    public ArrayList<Administrador> obtenerPorNombre(String nombre) throws Exception{
+        String tableName = "Administrador";
+        String columna= "nombre";
+        ResultSet rs = super.obtenerLike(tableName,columna,nombre);
         ArrayList<Administrador> lista=new ArrayList();
         while (rs.next()) {
             lista.add(toAdministrador(rs));

@@ -47,6 +47,7 @@ public class Servlet extends HttpServlet {
         Carrera carreraEstudianteCurrent = null;
         ArrayList<Curso> cursosCarrera = null;
         ArrayList<Grupo> gruposCurso = null;
+        ArrayList<Grupo> gruposMatriculados = null;
         Ciclo cicloDefault = null;;
         
         Control ctrl = new Control();
@@ -116,6 +117,8 @@ public class Servlet extends HttpServlet {
                         session.setAttribute("listaGrupos", listaGrupos);
                         cicloDefault = ctrl.obtenerCicloActivo();
                         session.setAttribute("cicloDefault", cicloDefault);
+                        gruposMatriculados = ctrl.obtenerGruposDeEstudiante(estudianteCurrent);
+                        session.setAttribute("gruposMatriculados", gruposMatriculados);                            
                         response.sendRedirect("adminMatricula.jsp");
                     }
                     break;
@@ -180,6 +183,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("estudiantes");
                         session.removeAttribute("cursoCurrent");
                         session.removeAttribute("grupos");
+                        session.removeAttribute("gruposMatriculados");
                         session.removeAttribute("ciclos");
                         session.removeAttribute("estudianteCurrent");
                         session.removeAttribute("carreraEstudianteCurrent");
@@ -559,16 +563,36 @@ public class Servlet extends HttpServlet {
                     break;
                     case "Matricular": {
                         cicloDefault = ctrl.obtenerCicloActivo();
-                        System.out.println(cicloDefault);
                         session.setAttribute("cicloDefault", cicloDefault);
                         String idEstudiante= request.getParameter("idEstudiante");
                         String idGrupo= request.getParameter("idGrupo");
-//                        if((ctrl.addEstudianteAGrupo(ctrl.getEstudiante(idEstudiante), ctrl)) == 1){
-//                            
-//                        }
-                        this.printHTML("Matriculado "+idEstudiante+" en: "+idGrupo, response);
+                        System.out.println("id del grupo: "+idGrupo);
+                        Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
+                        Estudiante est = ctrl.getEstudiante(idEstudiante);
+                        if((ctrl.addEstudianteAGrupo(est,gru)) == 1){
+                            gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
+                            session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            response.sendRedirect("adminMatricula.jsp");
+                        }else {
+                            this.printHTML("NO Matriculado", response);
+                        }                        
                     }
                     break;
+                    case "Retirar": {
+                        String idEstudiante= request.getParameter("idEstudiante");
+                        String idGrupo= request.getParameter("idGrupo");
+                        System.out.println("id del grupo: "+idGrupo);
+                        Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
+                        Estudiante est = ctrl.getEstudiante(idEstudiante);
+                        if((ctrl.deleteEstudianteDeGrupo(est,gru)) == 1){
+                            gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
+                            session.setAttribute("gruposMatriculados", gruposMatriculados);
+                            response.sendRedirect("adminMatricula.jsp");
+                        }else {
+                            this.printHTML("NO Retirado", response);
+                        }                        
+                    }
+                    break;                    
                     case "CicloDefault": {
                         String anio= request.getParameter("anio");
                         String numero= request.getParameter("numero");

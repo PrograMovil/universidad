@@ -29,7 +29,11 @@ public class Database {
         }
         
     }
-       
+    public void desconectar(){
+        this.cnx = null;
+        System.out.println("BD Desconectada!");
+    }
+    
     public Connection getConnection(){
         try{
             String servidor = PROTOCOLO+"//"+SERVIDOR+":"+PUERTO+"/"+BASEDATOS;
