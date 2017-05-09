@@ -32,7 +32,7 @@
                 <div class="col-md-10">
                     <div class="label label-danger col-md-12">${errores}</div>
                     <div class="row">
-                        <h2>Registro de notas de <%= profesorCurrent.getNombre() %>  </h2>
+                        <h2>Lista de grupos del profesor <%= profesorCurrent.getNombre() %>  </h2>
                         <div class="col-md-12" >
                             <table class="table" style="text-align: center">
                                 <tr>
@@ -53,7 +53,7 @@
                                 <form action="Servlet" method="POST">
                                     <input type="text" name="codigoCurso" value="<%= grupo.getCurso().getCodigo() %>" hidden="" />
                                     <input type="text" name="idGrupo" value="<%= grupo.getId() %>" hidden="" />
-                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Notas" id="matriculaBtn" name="action" value="Notas">Notas</button></td>
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Notas" id="notasBtn" name="router" value="notas">Notas</button></td>
                                 </form>
                                 </tr>
                             <%  } %>

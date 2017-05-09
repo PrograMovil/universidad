@@ -38,6 +38,7 @@ public class Servlet extends HttpServlet {
         ArrayList<Carrera> allCarreras = null;
         ArrayList<Profesor> profesores = null;
         ArrayList<Estudiante> estudiantes = null;
+        ArrayList<Estudiante> listaEstudiantesDelGrupo = null;
         ArrayList<Curso> cursos = null;
         Curso cursoCurrent = null;
         ArrayList<Grupo> grupos = null;
@@ -51,6 +52,7 @@ public class Servlet extends HttpServlet {
         ArrayList<Grupo> gruposDelProfe = null;
         Ciclo cicloDefault = null;;
         Profesor profeCurrent = null;
+//        Grupo grupoCurrent = null;
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -136,6 +138,17 @@ public class Servlet extends HttpServlet {
                         ciclos = ctrl.obtenerTodosLosCiclos();
                         session.setAttribute("ciclos", ciclos);
                         response.sendRedirect("adminCiclos.jsp");
+                    }
+                    break;
+                    case "notas": {
+                        String idGrupo= request.getParameter("idGrupo");
+                        String codigoCurso = request.getParameter("codigoCurso");
+                        this.printHTML("codigo curso: "+codigoCurso+", id grupo: "+idGrupo, response);
+                        Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
+                        listaEstudiantesDelGrupo = ctrl.obtenerEstudiantesDeGrupo(gru);
+                        session.setAttribute("listaEstudiantesDelGrupo", listaEstudiantesDelGrupo);
+                        session.setAttribute("grupoCurrent", gru);
+                        response.sendRedirect("profeNotasEstudiantes.jsp");
                     }
                     break;
                 }
@@ -626,13 +639,7 @@ public class Servlet extends HttpServlet {
                         }
                     }
                     break;
-                    case "Notas": {
-                        String idGrupo= request.getParameter("idGrupo");
-                        String codigoCurso = request.getParameter("codigoCurso");
-                        this.printHTML("codigo curso: "+codigoCurso+", id grupo: "+idGrupo, response);
-                        
-                    }
-                    break;
+                    
                 }
             }catch (Exception ex) {
                 Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);

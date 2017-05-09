@@ -1,3 +1,3 @@
 <form action="Servlet">
-    <button type="submit" class="btn btn-default btn-block" name="router" value="profesorDash">Notas</button>
+    <button type="submit" class="btn btn-default btn-block" name="router" value="profesorDash">Grupos</button>
 </form>
