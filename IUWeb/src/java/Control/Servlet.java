@@ -48,7 +48,9 @@ public class Servlet extends HttpServlet {
         ArrayList<Curso> cursosCarrera = null;
         ArrayList<Grupo> gruposCurso = null;
         ArrayList<Grupo> gruposMatriculados = null;
+        ArrayList<Grupo> gruposDelProfe = null;
         Ciclo cicloDefault = null;;
+        Profesor profeCurrent = null;
         
         Control ctrl = new Control();
         HttpSession session = request.getSession();
@@ -66,6 +68,12 @@ public class Servlet extends HttpServlet {
                         carreras = ctrl.obtenerTodasCarreras();
                         session.setAttribute("allCarreras", carreras);
                         response.sendRedirect("adminDash.jsp");
+                    }
+                    break;
+                    case "profesorDash": {
+//                        gruposDelProfe = ctrl.gruposDelProfesor(profeCurrent.getCedula());
+//                        session.setAttribute("gruposDelProfe", gruposDelProfe);
+                        response.sendRedirect("profesorDash.jsp");
                     }
                     break;
                     case "adminCursos": {
@@ -150,18 +158,26 @@ public class Servlet extends HttpServlet {
                                 case 1: //ADMINISTRADOR                                
                                     System.out.println("Es administrador");                                
                                     session.setAttribute("carreras", carreras); //al inicio debe pedir los datos del primer dash
+                                    session.setAttribute("tipoUsuario", tipoUsuario);
                                     response.sendRedirect("adminDash.jsp");
                                     break;
                                 case 2: //MATRICULADOR
                                     System.out.println("Es matriculador");
+                                    session.setAttribute("tipoUsuario", tipoUsuario);
                                     response.sendRedirect("matriculadorDash.jsp");
                                     break;
                                 case 3: //PROFESOR
                                     System.out.println("Es profesor");
+                                    profeCurrent = ctrl.getProfesor(id);
+                                    gruposDelProfe = ctrl.gruposDelProfesor(id);
+                                    session.setAttribute("gruposDelProfe", gruposDelProfe);
+                                    session.setAttribute("profeCurrent", profeCurrent);
+                                    session.setAttribute("tipoUsuario", tipoUsuario);
                                     response.sendRedirect("profesorDash.jsp");
                                     break;
                                 case 4: //ESTUDIANTE
                                     System.out.println("Es estudiante");
+                                    session.setAttribute("tipoUsuario", tipoUsuario);
                                     response.sendRedirect("estudianteDash.jsp");
                                     break;
                             }
@@ -189,6 +205,7 @@ public class Servlet extends HttpServlet {
                         session.removeAttribute("carreraEstudianteCurrent");
                         session.removeAttribute("listaGrupos");
                         session.removeAttribute("cicloDefault");
+                        session.removeAttribute("tipoUsuario");
 //                        session.removeAttribute("administradores");
 //                        session.removeAttribute("matriculadores");
                         session.invalidate();
@@ -568,8 +585,9 @@ public class Servlet extends HttpServlet {
                         String idGrupo= request.getParameter("idGrupo");
                         System.out.println("id del grupo: "+idGrupo);
                         Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
+                        Curso cur = gru.getCurso();
                         Estudiante est = ctrl.getEstudiante(idEstudiante);
-                        if((ctrl.addEstudianteAGrupo(est,gru)) == 1){
+                        if(((ctrl.addEstudianteAGrupo(est,gru)) == 1) && (ctrl.addEstudianteACurso(est, cur) == 1)){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
                             response.sendRedirect("adminMatricula.jsp");
@@ -584,7 +602,7 @@ public class Servlet extends HttpServlet {
                         System.out.println("id del grupo: "+idGrupo);
                         Grupo gru = ctrl.getGrupo(Integer.parseInt(idGrupo));
                         Estudiante est = ctrl.getEstudiante(idEstudiante);
-                        if((ctrl.deleteEstudianteDeGrupo(est,gru)) == 1){
+                        if((ctrl.deleteEstudianteDeGrupo(est,gru)) == 1 ){
                             gruposMatriculados = ctrl.obtenerGruposDeEstudiante(est);
                             session.setAttribute("gruposMatriculados", gruposMatriculados);
                             response.sendRedirect("adminMatricula.jsp");
@@ -606,6 +624,13 @@ public class Servlet extends HttpServlet {
                             session.setAttribute("exito", "");
                             response.sendRedirect("adminCiclos.jsp");
                         }
+                    }
+                    break;
+                    case "Notas": {
+                        String idGrupo= request.getParameter("idGrupo");
+                        String codigoCurso = request.getParameter("codigoCurso");
+                        this.printHTML("codigo curso: "+codigoCurso+", id grupo: "+idGrupo, response);
+                        
                     }
                     break;
                 }

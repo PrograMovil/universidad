@@ -22,18 +22,17 @@
     </head>
     <body>
         <%@ include file="header.jspf" %>
-        <%  Profesor profesorCurrent = (Profesor) session.getAttribute("profesorCurrent"); 
-          Ciclo cicloDefault = (Ciclo) session.getAttribute("cicloDefault");
-          ArrayList< ArrayList<Grupo> > listaGruposProfesor = (ArrayList< ArrayList<Grupo> >) session.getAttribute("listaGruposProfesor"); %>
+        <%  Profesor profesorCurrent = (Profesor) session.getAttribute("profeCurrent"); 
+          ArrayList<Grupo> listaGruposProfesor = (ArrayList<Grupo>) session.getAttribute("gruposDelProfe"); %>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <%@ include file="adminMenu.jspf" %>                    
+                    <%@ include file="profeMenu.jspf" %>                    
                 </div>
                 <div class="col-md-10">
                     <div class="label label-danger col-md-12">${errores}</div>
                     <div class="row">
-                        <h2>Registro de notas de <%= profesorCurrent.getNombre() %> de  </h2>
+                        <h2>Registro de notas de <%= profesorCurrent.getNombre() %>  </h2>
                         <div class="col-md-12" >
                             <table class="table" style="text-align: center">
                                 <tr>
@@ -44,12 +43,7 @@
                                     <td>Ciclo</td>
                                     <td></td>
                                 </tr>                            
-                            <%  for( int i=0; i<listaGruposProfesor.size(); i++ ){ 
-                                    ArrayList<Grupo> gruposList = listaGruposProfesor.get(i);
-                                    for( int j=0; j<gruposList.size(); j++ ){ 
-                                        Grupo grupo = gruposList.get(j);
-                                        if(cicloDefault.getNumero()==grupo.getCiclo().getNumero()){
-                            %>
+                            <%  for( Grupo grupo : listaGruposProfesor ){ %>
                                 <tr>
                                     <td><%= grupo.getCurso().getNombre() %></td>
                                     <td><%= grupo.getNumero() %></td>
@@ -57,14 +51,12 @@
                                     <td><%= grupo.getProfesor().getNombre() %></td>
                                     <td><%= grupo.getCiclo().getNumero() %></td>
                                 <form action="Servlet" method="POST">
-                                    <input type="text" name="idEstudiante" value="<%= profesorCurrent.getCedula() %>" hidden="" />
+                                    <input type="text" name="codigoCurso" value="<%= grupo.getCurso().getCodigo() %>" hidden="" />
                                     <input type="text" name="idGrupo" value="<%= grupo.getId() %>" hidden="" />
-                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Matricular" id="matriculaBtn" name="action" value="Matricular">Matrícula</button></td>
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Notas" id="matriculaBtn" name="action" value="Notas">Notas</button></td>
                                 </form>
                                 </tr>
-                            <%      }
-                                } 
-                             } %>
+                            <%  } %>
                             </table>
                         </div>
                     </div>
