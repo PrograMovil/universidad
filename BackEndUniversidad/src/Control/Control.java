@@ -149,7 +149,7 @@ public class Control {
     //<editor-fold defaultstate="collapsed" desc="Metodos Profesor">
     public ArrayList<Grupo> gruposDelProfesor(String cedula){
         try {
-            grupos.gruposPorProfesor(cedula);
+            return grupos.gruposPorProfesor(cedula);
         } catch (Exception ex) {
             Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
         }
