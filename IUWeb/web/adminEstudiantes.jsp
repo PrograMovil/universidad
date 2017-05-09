@@ -82,6 +82,10 @@
                                     <input type="text" name="idEstudiante" value="<%= es.getCedula() %>" hidden="" />
                                     <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Ver o Realizar Matrícula" id="matriculaBtn" name="router" value="adminMatricula">Matrícula</button></td>
                                 </form>
+                                <form action="Servlet" method="POST">
+                                    <input type="text" name="cedulaEstudiante" value="<%= es.getCedula() %>" hidden="" />
+                                    <td><button type="submit" class="btn btn-default" data-toggle="tooltip" title="Ver Expediente Académico" id="expedienteBtn" name="router" value="expediente">Expediente Académico</button></td>
+                                </form>
                                 </tr>
                                 <%}%>                           
                             </table>

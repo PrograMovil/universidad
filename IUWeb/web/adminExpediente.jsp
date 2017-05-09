@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Estudiante</title>
+        <title>Expediente del Estudiante</title>
         <%@ include file="imports.jspf" %> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -26,12 +26,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <%@ include file="estudianteMenu.jspf" %>                    
+                    <%@ include file="adminMenu.jspf" %>                    
                 </div>
                 <div class="col-md-10">
                     <div class="label label-danger col-md-12">${errores}</div>
                     <div class="row">
-                        <h1>Estudiante ${userId}</h1>
+                        <h1>Expediente de <%= estudianteCurrent.getNombre() %>:</h1>
                         <div class="col-md-12" >
                             <table class="table" style="text-align: center">
                                 <tr>
